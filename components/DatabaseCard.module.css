@@ -153,3 +153,12 @@
 
 .badge-nosql { color: #cc3e07; }
 .badge-nosql .badge { background-color: #fff3ee; border: 1px solid #ffc9ab; }
+
+.badge-api { color: #414651; }
+.badge-api .badge { background-color: #f2f4f7; border: 1px solid #d5d7da; }
+
+.badge-float { color: #026aa2; }
+.badge-float .badge { background-color: #f0f9ff; border: 1px solid #b9e6fe; }
+
+.badge-bool { color: #c11574; }
+.badge-bool .badge { background-color: #fdf2f8; border: 1px solid #fccce3; }

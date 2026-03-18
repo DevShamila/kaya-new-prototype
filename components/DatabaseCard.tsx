@@ -3,19 +3,32 @@ import styles from './DatabaseCard.module.css';
 
 interface DatabaseCardProps {
     name: string;
-    type: string;
+    type?: string;
     description: string;
-    provider: string;
+    provider?: string;
+    extraText?: string;
 }
 
-const DatabaseCard: React.FC<DatabaseCardProps> = ({ name, type, description, provider }) => {
+const DatabaseCard: React.FC<DatabaseCardProps> = ({ name, type, description, provider, extraText }) => {
     let badgeTypeClass = '';
-    switch (type.toLowerCase()) {
-        case 'vector': badgeTypeClass = styles['badge-vector']; break;
-        case 'relational': badgeTypeClass = styles['badge-relational']; break;
-        case 'graph': badgeTypeClass = styles['badge-graph']; break;
-        case 'nosql': badgeTypeClass = styles['badge-nosql']; break;
-        default: badgeTypeClass = '';
+    if (type) {
+        switch (type.toLowerCase()) {
+            case 'vector':
+            case 'vector rag':
+            case 'mcp': 
+            case 'guardrail model': badgeTypeClass = styles['badge-vector']; break;
+            case 'relational': badgeTypeClass = styles['badge-relational']; break;
+            case 'api': 
+            case 'guardrail': 
+            case 'string': badgeTypeClass = styles['badge-api']; break;
+            case 'int': badgeTypeClass = styles['badge-vector']; break;
+            case 'float': badgeTypeClass = styles['badge-float']; break;
+            case 'bool': badgeTypeClass = styles['badge-bool']; break;
+            case 'graph':
+            case 'graph rag': badgeTypeClass = styles['badge-graph']; break;
+            case 'nosql': badgeTypeClass = styles['badge-nosql']; break;
+            default: badgeTypeClass = '';
+        }
     }
 
     return (
@@ -29,14 +42,17 @@ const DatabaseCard: React.FC<DatabaseCardProps> = ({ name, type, description, pr
                             </div>
                             <div className={styles['heading']}>{name}</div>
                         </div>
-                        <div className={`${styles['badge-wrapper']} ${badgeTypeClass}`}>
-                            <div className={styles['badge']}>
-                                <div className={styles['text']}>{type}</div>
+                        {type && (
+                            <div className={`${styles['badge-wrapper']} ${badgeTypeClass}`}>
+                                <div className={styles['badge']}>
+                                    <div className={styles['text']}>{type}</div>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                     <div className={styles['supporting-text']}>{description}</div>
-                    <div className={styles['supporting-text']}>{provider}</div>
+                    {extraText && <div className={styles['supporting-text']}>{extraText}</div>}
+                    {provider && <div className={styles['supporting-text']}>{provider}</div>}
                 </div>
             </div>
             <div className={styles['section-footer']}>
