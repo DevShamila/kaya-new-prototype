@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Plus, Building2, Workflow, Users2, Activity } from "lucide-react";
 
 const MetricItem = ({ icon: Icon, title, value, variant }: { icon: any, title: string, value: string, variant: 'orange' | 'purple' | 'gray' | 'green' }) => {
@@ -35,50 +36,52 @@ const WorkspaceCard = ({
     title, 
     category, 
     workflows, 
-    agents,
-    onClick 
+    agents
 }: { 
     title: string, 
     category: string, 
     workflows: number, 
-    agents: number,
-    onClick: () => void
-}) => (
-    <div className="flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-white border border-border-secondary flex flex-col items-start min-w-[320px]">
-        <div className="self-stretch flex flex-col items-start p-5 gap-4">
-            <div className="self-stretch flex items-center">
-                <div className="flex-1 flex flex-col items-start">
-                    <div className="self-stretch text-base font-semibold text-text-primary leading-6">{title}</div>
-                    <div className="self-stretch text-sm text-text-tertiary leading-5">{category}</div>
+    agents: number
+}) => {
+    // Generate URL friendly slug from title
+    const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
+
+    return (
+        <div className="flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-white border border-border-secondary flex flex-col items-start min-w-[320px]">
+            <div className="self-stretch flex flex-col items-start p-5 gap-4">
+                <div className="self-stretch flex items-center">
+                    <div className="flex-1 flex flex-col items-start">
+                        <div className="self-stretch text-base font-semibold text-text-primary leading-6">{title}</div>
+                        <div className="self-stretch text-sm text-text-tertiary leading-5">{category}</div>
+                    </div>
+                </div>
+                <div className="text-sm text-text-tertiary leading-5">
+                    <span className="font-bold text-text-primary">{workflows}</span> Workflows, <span className="font-bold text-text-primary">{agents}</span> Agents
                 </div>
             </div>
-            <div className="text-sm text-text-tertiary leading-5">
-                <span className="font-bold text-text-primary">{workflows}</span> Workflows, <span className="font-bold text-text-primary">{agents}</span> Agents
-            </div>
-        </div>
-        <div className="self-stretch flex flex-col items-center pt-0 pr-0 pb-3 gap-3 text-sm text-[#414651]">
-            <div className="self-stretch h-px bg-border-secondary" />
-            <div className="self-stretch flex items-center justify-end px-6">
-                <div className="flex-1 flex items-center justify-end">
-                    <button 
-                        onClick={onClick}
-                        className="shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white border border-border-primary flex items-center justify-center py-2 px-3 hover:bg-gray-50 transition-colors"
-                    >
-                        <div className="flex items-center justify-center px-0.5">
-                            <div className="font-semibold leading-5 text-text-secondary">View</div>
-                        </div>
-                    </button>
+            <div className="self-stretch flex flex-col items-center pt-0 pr-0 pb-3 gap-3 text-sm text-[#414651]">
+                <div className="self-stretch h-px bg-border-secondary" />
+                <div className="self-stretch flex items-center justify-end px-6">
+                    <div className="flex-1 flex items-center justify-end">
+                        <Link 
+                            href={`/${slug}`}
+                            className="shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white border border-border-primary flex items-center justify-center py-2 px-3 hover:bg-gray-50 transition-colors"
+                        >
+                            <div className="flex items-center justify-center px-0.5">
+                                <div className="font-semibold leading-5 text-text-secondary">View</div>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 interface EnterpriseBodyProps {
-    onWorkspaceClick: (name: string) => void;
 }
 
-const EnterpriseBody: React.FC<EnterpriseBodyProps> = ({ onWorkspaceClick }) => {
+const EnterpriseBody: React.FC<EnterpriseBodyProps> = () => {
     return (
         <div className="w-full flex flex-col items-start gap-8 font-inter">
             {/* Page Header */}
@@ -134,14 +137,16 @@ const EnterpriseBody: React.FC<EnterpriseBodyProps> = ({ onWorkspaceClick }) => 
                 
                 <div className="self-stretch flex flex-col gap-6">
                     <div className="self-stretch flex flex-wrap items-start content-start gap-6 min-w-[720px]">
-                        <WorkspaceCard title="Claims Operations Overview" category="Insurance" workflows={3} agents={10} onClick={() => onWorkspaceClick("Claims Operations Overview")} />
-                        <WorkspaceCard title="TelecomOps" category="Telecommunications" workflows={3} agents={10} onClick={() => onWorkspaceClick("TelecomOps")} />
-                        <WorkspaceCard title="HR Automation" category="Human Resources" workflows={3} agents={10} onClick={() => onWorkspaceClick("HR Automation")} />
+                    <div className="self-stretch flex flex-wrap items-start content-start gap-6 min-w-[720px]">
+                        <WorkspaceCard title="Claims Operations Overview" category="Insurance" workflows={3} agents={10} />
+                        <WorkspaceCard title="TelecomOps" category="Telecommunications" workflows={3} agents={10} />
+                        <WorkspaceCard title="HR Automation" category="Human Resources" workflows={3} agents={10} />
                     </div>
                     <div className="self-stretch flex flex-wrap items-start content-start gap-6 min-w-[720px]">
-                        <WorkspaceCard title="Healthfirst" category="Healthcare" workflows={3} agents={10} onClick={() => onWorkspaceClick("Healthfirst")} />
-                        <WorkspaceCard title="TelecomOps" category="Telecommunications" workflows={3} agents={10} onClick={() => onWorkspaceClick("TelecomOps")} />
-                        <WorkspaceCard title="HR Automation" category="Human Resources" workflows={3} agents={10} onClick={() => onWorkspaceClick("HR Automation")} />
+                        <WorkspaceCard title="Healthfirst" category="Healthcare" workflows={3} agents={10} />
+                        <WorkspaceCard title="TelecomOps" category="Telecommunications" workflows={3} agents={10} />
+                        <WorkspaceCard title="HR Automation" category="Human Resources" workflows={3} agents={10} />
+                    </div>
                     </div>
                 </div>
             </div>

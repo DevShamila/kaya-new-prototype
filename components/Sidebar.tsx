@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { 
     LayoutGrid, TrendingUp, Layers, 
     ChevronLeft, ChevronDown, ChevronUp, Plus,
@@ -11,8 +13,7 @@ import SidebarItem from "./SidebarItem";
 import SidebarSection from "./SidebarSection";
 
 interface SidebarProps {
-    activeWorkspace?: string | null;
-    onBackToEnterprise?: () => void;
+    // These are no longer strictly needed as we use useParams
 }
 
 const CollapsibleSection = ({ 
@@ -70,7 +71,15 @@ const VerticalTab = ({
     </button>
 );
 
-const Sidebar: React.FC<SidebarProps> = ({ activeWorkspace, onBackToEnterprise }) => {
+const Sidebar: React.FC<SidebarProps> = () => {
+    const params = useParams();
+    const activeWorkspace = params.workspaceId as string | undefined;
+    
+    // Convert hyphenated URL back to readable name (simple version)
+    const displayWorkspaceName = activeWorkspace 
+        ? activeWorkspace.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+        : null;
+
     const [activeTab, setActiveTab] = React.useState("All Workspaces");
 
     const enterpriseItems = [
@@ -136,19 +145,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeWorkspace, onBackToEnterprise }
                 {/* Header */}
                 <div className="pt-6 pb-4 flex flex-col gap-4">
                     <img src="/logo_main.png" alt="Kaya Logo" className="w-[120px] h-[39px]" />
-                    <button 
-                        onClick={onBackToEnterprise}
+                    <Link 
+                        href="/"
                         className="flex items-center gap-1 py-2 text-sm font-semibold text-text-tertiary hover:text-text-primary transition-colors pr-4"
                     >
                         <ChevronLeft className="w-5 h-5" />
                         <span>Back to Enterprise</span>
-                    </button>
+                    </Link>
                 </div>
 
                 {/* Workspace Controls */}
                 <div className="pr-5 flex flex-col gap-4 mb-8">
                     <div className="w-full shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between p-2 pl-3 group cursor-pointer border border-transparent hover:border-border-primary transition-all">
-                        <span className="text-sm font-semibold text-text-primary font-encode">{activeWorkspace}</span>
+                        <span className="text-sm font-semibold text-text-primary font-encode">{displayWorkspaceName}</span>
                         <div className="flex items-center gap-1">
                             <div className="w-4 h-4 flex items-center justify-center">
                                 <ChevronDown className="w-4 h-4 text-text-muted" />
