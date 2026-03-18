@@ -106,6 +106,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
             setActiveTab("iFlows");
         } else if (pathname.includes('/agents')) {
             setActiveTab("Workspace Agent");
+        } else if (pathname.includes('/models')) {
+            setActiveTab("Models");
         } else if (activeWorkspace && !activeIFlow && !activeAgent) {
             setActiveTab("Workspace Overview");
         } else if (!activeWorkspace) {
@@ -396,7 +398,14 @@ const Sidebar: React.FC<SidebarProps> = () => {
                     <SidebarSection title="SET UP">
                         <div className="flex flex-col gap-2">
                             <CollapsibleSection title="Configurations" icon={Settings} defaultOpen>
-                                <VerticalTab label="Models" isActive />
+                                <VerticalTab 
+                                    label="Models" 
+                                    isActive={activeTab === "Models"}
+                                    onClick={() => {
+                                        setActiveTab("Models");
+                                        router.push(`/${activeWorkspace}/models`);
+                                    }}
+                                />
                                 <VerticalTab label="Databases" />
                                 <VerticalTab label="Knowledge Sources" />
                                 <VerticalTab label="Integrations" />
