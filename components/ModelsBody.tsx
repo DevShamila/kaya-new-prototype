@@ -27,8 +27,8 @@ const ModelsBody: React.FC<ModelsBodyProps> = ({ workspaceId }) => {
           });
 
     const cardRows = [];
-    for (let i = 0; i < filteredCards.length; i += 3) {
-        cardRows.push(filteredCards.slice(i, i + 3));
+    for (let i = 0; i < filteredCards.length; i += 4) {
+        cardRows.push(filteredCards.slice(i, i + 4));
     }
 
     return (
@@ -263,8 +263,8 @@ const ModelsBody: React.FC<ModelsBodyProps> = ({ workspaceId }) => {
                                 </div>
                             ))}
                             {/* Fill empty spots in final row to maintain width */}
-                            {row.length < 3 && Array.from({ length: 3 - row.length }).map((_, emptyIndex) => (
-                                <div key={`empty-${rowIndex}-${emptyIndex}`} style={{ flex: 1, visibility: 'hidden' }} />
+                            {row.length < 4 && Array.from({ length: 4 - row.length }).map((_, emptyIndex) => (
+                                <div key={`empty-${rowIndex}-${emptyIndex}`} style={{ flex: '0 0 323px', width: '323px', visibility: 'hidden' }} />
                             ))}
                         </div>
                     ))}

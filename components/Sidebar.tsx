@@ -108,6 +108,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
             setActiveTab("Workspace Agent");
         } else if (pathname.includes('/models')) {
             setActiveTab("Models");
+        } else if (pathname.includes('/databases')) {
+            setActiveTab("Databases");
         } else if (activeWorkspace && !activeIFlow && !activeAgent) {
             setActiveTab("Workspace Overview");
         } else if (!activeWorkspace) {
@@ -406,7 +408,14 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                         router.push(`/${activeWorkspace}/models`);
                                     }}
                                 />
-                                <VerticalTab label="Databases" />
+                                <VerticalTab 
+                                    label="Databases" 
+                                    isActive={activeTab === "Databases"}
+                                    onClick={() => {
+                                        setActiveTab("Databases");
+                                        router.push(`/${activeWorkspace}/databases`);
+                                    }}
+                                />
                                 <VerticalTab label="Knowledge Sources" />
                                 <VerticalTab label="Integrations" />
                             </CollapsibleSection>
