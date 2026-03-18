@@ -361,7 +361,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             }}
                         />
                         <button className="w-full shadow-[0_1px_10px_rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center py-2 px-3 gap-1 hover:opacity-90 transition-opacity active:scale-[0.98]"
-                            style={{ background: 'radial-gradient(423.78% 126.68% at 24.61% -88.89%, #005bb5 19.07%, #36374c 39.42%, #32191d 48.08%, #ff5714 83.65%)' }}>
+                            style={{ backgroundImage: 'url(/btn-gradient.svg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
                             <Plus className="w-4 h-4 text-white" strokeWidth={3} />
                             <span className="text-sm font-semibold text-white">Create</span>
                         </button>

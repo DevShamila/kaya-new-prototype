@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { Settings, Building2, Workflow, ChevronDown, Bot } from 'lucide-react';
+import { Building2, Workflow, ChevronDown, Bot } from 'lucide-react';
 
 interface HeaderProps {
 }
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = () => {
             </div>
             <div className="flex">
                 <button className="p-1.5 bg-white border border-[rgba(10,12,18,0.18)] shadow-[0_1px_2px_rgba(10,12,67,0.05)] rounded-md cursor-pointer flex items-center justify-center">
-                    <Settings className="w-4 h-4 text-text-muted" />
+                    <Image src="/bell.svg" alt="Notifications" width={16} height={16} className="w-4 h-4" />
                 </button>
             </div>
         </header>
