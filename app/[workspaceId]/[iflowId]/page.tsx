@@ -2,17 +2,17 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import WorkspaceBody from "@/components/WorkspaceBody";
+import IFlowBody from "@/components/IFlowBody";
 
-export default function WorkspacePage() {
+export default function IFlowDetailPage() {
     const params = useParams();
     const workspaceId = params.workspaceId as string;
+    const iflowId = params.iflowId as string;
     
-    // Simple transform back to display name
-    const workspaceName = workspaceId
+    const displayIFlowName = iflowId
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-    return <WorkspaceBody workspaceId={workspaceId} workspaceName={workspaceName} />;
+    return <IFlowBody workspaceId={workspaceId} iflowId={iflowId} iflowName={displayIFlowName} />;
 }

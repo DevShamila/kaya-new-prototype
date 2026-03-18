@@ -7,7 +7,10 @@ import {
     LayoutGrid, TrendingUp, Layers, 
     ChevronLeft, ChevronDown, ChevronUp, Plus,
     Activity, ShieldCheck, Settings, Rocket,
-    Building2, Workflow, Users2, Globe
+    Building2, Workflow, Users2, Globe,
+    PlayCircle, ClipboardCheck, FileCheck2, LayoutPanelLeft,
+    BarChart3, Bot, SquarePen,
+    ScrollText, BookOpen
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import SidebarSection from "./SidebarSection";
@@ -74,10 +77,20 @@ const VerticalTab = ({
 const Sidebar: React.FC<SidebarProps> = () => {
     const params = useParams();
     const activeWorkspace = params.workspaceId as string | undefined;
+    const activeIFlow = params.iflowId as string | undefined;
+    const activeAgent = params.agentId as string | undefined;
     
     // Convert hyphenated URL back to readable name (simple version)
     const displayWorkspaceName = activeWorkspace 
         ? activeWorkspace.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+        : null;
+
+    const displayIFlowName = activeIFlow
+        ? activeIFlow.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+        : null;
+
+    const displayAgentName = activeAgent
+        ? activeAgent.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
         : null;
 
     const [activeTab, setActiveTab] = React.useState("All Workspaces");
@@ -135,6 +148,162 @@ const Sidebar: React.FC<SidebarProps> = () => {
                     </div>
                     <button className="p-1.5 hover:bg-gray-100 rounded-md">
                         <img src="/user-toggle.svg" alt="Toggle" width={9} height={9} />
+                    </button>
+                </div>
+            </aside>
+        );
+    }
+
+    if (activeAgent) {
+        return (
+            <aside className="w-[296px] h-full pl-5 flex flex-col justify-between border-r border-border-secondary bg-[#F9F9FB] font-inter">
+                <div className="flex-1 flex flex-col overflow-y-auto">
+                    {/* Header */}
+                    <div className="pt-6 pb-4 flex flex-col gap-4">
+                        <img src="/logo_main.png" alt="Kaya Logo" className="w-[120px] h-[39px]" />
+                        <Link 
+                            href={`/${activeWorkspace}`}
+                            className="flex items-center gap-1 py-2 text-sm font-semibold text-text-tertiary hover:text-text-primary transition-colors pr-4"
+                        >
+                            <ChevronLeft className="w-5 h-5" />
+                            <span>Back to Workspace</span>
+                        </Link>
+                    </div>
+
+                    {/* Agent Controls */}
+                    <div className="pr-5 flex flex-col gap-4 mb-8">
+                        <div className="w-full shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between p-2 pl-3 group cursor-pointer border border-transparent hover:border-border-primary transition-all">
+                            <span className="text-sm font-semibold text-text-primary font-encode">{displayWorkspaceName}</span>
+                            <div className="flex items-center gap-1">
+                                <div className="w-4 h-4 flex items-center justify-center">
+                                    <ChevronDown className="w-4 h-4 text-text-muted" />
+                                </div>
+                                <div className="w-4 h-4 flex items-center justify-center -ml-2">
+                                    <ChevronUp className="w-4 h-4 text-text-muted" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#F2F4F7] border border-transparent">
+                                <Bot className="w-4 h-4 text-text-tertiary" />
+                                <span className="text-sm font-semibold text-text-primary leading-5">{displayAgentName}</span>
+                            </div>
+                            <button className="w-full bg-white border border-[#D0D5DD] shadow-[0_1px_2px_rgba(16,24,40,0.05)] rounded-lg flex items-center justify-center py-2 px-3 gap-2 hover:bg-gray-50 transition-all active:scale-[0.98]">
+                                <SquarePen className="w-4 h-4 text-[#344054]" />
+                                <span className="text-sm font-semibold text-[#344054]">Edit Agent</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Agent Navigation */}
+                    <nav className="flex-1 flex flex-col gap-8 pr-5 pb-8">
+                        <SidebarSection title="MANAGE">
+                            <SidebarItem name="Prompt Template" icon={ScrollText} isActive={activeTab === "Prompt Template"} onClick={() => setActiveTab("Prompt Template")} />
+                            <SidebarItem name="Learning Records" icon={BookOpen} isActive={activeTab === "Learning Records"} onClick={() => setActiveTab("Learning Records")} />
+                        </SidebarSection>
+
+                        <SidebarSection title="MONITOR">
+                            <SidebarItem name="Track Usage" icon={LayoutPanelLeft} isActive={activeTab === "Track Usage"} onClick={() => setActiveTab("Track Usage")} />
+                            <SidebarItem name="Metrics & Analytics" icon={BarChart3} isActive={activeTab === "Metrics & Analytics"} onClick={() => setActiveTab("Metrics & Analytics")} />
+                        </SidebarSection>
+                    </nav>
+                </div>
+
+                {/* Account Footer */}
+                <div className="py-5 pr-5 pb-6 flex justify-between items-center border-t border-border-secondary bg-[#F9F9FB] sticky bottom-0">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-white rounded-full border border-border-secondary flex justify-center items-center text-[14px] font-semibold text-text-primary">
+                            OR
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-sm font-semibold text-text-primary leading-5">Olivia Rhye</span>
+                            <span className="text-xs text-text-tertiary leading-4">Super Admin</span>
+                        </div>
+                    </div>
+                    <button className="p-1.5 hover:bg-gray-100 rounded-md">
+                        <ChevronDown className="w-4 h-4 text-text-muted" />
+                    </button>
+                </div>
+            </aside>
+        );
+    }
+
+    if (activeIFlow) {
+        return (
+            <aside className="w-[296px] h-full pl-5 flex flex-col justify-between border-r border-border-secondary bg-[#F9F9FB] font-inter">
+                <div className="flex-1 flex flex-col overflow-y-auto">
+                    {/* Header */}
+                    <div className="pt-6 pb-4 flex flex-col gap-4">
+                        <img src="/logo_main.png" alt="Kaya Logo" className="w-[120px] h-[39px]" />
+                        <Link 
+                            href={`/${activeWorkspace}`}
+                            className="flex items-center gap-1 py-2 text-sm font-semibold text-text-tertiary hover:text-text-primary transition-colors pr-4"
+                        >
+                            <ChevronLeft className="w-5 h-5" />
+                            <span>Back to Workspace</span>
+                        </Link>
+                    </div>
+
+                    {/* iFlow Controls */}
+                    <div className="pr-5 flex flex-col gap-4 mb-8">
+                        <div className="w-full shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between p-2 pl-3 group cursor-pointer border border-transparent hover:border-border-primary transition-all">
+                            <span className="text-sm font-semibold text-text-primary font-encode">{displayWorkspaceName}</span>
+                            <div className="flex items-center gap-1">
+                                <div className="w-4 h-4 flex items-center justify-center">
+                                    <ChevronDown className="w-4 h-4 text-text-muted" />
+                                </div>
+                                <div className="w-4 h-4 flex items-center justify-center -ml-2">
+                                    <ChevronUp className="w-4 h-4 text-text-muted" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#F2F4F7] border border-transparent">
+                                <Workflow className="w-4 h-4 text-text-tertiary" />
+                                <span className="text-sm font-semibold text-text-primary leading-5">{displayIFlowName}</span>
+                            </div>
+                            <button className="w-full bg-white border border-[#D0D5DD] shadow-[0_1px_2px_rgba(16,24,40,0.05)] rounded-lg flex items-center justify-center py-2 px-3 gap-2 hover:bg-gray-50 transition-all active:scale-[0.98]">
+                                <SquarePen className="w-4 h-4 text-[#344054]" />
+                                <span className="text-sm font-semibold text-[#344054]">Edit iFlow</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* iFlow Navigation */}
+                    <nav className="flex-1 flex flex-col gap-8 pr-5 pb-8">
+                        <SidebarSection title="MANAGE">
+                            <SidebarItem name="Agents" icon={Bot} count="10" isActive={activeTab === "Agents"} onClick={() => setActiveTab("Agents")} />
+                        </SidebarSection>
+
+                        <SidebarSection title="TEST">
+                            <SidebarItem name="Playground" icon={PlayCircle} count="10" isActive={activeTab === "Playground"} onClick={() => setActiveTab("Playground")} />
+                            <SidebarItem name="Test Suites" icon={ClipboardCheck} isActive={activeTab === "Test Suites"} onClick={() => setActiveTab("Test Suites")} />
+                            <SidebarItem name="Test Suites Execution" icon={FileCheck2} isActive={activeTab === "Test Suites Execution"} onClick={() => setActiveTab("Test Suites Execution")} />
+                        </SidebarSection>
+
+                        <SidebarSection title="MONITOR">
+                            <SidebarItem name="Data Lineage" icon={Bot} isActive={activeTab === "Data Lineage"} onClick={() => setActiveTab("Data Lineage")} />
+                            <SidebarItem name="Track Usage" icon={LayoutPanelLeft} isActive={activeTab === "Track Usage"} onClick={() => setActiveTab("Track Usage")} />
+                            <SidebarItem name="Metrics & Analytics" icon={BarChart3} isActive={activeTab === "Metrics & Analytics"} onClick={() => setActiveTab("Metrics & Analytics")} />
+                        </SidebarSection>
+                    </nav>
+                </div>
+
+                {/* Account Footer */}
+                <div className="py-5 pr-5 pb-6 flex justify-between items-center border-t border-border-secondary bg-[#F9F9FB] sticky bottom-0">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-white rounded-full border border-border-secondary flex justify-center items-center text-[14px] font-semibold text-text-primary">
+                            OR
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-sm font-semibold text-text-primary leading-5">Olivia Rhye</span>
+                            <span className="text-xs text-text-tertiary leading-4">Super Admin</span>
+                        </div>
+                    </div>
+                    <button className="p-1.5 hover:bg-gray-100 rounded-md">
+                        <ChevronDown className="w-4 h-4 text-text-muted" />
                     </button>
                 </div>
             </aside>
