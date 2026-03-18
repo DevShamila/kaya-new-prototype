@@ -4,7 +4,7 @@ import { LucideIcon } from "lucide-react";
 interface SidebarItemProps {
     name: string;
     icon: LucideIcon;
-    count?: number;
+    count?: number | string;
     isActive: boolean;
     onClick: () => void;
 }
