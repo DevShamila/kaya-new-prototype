@@ -9,6 +9,7 @@ interface SidebarItemProps {
     count?: number | string;
     isActive: boolean;
     onClick: () => void;
+    disabled?: boolean;
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -18,6 +19,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     count,
     isActive,
     onClick,
+    disabled = false,
 }) => {
     return (
         <li className="w-full inline-flex justify-start items-center overflow-hidden list-none">
@@ -25,37 +27,45 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                 className={`flex-1 flex items-center gap-3 transition-all duration-200 ${
                     isActive
                         ? "bg-[#F0F0F3]"
-                        : "bg-transparent hover:bg-[#F0F0F3]/50"
+                        : disabled
+                          ? "bg-transparent cursor-not-allowed opacity-50"
+                          : "bg-transparent hover:bg-[#F0F0F3]/50"
                 }`}
                 onClick={(e) => {
                     e.preventDefault();
-                    onClick();
+                    if (!disabled) onClick();
                 }}
+                disabled={disabled}
+                title={disabled ? "Coming soon" : undefined}
                 style={{
                     padding: "8px 12px",
                     borderRadius: "6px",
                     border: "none",
                     textAlign: "left",
-                    cursor: "pointer",
+                    cursor: disabled ? "not-allowed" : "pointer",
                     gap: "12px",
                 }}
             >
                 <div className="flex-1 flex justify-start items-center gap-3">
                     <div
                         className={`p-1 rounded inline-grid place-items-center shadow-[0_0_6px_0_rgba(164,167,174,0.35)] ${
-                            isActive
-                                ? "bg-[#F0F0F3]"
-                                : "bg-white"
+                            isActive ? "bg-[#F0F0F3]" : "bg-white"
                         }`}
                     >
                         {iconSrc ? (
-                            <Image src={iconSrc} alt={name} width={20} height={20} className="w-5 h-5" />
-                        ) : (
+                            <Image
+                                src={iconSrc}
+                                alt={name}
+                                width={20}
+                                height={20}
+                                className="w-5 h-5"
+                            />
+                        ) : Icon ? (
                             <Icon
                                 className="w-5 h-5 text-[#181D27]"
                                 strokeWidth={1.75}
                             />
-                        )}
+                        ) : null}
                     </div>
                     <div
                         className={`justify-start text-sm leading-5 ${
