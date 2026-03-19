@@ -157,6 +157,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
             setActiveTab("Workspace Variable");
         } else if (pathname.includes("/executable-functions")) {
             setActiveTab("Executable Functions");
+        } else if (pathname.includes("/registry")) {
+            setActiveTab("Pull from Registry");
         } else if (activeWorkspace && !activeIFlow && !activeAgent) {
             setActiveTab("Workspace Overview");
         } else if (!activeWorkspace) {
@@ -691,7 +693,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             name="Pull from Registry"
                             iconSrc="/git.svg"
                             isActive={activeTab === "Pull from Registry"}
-                            onClick={() => setActiveTab("Pull from Registry")}
+                            onClick={() => {
+                                setActiveTab("Pull from Registry");
+                                router.push(`/${activeWorkspace}/registry`);
+                            }}
                         />
                     </SidebarSection>
 
