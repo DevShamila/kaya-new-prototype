@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./IFlowListingBody.module.css";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 
 const IFlowListingBody = () => {
     return (
@@ -47,43 +48,36 @@ const IFlowListingBody = () => {
                         <div className={styles.content3}>
                             <div className={styles.breadcrumbs}></div>
                             <div className={styles.container2}>
-                                <div className={styles.pageHeader}>
-                                    <div className={styles.content4}>
+                                <div className="flex items-center justify-between flex-wrap gap-5 w-full">
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-[30px] h-[30px] rounded bg-white shadow-[0_0_6px_rgba(164,167,174,0.35)] flex items-center justify-center p-[4px]">
+                                                <Image src="/sidebar-workflow.svg" alt="" width={23} height={21} className="w-[23px] h-[21px]" />
+                                            </div>
+                                            <h1 className="text-2xl font-semibold text-text-primary leading-8">iFlows</h1>
+                                        </div>
+                                        <p className="max-w-[640px] text-base text-text-tertiary leading-6">
+                                            Placeholder text about; iFlows live here
+                                        </p>
+                                    </div>
+                                    <div className={styles.actions2}>
                                         <div
                                             className={
-                                                styles.textAndSupportingText2
+                                                styles.buttonsbutton3
                                             }
                                         >
-                                            <div className={styles.text4}>
-                                                iFlows
-                                            </div>
+                                            <Plus
+                                                className={styles.plusIcon}
+                                            />
                                             <div
                                                 className={
-                                                    styles.supportingText2
+                                                    styles.textPadding
                                                 }
                                             >
-                                                {`Placeholder text about; iFlows live here`}
-                                            </div>
-                                        </div>
-                                        <div className={styles.actions2}>
-                                            <div
-                                                className={
-                                                    styles.buttonsbutton3
-                                                }
-                                            >
-                                                <Plus
-                                                    className={styles.plusIcon}
-                                                />
                                                 <div
-                                                    className={
-                                                        styles.textPadding
-                                                    }
+                                                    className={styles.text2}
                                                 >
-                                                    <div
-                                                        className={styles.text2}
-                                                    >
-                                                        Create iFlow
-                                                    </div>
+                                                    Create iFlow
                                                 </div>
                                             </div>
                                         </div>

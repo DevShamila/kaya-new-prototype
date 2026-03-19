@@ -15,13 +15,10 @@ import {
     Settings,
     Rocket,
     Building2,
-    Workflow,
     Globe,
     PlayCircle,
     ClipboardCheck,
     FileCheck2,
-    LayoutPanelLeft,
-    BarChart3,
     Bot,
     SquarePen,
     ScrollText,
@@ -277,22 +274,25 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 isActive={true}
                                 onClick={() => {}}
                             />
-                            <button
-                                className="w-full shadow-[0_1px_10px_rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center py-2 px-3 gap-1 hover:opacity-90 transition-opacity active:scale-[0.98]"
+                            <div
+                                className="w-full rounded-lg p-[2px] hover:opacity-90 transition-opacity active:scale-[0.98]"
                                 style={{
-                                    backgroundImage: "url(/btn-gradient.svg)",
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
+                                    background: "linear-gradient(90deg, rgba(0, 91, 181, 0.5) 35%, rgba(255, 87, 20, 0.5) 100%)",
+                                    boxShadow: "0 1px 10px 1px rgba(0, 0, 0, 0.20)",
                                 }}
                             >
-                                <SquarePen
-                                    className="w-4 h-4 text-white"
-                                    strokeWidth={3}
-                                />
-                                <span className="text-sm font-semibold text-white">
-                                    Edit Agent
-                                </span>
-                            </button>
+                                <button
+                                    className="w-full bg-white rounded-[6px] flex items-center justify-center py-2 px-3 gap-1"
+                                >
+                                    <SquarePen
+                                        className="w-4 h-4 text-[#535862]"
+                                        strokeWidth={3}
+                                    />
+                                    <span className="text-sm font-semibold text-[#535862]">
+                                        Edit Agent
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -316,7 +316,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         <SidebarSection title="MONITOR">
                             <SidebarItem
                                 name="Track Usage"
-                                icon={LayoutPanelLeft}
+                                iconSrc="/track.svg"
                                 isActive={activeTab === "Track Usage"}
                                 onClick={() => {
                                     setActiveTab("Track Usage");
@@ -325,7 +325,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             />
                             <SidebarItem
                                 name="Metrics & Analytics"
-                                icon={BarChart3}
+                                iconSrc="/metrics.svg"
                                 isActive={activeTab === "Metrics & Analytics"}
                                 onClick={() =>
                                     setActiveTab("Metrics & Analytics")
@@ -394,26 +394,29 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         <div className="flex flex-col gap-2">
                             <SidebarItem
                                 name={displayIFlowName || ''}
-                                icon={Workflow}
+                                iconSrc="/sidebar-workflow.svg"
                                 isActive={true}
                                 onClick={() => {}}
                             />
-                            <button
-                                className="w-full shadow-[0_1px_10px_rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center py-2 px-3 gap-1 hover:opacity-90 transition-opacity active:scale-[0.98]"
+                            <div
+                                className="w-full rounded-lg p-[2px] hover:opacity-90 transition-opacity active:scale-[0.98]"
                                 style={{
-                                    backgroundImage: "url(/btn-gradient.svg)",
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
+                                    background: "linear-gradient(90deg, rgba(0, 91, 181, 0.5) 35%, rgba(255, 87, 20, 0.5) 100%)",
+                                    boxShadow: "0 1px 10px 1px rgba(0, 0, 0, 0.20)",
                                 }}
                             >
-                                <SquarePen
-                                    className="w-4 h-4 text-white"
-                                    strokeWidth={3}
-                                />
-                                <span className="text-sm font-semibold text-white">
-                                    Edit iFlow
-                                </span>
-                            </button>
+                                <button
+                                    className="w-full bg-white rounded-[6px] flex items-center justify-center py-2 px-3 gap-1"
+                                >
+                                    <SquarePen
+                                        className="w-4 h-4 text-[#535862]"
+                                        strokeWidth={3}
+                                    />
+                                    <span className="text-sm font-semibold text-[#535862]">
+                                        Edit iFlow
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -456,13 +459,13 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         <SidebarSection title="MONITOR">
                             <SidebarItem
                                 name="Data Lineage"
-                                icon={Bot}
+                                iconSrc="/sidebar-bot.svg"
                                 isActive={activeTab === "Data Lineage"}
                                 onClick={() => setActiveTab("Data Lineage")}
                             />
                             <SidebarItem
                                 name="Track Usage"
-                                icon={LayoutPanelLeft}
+                                iconSrc="/track.svg"
                                 isActive={activeTab === "Track Usage"}
                                 onClick={() => {
                                     setActiveTab("Track Usage");
@@ -471,7 +474,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             />
                             <SidebarItem
                                 name="Metrics & Analytics"
-                                icon={BarChart3}
+                                iconSrc="/metrics.svg"
                                 isActive={activeTab === "Metrics & Analytics"}
                                 onClick={() =>
                                     setActiveTab("Metrics & Analytics")

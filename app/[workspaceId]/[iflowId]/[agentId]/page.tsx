@@ -3,7 +3,7 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { 
-    Bot, Calendar, ChevronDown
+    Bot, Calendar
 } from "lucide-react";
 
 interface MetricCardProps {
@@ -13,14 +13,11 @@ interface MetricCardProps {
 
 const MetricCard: React.FC<MetricCardProps> = ({ label, value }) => (
     <div className="w-[242px] h-[200px] shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-[#fdfdfd] border border-[#e9eaeb] overflow-hidden flex flex-col items-start transition-all hover:border-border-primary">
-        <div className="self-stretch flex items-center px-5 py-3 pt-[12px] pb-[8px]">
+        <div className="self-stretch flex items-center pt-3 pb-2 px-5 gap-4">
             <span className="flex-1 text-sm font-semibold text-[#181d27] leading-5">{label}</span>
         </div>
-        <div className="self-stretch flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-white border border-[#e9eaeb] flex flex-col items-start p-5 gap-5 relative group">
+        <div className="self-stretch flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-white border border-[#e9eaeb] flex flex-col items-start p-5">
             <span className="text-[30px] font-semibold text-[#181d27] leading-[38px]">{value}</span>
-            <div className="absolute top-[78px] left-5 w-5 h-5 flex flex-col items-start transition-transform group-hover:translate-x-1">
-                <ChevronDown className="w-5 h-5 text-border-secondary" />
-            </div>
         </div>
     </div>
 );
@@ -63,12 +60,12 @@ export default function AgentDetailPage() {
                     <div className="w-full flex flex-col items-start gap-5">
                         <div className="w-full flex flex-col items-start gap-1 max-w-[640px]">
                             <div className="flex items-center gap-2 self-stretch">
-                                <div className="p-1 shadow-[0_0_6px_rgba(164,167,174,0.35)] rounded-[4px] bg-white border border-border-secondary">
-                                    <Bot className="w-5 h-5 text-text-tertiary" />
+                                <div className="w-[30px] h-[30px] rounded bg-white shadow-[0_0_6px_rgba(164,167,174,0.35)] flex items-center justify-center p-[4px]">
+                                    <Bot className="w-[23px] h-[21px] text-[#FF5714]" />
                                 </div>
-                                <h1 className="flex-1 text-2xl font-semibold text-[#181d27] leading-8">{displayAgentName}</h1>
+                                <h1 className="flex-1 text-2xl font-semibold text-text-primary leading-8">{displayAgentName}</h1>
                             </div>
-                            <p className="text-sm text-[#414651] leading-5 self-stretch">This agent handles invoice processing tasks.</p>
+                            <p className="text-base text-text-tertiary leading-6 self-stretch">This agent handles invoice processing tasks.</p>
                         </div>
                     </div>
                 </div>

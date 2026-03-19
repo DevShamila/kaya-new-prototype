@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, ShieldCheck } from "lucide-react";
 import styles from "./ModelsBody.module.css";
 import DatabaseCard from "./DatabaseCard";
 
@@ -40,32 +40,31 @@ const GuardrailsBody: React.FC<GuardrailsBodyProps> = ({ workspaceId }) => {
                     </div>
 
                     <div className={styles["content"]}>
-                        <div className={styles["page-header"]}>
-                            <div className={styles["content2"]}>
-                                <div
-                                    className={
-                                        styles["text-and-supporting-text"]
-                                    }
-                                >
-                                    <div className={styles["text"]}>Guardrails</div>
-                                    <div className={styles["supporting-text"]}>
-                                        Manage your system level safeguards and conversational rules.
+                        <div className="flex items-center justify-between flex-wrap gap-5">
+                            <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-[30px] h-[30px] rounded bg-white shadow-[0_0_6px_rgba(164,167,174,0.35)] flex items-center justify-center p-[4px]">
+                                        <ShieldCheck className="w-[23px] h-[21px] text-[#FF5714]" />
                                     </div>
+                                    <h1 className="text-2xl font-semibold text-text-primary leading-8">Guardrails</h1>
                                 </div>
-                                <div className={styles["actions"]}>
-                                    <div className={styles["buttonsbutton"]}>
-                                        <div className={styles["text-padding"]}>
-                                            <div className={styles["text2"]}>
-                                                Learn More
-                                            </div>
+                                <p className="max-w-[640px] text-base text-text-tertiary leading-6">
+                                    Manage your system level safeguards and conversational rules.
+                                </p>
+                            </div>
+                            <div className={styles["actions"]}>
+                                <div className={styles["buttonsbutton"]}>
+                                    <div className={styles["text-padding"]}>
+                                        <div className={styles["text2"]}>
+                                            Learn More
                                         </div>
                                     </div>
-                                    <div className={styles["buttonsbutton2"]}>
-                                        <Plus className="w-5 h-5 text-white" />
-                                        <div className={styles["text-padding"]}>
-                                            <div className={styles["text3"]}>
-                                                Guardrail
-                                            </div>
+                                </div>
+                                <div className={styles["buttonsbutton2"]}>
+                                    <Plus className="w-5 h-5 text-white" />
+                                    <div className={styles["text-padding"]}>
+                                        <div className={styles["text3"]}>
+                                            Guardrail
                                         </div>
                                     </div>
                                 </div>
