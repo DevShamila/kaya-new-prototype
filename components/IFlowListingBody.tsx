@@ -3,9 +3,25 @@
 import React from "react";
 import styles from "./IFlowListingBody.module.css";
 import { Plus } from "lucide-react";
+import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 
+const mockIFlows = [
+    { id: "invoice-processing", name: "Invoice Processing", status: "Published", agents: 9, lastModified: "Mar 17, 2026, 15:44" },
+    { id: "claims-triage", name: "Claims Triage", status: "Draft", agents: 5, lastModified: "Mar 18, 2026, 10:20" },
+    { id: "customer-support", name: "Customer Support", status: "Published", agents: 12, lastModified: "Mar 19, 2026, 09:15" },
+    { id: "data-extraction", name: "Data Extraction", status: "Draft", agents: 3, lastModified: "Mar 19, 2026, 11:30" },
+];
+
 const IFlowListingBody = () => {
+    const router = useRouter();
+    const params = useParams();
+    const workspaceId = params.workspaceId as string;
+
+    const handleViewIFlow = (iflowId: string) => {
+        router.push(`/${workspaceId}/${iflowId}`);
+    };
+
     return (
         <div className={styles.inlineCtaParent}>
             <div className={styles.inlineCta}>
@@ -105,9 +121,9 @@ const IFlowListingBody = () => {
                     </div>
                     <div className={styles.experienceWrapper}>
                         <div className={styles.experience}>
-                            {[1, 2, 3, 4].map((i) => (
+                            {mockIFlows.map((iflow) => (
                                 <div
-                                    key={i}
+                                    key={iflow.id}
                                     className={styles.integrationCardDesktop}
                                 >
                                     <div className={styles.content6}>
@@ -116,15 +132,13 @@ const IFlowListingBody = () => {
                                         >
                                             <div
                                                 className={
-                                                    i === 1
+                                                    iflow.status === "Published"
                                                         ? styles.badge
                                                         : styles.badge2
                                                 }
                                             >
                                                 <div className={styles.text7}>
-                                                    {i === 1
-                                                        ? "Published"
-                                                        : "Draft"}
+                                                    {iflow.status}
                                                 </div>
                                             </div>
                                             <div
@@ -142,7 +156,7 @@ const IFlowListingBody = () => {
                                                     ></div>
                                                 </div>
                                                 <div className={styles.heading}>
-                                                    Invoice Processing{" "}
+                                                    {iflow.name}
                                                 </div>
                                             </div>
                                             <div
@@ -150,8 +164,7 @@ const IFlowListingBody = () => {
                                                     styles.supportingText3
                                                 }
                                             >
-                                                This workflow handles invoice
-                                                processing tasks.
+                                                This workflow handles {iflow.name.toLowerCase()} tasks.
                                             </div>
                                             <div
                                                 className={
@@ -160,7 +173,7 @@ const IFlowListingBody = () => {
                                             >
                                                 <div className={styles.parent}>
                                                     <b className={styles.b}>
-                                                        9
+                                                        {iflow.agents}
                                                     </b>
                                                     <div
                                                         className={
@@ -173,7 +186,7 @@ const IFlowListingBody = () => {
                                             </div>
                                         </div>
                                         <div className={styles.supportingText4}>
-                                            Last modified: Mar 17, 2026, 15:44
+                                            Last modified: {iflow.lastModified}
                                         </div>
                                     </div>
                                     <div className={styles.sectionFooter}>
@@ -183,13 +196,16 @@ const IFlowListingBody = () => {
                                         />
                                         <div className={styles.content7}>
                                             <div className={styles.actions4}>
-                                                <div className={styles.button}>
+                                                <button 
+                                                    className={styles.button}
+                                                    onClick={() => handleViewIFlow(iflow.id)}
+                                                >
                                                     <div
                                                         className={styles.text2}
                                                     >
                                                         View iFlow
                                                     </div>
-                                                </div>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -208,24 +224,22 @@ const IFlowListingBody = () => {
                         </div>
                     </div>
                     <div className={styles.experience2}>
-                        {[1, 2].map((i) => (
+                        {mockIFlows.slice(0, 2).map((iflow) => (
                             <div
-                                key={i}
+                                key={iflow.id}
                                 className={styles.integrationCardDesktop5}
                             >
                                 <div className={styles.content6}>
                                     <div className={styles.headingAndToggle}>
                                         <div
                                             className={
-                                                i === 1
+                                                iflow.status === "Published"
                                                     ? styles.badge
                                                     : styles.badge2
                                             }
                                         >
                                             <div className={styles.text7}>
-                                                {i === 1
-                                                    ? "Published"
-                                                    : "Draft"}
+                                                {iflow.status}
                                             </div>
                                         </div>
                                         <div className={styles.headingAndIcon}>
@@ -235,12 +249,11 @@ const IFlowListingBody = () => {
                                                 ></div>
                                             </div>
                                             <div className={styles.heading}>
-                                                Invoice Processing{" "}
+                                                {iflow.name}
                                             </div>
                                         </div>
                                         <div className={styles.supportingText3}>
-                                            This workflow handles invoice
-                                            processing tasks.
+                                            This workflow handles {iflow.name.toLowerCase()} tasks.
                                         </div>
                                         <div
                                             className={
@@ -248,7 +261,7 @@ const IFlowListingBody = () => {
                                             }
                                         >
                                             <div className={styles.parent}>
-                                                <b className={styles.b}>9</b>
+                                                <b className={styles.b}>{iflow.agents}</b>
                                                 <div className={styles.agents}>
                                                     Agents
                                                 </div>
@@ -256,7 +269,7 @@ const IFlowListingBody = () => {
                                         </div>
                                     </div>
                                     <div className={styles.supportingText4}>
-                                        Last modified: Mar 17, 2026, 15:44
+                                        Last modified: {iflow.lastModified}
                                     </div>
                                 </div>
                                 <div className={styles.sectionFooter}>
@@ -266,11 +279,14 @@ const IFlowListingBody = () => {
                                     />
                                     <div className={styles.content7}>
                                         <div className={styles.actions4}>
-                                            <div className={styles.button}>
+                                            <button 
+                                                className={styles.button}
+                                                onClick={() => handleViewIFlow(iflow.id)}
+                                            >
                                                 <div className={styles.text2}>
                                                     View iFlow
                                                 </div>
-                                            </div>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -288,24 +304,22 @@ const IFlowListingBody = () => {
                         </div>
                     </div>
                     <div className={styles.experience2}>
-                        {[1, 2].map((i) => (
+                        {mockIFlows.map((iflow) => (
                             <div
-                                key={i}
+                                key={iflow.id}
                                 className={styles.integrationCardDesktop5}
                             >
                                 <div className={styles.content6}>
                                     <div className={styles.headingAndToggle}>
                                         <div
                                             className={
-                                                i === 1
+                                                iflow.status === "Published"
                                                     ? styles.badge
                                                     : styles.badge2
                                             }
                                         >
                                             <div className={styles.text7}>
-                                                {i === 1
-                                                    ? "Published"
-                                                    : "Draft"}
+                                                {iflow.status}
                                             </div>
                                         </div>
                                         <div className={styles.headingAndIcon}>
@@ -315,12 +329,11 @@ const IFlowListingBody = () => {
                                                 ></div>
                                             </div>
                                             <div className={styles.heading}>
-                                                Invoice Processing{" "}
+                                                {iflow.name}
                                             </div>
                                         </div>
                                         <div className={styles.supportingText3}>
-                                            This workflow handles invoice
-                                            processing tasks.
+                                            This workflow handles {iflow.name.toLowerCase()} tasks.
                                         </div>
                                         <div
                                             className={
@@ -328,7 +341,7 @@ const IFlowListingBody = () => {
                                             }
                                         >
                                             <div className={styles.parent}>
-                                                <b className={styles.b}>9</b>
+                                                <b className={styles.b}>{iflow.agents}</b>
                                                 <div className={styles.agents}>
                                                     Agents
                                                 </div>
@@ -336,7 +349,7 @@ const IFlowListingBody = () => {
                                         </div>
                                     </div>
                                     <div className={styles.supportingText4}>
-                                        Last modified: Mar 17, 2026, 15:44
+                                        Last modified: {iflow.lastModified}
                                     </div>
                                 </div>
                                 <div className={styles.sectionFooter}>
@@ -346,11 +359,14 @@ const IFlowListingBody = () => {
                                     />
                                     <div className={styles.content7}>
                                         <div className={styles.actions4}>
-                                            <div className={styles.button}>
+                                            <button 
+                                                className={styles.button}
+                                                onClick={() => handleViewIFlow(iflow.id)}
+                                            >
                                                 <div className={styles.text2}>
                                                     View iFlow
                                                 </div>
-                                            </div>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

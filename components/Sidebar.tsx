@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter, usePathname } from "next/navigation";
 import {
@@ -23,7 +23,6 @@ import {
     SquarePen,
     ScrollText,
     BookOpen,
-    Database,
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import SidebarSection from "./SidebarSection";
@@ -128,6 +127,34 @@ const Sidebar: React.FC<SidebarProps> = () => {
             ? "Workspace Overview"
             : "All Workspaces";
     const [activeTab, setActiveTab] = React.useState(initialTab);
+    const [isWorkspaceDropdownOpen, setIsWorkspaceDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const workspaces = [
+        { id: "claims-operations-overview", name: "Claims Operations Overview" },
+        { id: "hr-automation", name: "HR Automation" },
+        { id: "telecom-ops", name: "TelecomOps" },
+        { id: "healthfirst", name: "Healthfirst" },
+    ];
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsWorkspaceDropdownOpen(false);
+            }
+        };
+
+        if (isWorkspaceDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isWorkspaceDropdownOpen]);
 
     // Update active tab when URL parameters change
     React.useEffect(() => {
@@ -176,8 +203,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
             count: 10,
             section: "ENTERPRISE OVERVIEW",
         },
-        { name: "Insights", icon: TrendingUp, section: "ENTERPRISE OVERVIEW" },
-        { name: "Licensing", icon: Layers, count: 10, section: "ADMIN" },
+        { name: "Insights", icon: TrendingUp, section: "ENTERPRISE OVERVIEW", disabled: true },
+        { name: "Licensing", icon: Layers, count: 10, section: "ADMIN", disabled: true },
     ];
 
     const enterpriseSections = ["ENTERPRISE OVERVIEW", "ADMIN"];
@@ -207,6 +234,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                         count={item.count}
                                         isActive={activeTab === item.name}
                                         onClick={() => setActiveTab(item.name)}
+                                        disabled={item.disabled}
                                     />
                                 ))}
                         </SidebarSection>
@@ -265,15 +293,64 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
                     {/* Agent Controls */}
                     <div className="pr-5 flex flex-col gap-4 mb-8">
-                        <div className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all">
-                            <span className="text-sm font-semibold text-[#535862] font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
-                                {displayWorkspaceName}
-                            </span>
-                            <img
-                                src="/user-toggle.svg"
-                                alt=""
-                                className="w-[8px] h-[13px] shrink-0"
-                            />
+                        <div className="relative" ref={dropdownRef}>
+                            <div
+                                className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() =>
+                                    setIsWorkspaceDropdownOpen(
+                                        !isWorkspaceDropdownOpen,
+                                    )
+                                }
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        setIsWorkspaceDropdownOpen(
+                                            !isWorkspaceDropdownOpen,
+                                        );
+                                    }
+                                }}
+                            >
+                                <span className="text-sm font-semibold text-text-tertiary font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
+                                    {displayWorkspaceName}
+                                </span>
+                                <img
+                                    src="/user-toggle.svg"
+                                    alt=""
+                                    className={`w-[8px] h-[13px] shrink-0 transition-transform ${
+                                        isWorkspaceDropdownOpen
+                                            ? "rotate-180"
+                                            : ""
+                                    }`}
+                                />
+                            </div>
+
+                            {isWorkspaceDropdownOpen && (
+                                <div className="absolute top-full left-0 w-full mt-1 bg-white border border-border-secondary rounded-lg shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] z-50 py-1">
+                                    {workspaces.map((ws) => (
+                                        <button
+                                            key={ws.id}
+                                            className="w-full text-left px-3 py-2 text-sm hover:bg-[#F9F9FB] transition-colors"
+                                            onClick={() => {
+                                                setIsWorkspaceDropdownOpen(
+                                                    false,
+                                                );
+                                                router.push(`/${ws.id}`);
+                                            }}
+                                        >
+                                            <span
+                                                className={
+                                                    activeWorkspace === ws.id
+                                                        ? "font-semibold text-brand-orange"
+                                                        : "text-text-tertiary"
+                                                }
+                                            >
+                                                {ws.name}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         <div className="flex flex-col gap-2">
@@ -294,10 +371,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             >
                                 <button className="w-full bg-white rounded-[6px] flex items-center justify-center py-2 px-3 gap-1">
                                     <SquarePen
-                                        className="w-4 h-4 text-[#535862]"
+                                        className="w-4 h-4 text-text-tertiary"
                                         strokeWidth={3}
                                     />
-                                    <span className="text-sm font-semibold text-[#535862]">
+                                    <span className="text-sm font-semibold text-text-tertiary">
                                         Edit Agent
                                     </span>
                                 </button>
@@ -394,15 +471,64 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
                     {/* iFlow Controls */}
                     <div className="pr-5 flex flex-col gap-4 mb-8">
-                        <div className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all">
-                            <span className="text-sm font-semibold text-[#535862] font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
-                                {displayWorkspaceName}
-                            </span>
-                            <img
-                                src="/user-toggle.svg"
-                                alt=""
-                                className="w-[8px] h-[13px] shrink-0"
-                            />
+                        <div className="relative" ref={dropdownRef}>
+                            <div
+                                className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() =>
+                                    setIsWorkspaceDropdownOpen(
+                                        !isWorkspaceDropdownOpen,
+                                    )
+                                }
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        setIsWorkspaceDropdownOpen(
+                                            !isWorkspaceDropdownOpen,
+                                        );
+                                    }
+                                }}
+                            >
+                                <span className="text-sm font-semibold text-text-tertiary font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
+                                    {displayWorkspaceName}
+                                </span>
+                                <img
+                                    src="/user-toggle.svg"
+                                    alt=""
+                                    className={`w-[8px] h-[13px] shrink-0 transition-transform ${
+                                        isWorkspaceDropdownOpen
+                                            ? "rotate-180"
+                                            : ""
+                                    }`}
+                                />
+                            </div>
+
+                            {isWorkspaceDropdownOpen && (
+                                <div className="absolute top-full left-0 w-full mt-1 bg-white border border-border-secondary rounded-lg shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] z-50 py-1">
+                                    {workspaces.map((ws) => (
+                                        <button
+                                            key={ws.id}
+                                            className="w-full text-left px-3 py-2 text-sm hover:bg-[#F9F9FB] transition-colors"
+                                            onClick={() => {
+                                                setIsWorkspaceDropdownOpen(
+                                                    false,
+                                                );
+                                                router.push(`/${ws.id}`);
+                                            }}
+                                        >
+                                            <span
+                                                className={
+                                                    activeWorkspace === ws.id
+                                                        ? "font-semibold text-brand-orange"
+                                                        : "text-text-tertiary"
+                                                }
+                                            >
+                                                {ws.name}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         <div className="flex flex-col gap-2">
@@ -423,10 +549,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             >
                                 <button className="w-full bg-white rounded-[6px] flex items-center justify-center py-2 px-3 gap-1">
                                     <SquarePen
-                                        className="w-4 h-4 text-[#535862]"
+                                        className="w-4 h-4 text-text-tertiary"
                                         strokeWidth={3}
                                     />
-                                    <span className="text-sm font-semibold text-[#535862]">
+                                    <span className="text-sm font-semibold text-text-tertiary">
                                         Edit iFlow
                                     </span>
                                 </button>
@@ -549,15 +675,60 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
                 {/* Workspace Controls */}
                 <div className="pr-5 flex flex-col gap-4 mb-8">
-                    <div className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all">
-                        <span className="text-sm font-semibold text-[#535862] font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
-                            {displayWorkspaceName}
-                        </span>
-                        <img
-                            src="/user-toggle.svg"
-                            alt=""
-                            className="w-[8px] h-[13px] shrink-0"
-                        />
+                    <div className="relative" ref={dropdownRef}>
+                        <div
+                            className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all"
+                            role="button"
+                            tabIndex={0}
+                            onClick={() =>
+                                setIsWorkspaceDropdownOpen(
+                                    !isWorkspaceDropdownOpen,
+                                )
+                            }
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    setIsWorkspaceDropdownOpen(
+                                        !isWorkspaceDropdownOpen,
+                                    );
+                                }
+                            }}
+                        >
+                            <span className="text-sm font-semibold text-text-tertiary font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
+                                {displayWorkspaceName}
+                            </span>
+                            <img
+                                src="/user-toggle.svg"
+                                alt=""
+                                className={`w-[8px] h-[13px] shrink-0 transition-transform ${
+                                    isWorkspaceDropdownOpen ? "rotate-180" : ""
+                                }`}
+                            />
+                        </div>
+
+                        {isWorkspaceDropdownOpen && (
+                            <div className="absolute top-full left-0 w-full mt-1 bg-white border border-border-secondary rounded-lg shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] z-50 py-1">
+                                {workspaces.map((ws) => (
+                                    <button
+                                        key={ws.id}
+                                        className="w-full text-left px-3 py-2 text-sm hover:bg-[#F9F9FB] transition-colors"
+                                        onClick={() => {
+                                            setIsWorkspaceDropdownOpen(false);
+                                            router.push(`/${ws.id}`);
+                                        }}
+                                    >
+                                        <span
+                                            className={
+                                                activeWorkspace === ws.id
+                                                    ? "font-semibold text-brand-orange"
+                                                    : "text-text-tertiary"
+                                            }
+                                        >
+                                            {ws.name}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-2">
