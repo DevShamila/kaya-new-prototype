@@ -137,7 +137,9 @@ const Sidebar: React.FC<SidebarProps> = () => {
             setActiveTab("Metrics & Analytics");
         } else if (pathname.includes("/iflows")) {
             setActiveTab("iFlows");
-        } else if (pathname.includes("/agents")) {
+        } else if (pathname.includes("/learning-records")) {
+            setActiveTab("Learning Records");
+        } else if (pathname.includes("/playground")) {
             setActiveTab("Workspace Agent");
         } else if (pathname.includes("/models")) {
             setActiveTab("Models");
@@ -316,7 +318,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 name="Learning Records"
                                 icon={BookOpen}
                                 isActive={activeTab === "Learning Records"}
-                                onClick={() => setActiveTab("Learning Records")}
+                                onClick={() => {
+                                    setActiveTab("Learning Records");
+                                    router.push(`/${activeWorkspace}/agents/${activeAgent}/learning-records`);
+                                }}
                             />
                         </SidebarSection>
 
