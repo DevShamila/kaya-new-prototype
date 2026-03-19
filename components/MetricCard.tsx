@@ -15,11 +15,11 @@ export interface MetricCardProps {
 }
 
 const MetricCard: React.FC<MetricCardProps> = ({ title, value, subtitle, trend, chartSrc, variant = 'default' }) => (
-    <div className="flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-2xl bg-[#FDFDFD] border border-border-secondary overflow-hidden flex flex-col items-start min-h-[160px]">
-        <div className="self-stretch flex items-center px-5 py-3 border-b border-border-secondary/50">
-            <span className="text-sm font-semibold text-text-primary leading-5">{title}</span>
+    <div className="flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-[#fdfdfd] border border-[#e9eaeb] overflow-hidden flex flex-col items-start min-h-[160px]">
+        <div className="self-stretch flex items-center pt-3 pb-2 px-5 gap-4">
+            <span className="text-sm font-semibold text-[#181d27] leading-5">{title}</span>
         </div>
-        <div className="self-stretch flex-1 bg-white p-5 pb-0 flex flex-col justify-between gap-2">
+        <div className="self-stretch flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-white border border-[#e9eaeb] p-5 pb-0 flex flex-col justify-between gap-2">
             <div className="flex flex-col gap-2">
                 <div className="flex items-baseline gap-2">
                     <span className="text-[30px] font-semibold text-text-primary leading-[38px]">{value}</span>

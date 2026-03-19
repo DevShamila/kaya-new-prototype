@@ -15,13 +15,10 @@ import {
     Settings,
     Rocket,
     Building2,
-    Workflow,
     Globe,
     PlayCircle,
     ClipboardCheck,
     FileCheck2,
-    LayoutPanelLeft,
-    BarChart3,
     Bot,
     SquarePen,
     ScrollText,
@@ -266,33 +263,43 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
                     {/* Agent Controls */}
                     <div className="pr-5 flex flex-col gap-4 mb-8">
-                        <div className="w-full shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between p-2 pl-3 group cursor-pointer border border-transparent hover:border-border-primary transition-all">
-                            <span className="text-sm font-semibold text-text-primary font-encode">
+                        <div className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all">
+                            <span className="text-sm font-semibold text-[#535862] font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
                                 {displayWorkspaceName}
                             </span>
-                            <div className="flex items-center gap-1">
-                                <div className="w-4 h-4 flex items-center justify-center">
-                                    <ChevronDown className="w-4 h-4 text-text-muted" />
-                                </div>
-                                <div className="w-4 h-4 flex items-center justify-center -ml-2">
-                                    <ChevronUp className="w-4 h-4 text-text-muted" />
-                                </div>
-                            </div>
+                            <img
+                                src="/user-toggle.svg"
+                                alt=""
+                                className="w-[8px] h-[13px] shrink-0"
+                            />
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#F2F4F7] border border-transparent">
-                                <Bot className="w-4 h-4 text-text-tertiary" />
-                                <span className="text-sm font-semibold text-text-primary leading-5">
-                                    {displayAgentName}
-                                </span>
+                            <SidebarItem
+                                name={displayAgentName || ""}
+                                icon={Bot}
+                                isActive={true}
+                                onClick={() => {}}
+                            />
+                            <div
+                                className="w-full rounded-lg p-[2px] hover:opacity-90 transition-opacity active:scale-[0.98]"
+                                style={{
+                                    background:
+                                        "linear-gradient(90deg, rgba(0, 91, 181, 0.5) 35%, rgba(255, 87, 20, 0.5) 100%)",
+                                    boxShadow:
+                                        "0 1px 10px 1px rgba(0, 0, 0, 0.20)",
+                                }}
+                            >
+                                <button className="w-full bg-white rounded-[6px] flex items-center justify-center py-2 px-3 gap-1">
+                                    <SquarePen
+                                        className="w-4 h-4 text-[#535862]"
+                                        strokeWidth={3}
+                                    />
+                                    <span className="text-sm font-semibold text-[#535862]">
+                                        Edit Agent
+                                    </span>
+                                </button>
                             </div>
-                            <button className="w-full bg-white border border-[#D0D5DD] shadow-[0_1px_2px_rgba(16,24,40,0.05)] rounded-lg flex items-center justify-center py-2 px-3 gap-2 hover:bg-gray-50 transition-all active:scale-[0.98]">
-                                <SquarePen className="w-4 h-4 text-[#344054]" />
-                                <span className="text-sm font-semibold text-[#344054]">
-                                    Edit Agent
-                                </span>
-                            </button>
                         </div>
                     </div>
 
@@ -316,16 +323,18 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         <SidebarSection title="MONITOR">
                             <SidebarItem
                                 name="Track Usage"
-                                icon={LayoutPanelLeft}
+                                iconSrc="/track.svg"
                                 isActive={activeTab === "Track Usage"}
                                 onClick={() => {
                                     setActiveTab("Track Usage");
-                                    router.push(`/${activeWorkspace}/agents/${activeAgent}/track-usage`);
+                                    router.push(
+                                        `/${activeWorkspace}/agents/${activeAgent}/track-usage`,
+                                    );
                                 }}
                             />
                             <SidebarItem
                                 name="Metrics & Analytics"
-                                icon={BarChart3}
+                                iconSrc="/metrics.svg"
                                 isActive={activeTab === "Metrics & Analytics"}
                                 onClick={() =>
                                     setActiveTab("Metrics & Analytics")
@@ -380,33 +389,43 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
                     {/* iFlow Controls */}
                     <div className="pr-5 flex flex-col gap-4 mb-8">
-                        <div className="w-full shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between p-2 pl-3 group cursor-pointer border border-transparent hover:border-border-primary transition-all">
-                            <span className="text-sm font-semibold text-text-primary font-encode">
+                        <div className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all">
+                            <span className="text-sm font-semibold text-[#535862] font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
                                 {displayWorkspaceName}
                             </span>
-                            <div className="flex items-center gap-1">
-                                <div className="w-4 h-4 flex items-center justify-center">
-                                    <ChevronDown className="w-4 h-4 text-text-muted" />
-                                </div>
-                                <div className="w-4 h-4 flex items-center justify-center -ml-2">
-                                    <ChevronUp className="w-4 h-4 text-text-muted" />
-                                </div>
-                            </div>
+                            <img
+                                src="/user-toggle.svg"
+                                alt=""
+                                className="w-[8px] h-[13px] shrink-0"
+                            />
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#F2F4F7] border border-transparent">
-                                <Workflow className="w-4 h-4 text-text-tertiary" />
-                                <span className="text-sm font-semibold text-text-primary leading-5">
-                                    {displayIFlowName}
-                                </span>
+                            <SidebarItem
+                                name={displayIFlowName || ""}
+                                iconSrc="/sidebar-workflow.svg"
+                                isActive={true}
+                                onClick={() => {}}
+                            />
+                            <div
+                                className="w-full rounded-lg p-[2px] hover:opacity-90 transition-opacity active:scale-[0.98]"
+                                style={{
+                                    background:
+                                        "linear-gradient(90deg, rgba(0, 91, 181, 0.5) 35%, rgba(255, 87, 20, 0.5) 100%)",
+                                    boxShadow:
+                                        "0 1px 10px 1px rgba(0, 0, 0, 0.20)",
+                                }}
+                            >
+                                <button className="w-full bg-white rounded-[6px] flex items-center justify-center py-2 px-3 gap-1">
+                                    <SquarePen
+                                        className="w-4 h-4 text-[#535862]"
+                                        strokeWidth={3}
+                                    />
+                                    <span className="text-sm font-semibold text-[#535862]">
+                                        Edit iFlow
+                                    </span>
+                                </button>
                             </div>
-                            <button className="w-full bg-white border border-[#D0D5DD] shadow-[0_1px_2px_rgba(16,24,40,0.05)] rounded-lg flex items-center justify-center py-2 px-3 gap-2 hover:bg-gray-50 transition-all active:scale-[0.98]">
-                                <SquarePen className="w-4 h-4 text-[#344054]" />
-                                <span className="text-sm font-semibold text-[#344054]">
-                                    Edit iFlow
-                                </span>
-                            </button>
                         </div>
                     </div>
 
@@ -449,25 +468,29 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         <SidebarSection title="MONITOR">
                             <SidebarItem
                                 name="Data Lineage"
-                                icon={Database}
+                                iconSrc="/sidebar-bot.svg"
                                 isActive={activeTab === "Data Lineage"}
                                 onClick={() => {
                                     setActiveTab("Data Lineage");
-                                    router.push(`/${activeWorkspace}/${activeIFlow}/lineage`);
+                                    router.push(
+                                        `/${activeWorkspace}/${activeIFlow}/lineage`,
+                                    );
                                 }}
                             />
                             <SidebarItem
                                 name="Track Usage"
-                                icon={LayoutPanelLeft}
+                                iconSrc="/track.svg"
                                 isActive={activeTab === "Track Usage"}
                                 onClick={() => {
                                     setActiveTab("Track Usage");
-                                    router.push(`/${activeWorkspace}/${activeIFlow}/track-usage`);
+                                    router.push(
+                                        `/${activeWorkspace}/${activeIFlow}/track-usage`,
+                                    );
                                 }}
                             />
                             <SidebarItem
                                 name="Metrics & Analytics"
-                                icon={BarChart3}
+                                iconSrc="/metrics.svg"
                                 isActive={activeTab === "Metrics & Analytics"}
                                 onClick={() =>
                                     setActiveTab("Metrics & Analytics")
@@ -663,9 +686,11 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 title="Workspace Settings"
                                 icon={Globe}
                             >
-                                <VerticalTab 
-                                    label="Workspace Variable" 
-                                    isActive={activeTab === "Workspace Variable"}
+                                <VerticalTab
+                                    label="Workspace Variable"
+                                    isActive={
+                                        activeTab === "Workspace Variable"
+                                    }
                                     onClick={() => {
                                         setActiveTab("Workspace Variable");
                                         router.push(
@@ -680,9 +705,11 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 title="Custom Capabilities"
                                 icon={Rocket}
                             >
-                                <VerticalTab 
-                                    label="Executable Functions" 
-                                    isActive={activeTab === "Executable Functions"}
+                                <VerticalTab
+                                    label="Executable Functions"
+                                    isActive={
+                                        activeTab === "Executable Functions"
+                                    }
                                     onClick={() => {
                                         setActiveTab("Executable Functions");
                                         router.push(
@@ -722,7 +749,9 @@ const Sidebar: React.FC<SidebarProps> = () => {
                             isActive={activeTab === "Metrics & Analytics"}
                             onClick={() => {
                                 setActiveTab("Metrics & Analytics");
-                                router.push(`/${activeWorkspace}/metrics-and-analytics`);
+                                router.push(
+                                    `/${activeWorkspace}/metrics-and-analytics`,
+                                );
                             }}
                         />
                     </SidebarSection>
