@@ -22,7 +22,7 @@ const AgentTrackUsageBody: React.FC<AgentTrackUsageBodyProps> = ({ workspaceId, 
                             <div className={styles.textAndSupportingText}>
                                 <div className={styles.iconsParent}>
                                     <div className="w-10 h-10 rounded-lg shadow-sm border border-border-secondary flex items-center justify-center bg-white">
-                                        <img src="/bot-square.png" className="w-[36px] h-[36px] object-cover rounded" alt="Agent Icon" />
+                                        <img src="/track.svg" alt="" className="w-5 h-5" />
                                     </div>
                                     <div className={styles.text}>Track Agent Usage</div>
                                 </div>
@@ -92,6 +92,7 @@ const AgentTrackUsageBody: React.FC<AgentTrackUsageBodyProps> = ({ workspaceId, 
                     <div className={styles.frameWrapper}>
                         <div className={styles.lineAndBarChartParent}>
                             <div className={styles.lineAndBarChart}>
+                                <img src="/chart-data1.svg" alt="Token Usage Chart" className="absolute top-0 left-0 w-full h-full object-fill" style={{zIndex: 1}} />
                                 <div className={styles.axis}>
                                     <div className={styles.content6}>
                                         <div className={styles.yAxis}>
@@ -191,6 +192,7 @@ const AgentTrackUsageBody: React.FC<AgentTrackUsageBodyProps> = ({ workspaceId, 
                     </div>
                     <div className={styles.frameWrapper}>
                         <div className="w-full h-[240px] relative flex items-center">
+                             <img src="/chart-data2.svg" alt="Credit Spend Chart" className="absolute top-0 left-0 w-full h-full object-fill" style={{zIndex: 1}} />
                              <div className={styles.axis}>
                                     <div className={styles.content6}>
                                         <div className={styles.yAxis}>

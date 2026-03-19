@@ -148,20 +148,42 @@ const WorkspaceMetricsAndAnalyticsBody: React.FC<WorkspaceProps> = ({ workspaceN
                             </div>
                             <div className={styles.frameContainer}>
                                 <div className={styles.lineAndBarChartParent}>
-                                    <div className="w-full h-80 relative flex items-center justify-center">
-                                         {/* Mock Chart Area */}
-                                         <div className="absolute inset-0 flex flex-col justify-between py-[10%]">
-                                            {[1000, 800, 600, 400, 200, 0].map(val => (
-                                                <div key={val} className="w-full flex items-center h-4 text-xs text-text-muted">
-                                                    <span className="w-12 text-right mr-4">{val}</span>
-                                                    <div className="flex-1 border-t border-dashed border-[#e9eaeb]"></div>
+                                    <div className="w-full h-80 relative flex items-center">
+                                         <img src="/chart-data3.svg" alt="Workflow Performance Chart" className="absolute object-fill" style={{zIndex: 1, top: '16px', bottom: '16px', left: '68px', width: 'calc(100% - 68px)', height: 'calc(100% - 32px)'}} />
+                                         <div className="absolute inset-0 flex flex-row">
+                                            {/* Y-axis title */}
+                                            <div className="flex items-center justify-center" style={{writingMode: 'vertical-rl', transform: 'rotate(180deg)'}}>
+                                                <span className="text-xs text-gray-500">No. of Runs</span>
+                                            </div>
+                                            <div className="flex-1 flex flex-col">
+                                                {/* Y-axis labels + grid */}
+                                                <div className="flex-1 flex flex-col justify-between py-4">
+                                                    {['1,000', '800', '600', '400', '200', '0'].map(val => (
+                                                        <div key={val} className="w-full flex items-center h-4 text-xs text-gray-500">
+                                                            <span className="w-10 text-right mr-3">{val}</span>
+                                                            <div className="flex-1 border-t border-dashed border-[#e9eaeb]"></div>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                            <div className="ml-16 mr-4 mt-4 flex justify-between text-xs text-text-muted">
-                                                {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map(m => <span key={m}>{m}</span>)}
+                                                {/* X-axis labels */}
+                                                <div className="ml-[52px] mr-4 flex justify-between text-xs text-gray-500">
+                                                    {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map(m => <span key={m}>{m}</span>)}
+                                                </div>
+                                                {/* X-axis title */}
+                                                <div className="text-center text-xs text-gray-500 mt-1">Month</div>
                                             </div>
                                          </div>
-                                         <img src="/chart-line.png" className="w-[80%] h-[70%] object-contain mix-blend-multiply opacity-80" alt="Chart Base" />
+                                    </div>
+                                    {/* Legend */}
+                                    <div className="flex items-center gap-6 mt-2 ml-16">
+                                        <div className="flex items-center gap-2">
+                                            <span className="w-2.5 h-2.5 rounded-full bg-[#2970FF]"></span>
+                                            <span className="text-xs text-gray-600">Total Runs</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="w-2.5 h-2.5 rounded-full bg-[#F04438]"></span>
+                                            <span className="text-xs text-gray-600">Failed Runs</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

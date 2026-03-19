@@ -39,22 +39,14 @@ const RegistryBody: React.FC = () => {
                                     </div>
                                     <div className={styles.supportingText}>Browse and pull versioned workflows published to your registry.</div>
                                 </div>
-                                <div className={styles.actions}>
-                                    <div className={styles.buttonsbutton}>
-                                    </div>
-                                    <div className={styles.buttonsbutton2}>
-                                    </div>
-                                    <div className={styles.buttonsbutton3}>
-                                        <div className={styles.textPadding}>
-                                            <div className={styles.text2}>Learn more</div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.buttonsbutton4}>
-                                        <Plus className={styles.plusIcon} />
-                                        <div className={styles.textPadding}>
-                                            <div className={styles.text3}>Publish Workflow</div>
-                                        </div>
-                                    </div>
+                                <div className="flex items-center gap-3">
+                                    <button className="flex items-center gap-1 px-3.5 py-2.5 bg-white text-[#414651] rounded-lg text-sm font-semibold border border-[#d5d7da] shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] hover:bg-gray-50 transition-colors cursor-pointer">
+                                        <span>Learn more</span>
+                                    </button>
+                                    <button className="flex items-center gap-1 px-3.5 py-2.5 bg-[#005BB5] text-white rounded-lg text-sm font-semibold shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] hover:bg-[#004A96] transition-colors cursor-pointer">
+                                        <Plus className="w-5 h-5" />
+                                        <span>Publish Workflow</span>
+                                    </button>
                                 </div>
                             </div>
                             <div className={styles.actions2}>

@@ -37,7 +37,7 @@ const IntegrationsBody: React.FC<IntegrationsBodyProps> = ({ workspaceId }) => {
                     </div>
 
                     <div className={styles["content"]}>
-                        <div className="flex items-center justify-between flex-wrap gap-5">
+                        <div className="flex items-center justify-between flex-wrap gap-5 w-full">
                             <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-2">
                                     <div className="w-[30px] h-[30px] rounded bg-white shadow-[0_0_6px_rgba(164,167,174,0.35)] flex items-center justify-center p-[4px]">
@@ -49,22 +49,14 @@ const IntegrationsBody: React.FC<IntegrationsBodyProps> = ({ workspaceId }) => {
                                     Manage your external platform connections and connected API endpoints.
                                 </p>
                             </div>
-                            <div className={styles["actions"]}>
-                                <div className={styles["buttonsbutton"]}>
-                                    <div className={styles["text-padding"]}>
-                                        <div className={styles["text2"]}>
-                                            Learn More
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={styles["buttonsbutton2"]}>
-                                    <Plus className="w-5 h-5 text-white" />
-                                    <div className={styles["text-padding"]}>
-                                        <div className={styles["text3"]}>
-                                            Integration
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="flex items-center gap-3">
+                                <button className="flex items-center gap-1 px-3.5 py-2.5 bg-white text-[#414651] rounded-lg text-sm font-semibold border border-[#d5d7da] shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <span>Learn More</span>
+                                </button>
+                                <button className="flex items-center gap-1 px-3.5 py-2.5 bg-[#005BB5] text-white rounded-lg text-sm font-semibold shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] hover:bg-[#004A96] transition-colors cursor-pointer">
+                                    <Plus className="w-5 h-5" />
+                                    <span>Integration</span>
+                                </button>
                             </div>
                         </div>
 

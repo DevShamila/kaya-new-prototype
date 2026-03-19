@@ -13,7 +13,7 @@ interface TrackUsageBodyProps {
 
 const TrackUsageBody: React.FC<TrackUsageBodyProps> = ({ workspaceId, workspaceName }) => {
     return (
-        <div className="w-full flex flex-col items-start gap-5 font-inter bg-white rounded-xl pt-6 overflow-x-hidden min-h-full">
+        <div className="w-full flex flex-col items-start gap-5 font-inter bg-white rounded-xl overflow-x-hidden min-h-full">
             <div className={styles.headerSectionParent}>
                 <div className={styles.headerSection}>
                     <div className={styles.container}>
@@ -21,7 +21,7 @@ const TrackUsageBody: React.FC<TrackUsageBodyProps> = ({ workspaceId, workspaceN
                             <div className={styles.textAndSupportingText}>
                                 <div className={styles.iconsParent}>
                                     <div className="w-10 h-10 rounded-lg shadow-sm border border-border-secondary flex items-center justify-center bg-white">
-                                        <LayoutPanelLeft className="w-5 h-5 text-text-secondary" />
+                                        <img src="/track.svg" alt="" className="w-5 h-5" />
                                     </div>
                                     <div className={styles.text}>Track Workspace Usage</div>
                                 </div>
@@ -101,6 +101,7 @@ const TrackUsageBody: React.FC<TrackUsageBodyProps> = ({ workspaceId, workspaceN
                     <div className={styles.frameWrapper}>
                         <div className={styles.lineAndBarChartParent}>
                             <div className={styles.lineAndBarChart}>
+                                <img src="/chart-data1.svg" alt="Token Usage Chart" className="absolute top-[-10px] left-0 w-full h-full object-fill" style={{zIndex: 1}} />
                                 <div className={styles.axis}>
                                     <div className={styles.content6}>
                                         <div className={styles.yAxis}>
@@ -200,6 +201,7 @@ const TrackUsageBody: React.FC<TrackUsageBodyProps> = ({ workspaceId, workspaceN
                     </div>
                     <div className={styles.frameWrapper}>
                         <div className="w-full h-[240px] relative">
+                             <img src="/chart-data2.svg" alt="Credit Spend Chart" className="absolute top-0 left-0 w-full h-full object-fill" style={{zIndex: 1}} />
                              <div className={styles.axis}>
                                     <div className={styles.content6}>
                                         <div className={styles.yAxis}>

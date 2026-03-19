@@ -82,7 +82,7 @@ const VerticalTab = ({
 }) => (
     <button
         onClick={onClick}
-        className={`w-full flex items-center px-6 text-sm font-medium border-l-2 transition-colors ${
+        className={`w-full flex items-center px-6 text-sm font-medium text-left border-l-2 transition-colors ${
             isActive
                 ? "border-brand-orange text-[#CC3E07]"
                 : "border-border-secondary text-text-tertiary hover:border-text-muted hover:text-text-primary"

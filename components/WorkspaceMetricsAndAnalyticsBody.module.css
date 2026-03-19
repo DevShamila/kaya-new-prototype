@@ -4,15 +4,13 @@
   position: relative;
   border-radius: 0px 0px 11.52px 11.52px;
   background-color: #fff;
-  border: 1px solid #d9d9e0;
   box-sizing: border-box;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px;
   text-align: left;
   font-size: 18px;
+  padding:10px 0;
   color: #535862;
   font-family: 'Inter';
 }

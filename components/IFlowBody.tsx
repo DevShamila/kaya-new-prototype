@@ -89,7 +89,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
                 </div>
             </div>
         </div>
-        <div className="self-stretch border-t border-[#e9eaeb] py-4 px-5 flex justify-end">
+        <div className="self-stretch border-t border-[#e9eaeb] py-4 px-6 flex justify-end">
             <Link 
                 href={`/${workspaceId}/${iflowId}/${agentId}`}
                 className="text-sm font-semibold text-[#004A96] hover:underline"

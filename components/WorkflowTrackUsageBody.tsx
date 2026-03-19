@@ -22,7 +22,7 @@ const WorkflowTrackUsageBody: React.FC<WorkflowTrackUsageBodyProps> = ({ workspa
                             <div className={styles.textAndSupportingText}>
                                 <div className={styles.iconsParent}>
                                     <div className="w-10 h-10 rounded-lg shadow-sm border border-border-secondary flex items-center justify-center bg-white">
-                                        <LayoutPanelLeft className="w-5 h-5 text-text-secondary" />
+                                        <img src="/track.svg" alt="" className="w-5 h-5" />
                                     </div>
                                     <div className={styles.text}>Track Workflow Usage</div>
                                 </div>
@@ -93,6 +93,7 @@ const WorkflowTrackUsageBody: React.FC<WorkflowTrackUsageBodyProps> = ({ workspa
                     <div className={styles.frameWrapper}>
                         <div className={styles.lineAndBarChartParent}>
                             <div className={styles.lineAndBarChart}>
+                                <img src="/chart-data1.svg" alt="Token Usage Chart" className="absolute top-0 left-0 w-full h-full object-fill" style={{zIndex: 1}} />
                                 <div className={styles.axis}>
                                     <div className={styles.content6}>
                                         <div className={styles.yAxis}>
@@ -192,6 +193,7 @@ const WorkflowTrackUsageBody: React.FC<WorkflowTrackUsageBodyProps> = ({ workspa
                     </div>
                     <div className={styles.frameWrapper}>
                         <div className="w-full h-[240px] relative flex items-center">
+                             <img src="/chart-data2.svg" alt="Credit Spend Chart" className="absolute top-0 left-0 w-full h-full object-fill" style={{zIndex: 1}} />
                              <div className={styles.axis}>
                                     <div className={styles.content6}>
                                         <div className={styles.yAxis}>
