@@ -14,6 +14,8 @@ import {
   Edge,
   Handle,
   Position,
+  useReactFlow,
+  ReactFlowProvider,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
@@ -72,17 +74,64 @@ const GhostNode = () => {
   );
 };
 
+const BasicAgentNode: React.FC = () => (
+  <div className={styles.basicAgentNodeContainer}>
+    <Handle type="target" position={Position.Left} style={{ visibility: "hidden" }} />
+    <div className={styles.basicAgentNodeGroup}>
+      <div className={styles.basicAgentNodeMainContent}>
+        <div className={styles.basicAgentNodeHeader}>
+          <div className={styles.basicAgentNodeIcon}>
+            <Cpu className="w-6 h-6 text-[#005BB5]" />
+          </div>
+          <div className={styles.basicAgentNodeStatusWrapper}>
+            <div className={styles.basicAgentNodeStatus}>Pending..</div>
+          </div>
+        </div>
+        <div className={styles.basicAgentNodeDetailWrapper}>
+          <div className={styles.basicAgentNodeDetailText}>
+            <span className={styles.basicAgentNodeLabel}>Prompt Template: </span>
+            <span className={styles.basicAgentNodeValue}>Pending...</span>
+          </div>
+        </div>
+        <div className={styles.basicAgentNodeDetailWrapper}>
+          <div className={styles.basicAgentNodeDetailText}>
+            <span className={styles.basicAgentNodeLabel}>Intelligence Source: </span>
+            <span className={styles.basicAgentNodeValue}>Pending...</span>
+          </div>
+        </div>
+      </div>
+      <div className={styles.basicAgentNodeBadgeGroup}>
+        <div className={styles.basicAgentBadgePrimary}>Basic Agent</div>
+        <div className={styles.basicAgentBadgeSecondary}>{"{Attribute}"}</div>
+        <div className={styles.basicAgentBadgeSecondary}>{"{Attribute}"}</div>
+        <div className={styles.basicAgentBadgeSecondary}>{"{Attribute}"}</div>
+      </div>
+    </div>
+    <Handle type="source" position={Position.Right} style={{ visibility: "hidden" }} />
+  </div>
+);
+
 const nodeTypes = {
   start: StartNode,
   ghost: GhostNode,
+  basicAgent: BasicAgentNode,
 };
 
-const NodeCard: React.FC<NodeCardProps> = ({ title, icon: Icon, variant }) => {
+const NodeCard: React.FC<NodeCardProps & { onDragStart?: (event: React.DragEvent) => void }> = ({
+  title,
+  icon: Icon,
+  variant,
+  onDragStart,
+}) => {
   const iconBgClass = variant === "core" ? styles.featuredIconBlue : variant === "data" ? styles.featuredIconGreen : "";
   const iconColorClass = variant === "core" ? "text-[#005BB5]" : variant === "data" ? "text-[#039855]" : "text-[#CC3E07]";
 
   return (
-    <div className={styles.agentNodeCard}>
+    <div
+      className={styles.agentNodeCard}
+      draggable={!!onDragStart}
+      onDragStart={onDragStart}
+    >
       <div className={styles.featuredIconParent}>
         <div className={`${styles.featuredIcon} ${iconBgClass}`}>
           <Icon className={`w-5 h-5 ${iconColorClass}`} />
@@ -117,7 +166,7 @@ const WorkspaceAgentCard: React.FC<{ title: string; description: string }> = ({
   </div>
 );
 
-const WorkflowEditor: React.FC = () => {
+const WorkflowEditorContent: React.FC = () => {
   const params = useParams();
   const [activeTab, setActiveTab] = useState<"all" | "workspace">("all");
   const workspaceId = params.workspaceId as string;
@@ -167,9 +216,44 @@ const WorkflowEditor: React.FC = () => {
     },
   ];
 
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const { screenToFlowPosition } = useReactFlow();
 
+  const onDragStart = (event: React.DragEvent, nodeType: string) => {
+    event.dataTransfer.setData("application/reactflow", nodeType);
+    event.dataTransfer.effectAllowed = "move";
+  };
+
+  const onDragOver = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }, []);
+
+  const onDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
+
+      const type = event.dataTransfer.getData("application/reactflow");
+
+      if (!type) return;
+
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+
+      const newNode = {
+        id: `node_${Date.now()}`,
+        type,
+        position,
+        data: { label: `${type} node` },
+      };
+
+      setNodes((nds) => nds.concat(newNode));
+    },
+    [screenToFlowPosition, setNodes]
+  );
   const workspaceAgents = [
     {
       title: "CX Agent",
@@ -289,7 +373,17 @@ const WorkflowEditor: React.FC = () => {
                   </div>
                   <div className={styles.agentNodeCardParent}>
                     {coreNodes.map((node) => (
-                      <NodeCard key={node.title} title={node.title} icon={node.icon} variant="core" />
+                      <NodeCard
+                        key={node.title}
+                        title={node.title}
+                        icon={node.icon}
+                        variant="core"
+                        onDragStart={
+                          node.title === "Basic Agent"
+                            ? (event) => onDragStart(event, "basicAgent")
+                            : undefined
+                        }
+                      />
                     ))}
                   </div>
                 </div>
@@ -332,8 +426,13 @@ const WorkflowEditor: React.FC = () => {
       {/* Main Content Area */}
       <div className={styles.bodyContent2}>
         <div className={styles.groupDiv}>
-            <div className={styles.bodyContentLivesHereParent}>
-              <ReactFlow
+          <div
+            className={styles.bodyContent2}
+            onDragOver={onDragOver}
+            onDrop={onDrop}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <ReactFlow
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
@@ -379,5 +478,11 @@ const WorkflowEditor: React.FC = () => {
     </div>
   );
 };
+
+const WorkflowEditor: React.FC = () => (
+  <ReactFlowProvider>
+    <WorkflowEditorContent />
+  </ReactFlowProvider>
+);
 
 export default WorkflowEditor;
