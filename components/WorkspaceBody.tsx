@@ -25,7 +25,7 @@ const IFlowCard: React.FC<IFlowCardProps> = ({ workspaceId, title, description, 
     return (
     <div className="flex-1 shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-xl bg-white border border-border-secondary flex flex-col items-start min-w-[320px]">
         <div className="self-stretch flex flex-col items-start p-5 gap-4">
-            <div className="self-stretch flex flex-col gap-2">
+            <div className="self-stretch flex flex-col gap-2 mb-[16px]">
                 <div className="flex items-center justify-between">
                     <div className={`px-2 py-0.5 rounded-md text-xs font-medium border ${
                         status === 'Published' 
@@ -41,22 +41,22 @@ const IFlowCard: React.FC<IFlowCardProps> = ({ workspaceId, title, description, 
                 </div>
             </div>
             
-            <div className="flex flex-col gap-[20px]">
-                <div className="flex flex-col items-center w-fit">
-                    <span className="text-sm font-bold text-text-primary leading-5">{agents}</span>
-                    <span className="text-xs font-medium text-text-tertiary leading-[18px]">Agents</span>
+            <div className="self-stretch flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                    <span className="text-sm font-bold text-[#535862] leading-5">{agents}</span>
+                    <span className="text-sm font-medium text-[#535862] leading-5">Agents</span>
                 </div>
-                <div className="text-xs font-medium text-text-tertiary leading-[18px]">
-                    Last modified: {lastModified}
+                <div className="text-sm font-medium text-[#535862] leading-5">
+                    Last modified: <span className="font-semibold text-[#535862]">{lastModified}</span>
                 </div>
             </div>
         </div>
-        <div className="self-stretch border-t border-border-secondary p-4 px-6 flex justify-end">
+        <div className="self-stretch p-4 px-5 flex justify-end">
             <Link 
                 href={`/${workspaceId}/${iflowId}`}
-                className="text-sm font-semibold text-[#004A96] hover:underline"
+                className="px-4 py-2 text-sm font-semibold text-[#414651] bg-white border border-border-secondary rounded-lg shadow-[0_1px_2px_rgba(10,13,18,0.05)] hover:bg-gray-50 transition-colors"
             >
-                View iFlow
+                View
             </Link>
         </div>
     </div>
@@ -82,7 +82,7 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                         </div>
                         <h1 className="text-2xl font-semibold text-text-primary leading-8">{workspaceName}</h1>
                     </div>
-                    <p className="max-w-[640px] text-base text-text-tertiary leading-6">
+                    <p className="max-w-[640px] text-base text-[#535862] font-[400] leading-6">
                         Automated claims processing and customer support workflows for the insurance division.
                     </p>
                 </div>
@@ -118,27 +118,26 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                     title="Executions" 
                     value="1.7k" 
                     trend={{ value: '20%', isUp: true }} 
-                    chartSrc="/chart-green.png"
                 />
                 <MetricCard 
                     title="Success Rate" 
                     value="89.4%" 
                     trend={{ value: '10%', isUp: false }} 
-                    chartSrc="/chart-green.png"
+                
                 />
                 <MetricCard 
                     title="Tokens" 
                     value="2.4M" 
                     trend={{ value: '10%', isUp: false }} 
-                    chartSrc="/chart-green.png"
+                  
                 />
             </section>
 
             {/* Recently Modified Section */}
             <section className="self-stretch px-4 flex flex-col gap-4 mt-4">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-text-tertiary font-encode">Recently modified</h2>
-                    <button className="flex items-center gap-1 text-sm font-semibold text-[#535862] hover:text-text-primary">
+                    <h2 className="text-[18px] font-semibold text-text-[#181D27] font-encode">Recently modified iFlows</h2>
+                    <button className="flex items-center gap-1 text-[14px] font-semibold text-[#004A96] hover:text-[#004A96]">
                         <span>View all iFlows</span>
                         <ChevronRight className="w-4 h-4" />
                     </button>
@@ -149,7 +148,7 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                         title="Invoice Processing" 
                         description="This workflow handles invoice processing tasks." 
                         status="Published" 
-                        agents={9} 
+                        agents={10} 
                         lastModified="Mar 17, 2026, 15:44" 
                     />
                     <IFlowCard 
@@ -157,7 +156,15 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                         title="Invoice Processing" 
                         description="This workflow handles invoice processing tasks." 
                         status="Draft" 
-                        agents={9} 
+                        agents={10} 
+                        lastModified="Mar 17, 2026, 15:44" 
+                    />
+                      <IFlowCard 
+                        workspaceId={workspaceId}
+                        title="Invoice Processing" 
+                        description="This workflow handles invoice processing tasks." 
+                        status="Draft" 
+                        agents={10} 
                         lastModified="Mar 17, 2026, 15:44" 
                     />
                 </div>
@@ -167,7 +174,7 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                         title="Invoice Processing" 
                         description="This workflow handles invoice processing tasks." 
                         status="Draft" 
-                        agents={9} 
+                        agents={10} 
                         lastModified="Mar 17, 2026, 15:44" 
                     />
                     <IFlowCard 
@@ -175,7 +182,15 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                         title="Invoice Processing" 
                         description="This workflow handles invoice processing tasks." 
                         status="Published" 
-                        agents={9} 
+                        agents={10} 
+                        lastModified="Mar 17, 2026, 15:44" 
+                    />
+                      <IFlowCard 
+                        workspaceId={workspaceId}
+                        title="Invoice Processing" 
+                        description="This workflow handles invoice processing tasks." 
+                        status="Published" 
+                        agents={10} 
                         lastModified="Mar 17, 2026, 15:44" 
                     />
                 </div>
