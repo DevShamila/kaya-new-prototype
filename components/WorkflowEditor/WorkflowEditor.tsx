@@ -37,6 +37,7 @@ import {
   UploadCloud,
   Zap,
 } from "lucide-react";
+import AgentForm from "./AgentForm";
 import styles from "./WorkflowEditor.module.css";
 
 interface NodeCardProps {
@@ -169,6 +170,7 @@ const WorkspaceAgentCard: React.FC<{ title: string; description: string }> = ({
 const WorkflowEditorContent: React.FC = () => {
   const params = useParams();
   const [activeTab, setActiveTab] = useState<"all" | "workspace">("all");
+  const [selectedNode, setSelectedNode] = useState<any>(null);
   const workspaceId = params.workspaceId as string;
   const iflowId = params.iflowId as string;
 
@@ -272,6 +274,12 @@ const WorkflowEditorContent: React.FC = () => {
     },
     [screenToFlowPosition, setNodes, setEdges]
   );
+
+  const onNodeClick = useCallback((event: React.MouseEvent, node: any) => {
+    if (node.type === "basicAgent") {
+      setSelectedNode(node);
+    }
+  }, []);
   const workspaceAgents = [
     {
       title: "CX Agent",
@@ -308,137 +316,123 @@ const WorkflowEditorContent: React.FC = () => {
     <div className={styles.bodyContentParent}>
       {/* Left Sidebar */}
       <div className={styles.bodyContent}>
-        <div className={styles.bodyContentInner}>
-          <div className={styles.headerParent}>
-            <div className={styles.header}>
-              <Link href={`/${workspaceId}/${iflowId}`} className={styles.buttonsbutton}>
-                <ChevronLeft className={styles.chevronLeftIcon} />
-                <div className={styles.textPadding}>
-                  <div className={styles.text}>Back to iFlows</div>
-                </div>
-              </Link>
-            </div>
-            <div className={styles.buttonGroup}>
-              <div className={styles.buttonGroupBase}>
-                <div className={styles.text2}>Order Support</div>
-              </div>
-              <div className={styles.buttonGroupBase2}>
-                <ChevronLeft className="w-5 h-5 text-text-quaternary rotate-180" />
-              </div>
-            </div>
-            <div className={styles.badgeParent}>
-              <div className={styles.badge}>
-                <div className={styles.text3}>Draft</div>
-              </div>
-              <div className={styles.frameChild} />
-              <div className={styles.saved2minsAgo}>Saved 2mins ago</div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.bodyContentChild}>
-          <div className={styles.frameParent}>
-            <div className={styles.frameGroup}>
-              <div className={styles.horizontalTabsWrapper}>
-                <div className={styles.horizontalTabs}>
-                  <div
-                    className={`${styles.tabButtonBase} ${
-                      activeTab === "all" ? "" : styles.tabButtonBase2
-                    } ${activeTab === "all" ? styles.activeTab : ""}`}
-                    onClick={() => setActiveTab("all")}
-                  >
-                    <div className={styles.text}>All Nodes</div>
-                    <div className={styles.badge2}>
-                      <div className={styles.text3}>19</div>
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.tabButtonBase} ${
-                      activeTab === "workspace" ? "" : styles.tabButtonBase2
-                    } ${activeTab === "workspace" ? styles.activeTab : ""}`}
-                    onClick={() => setActiveTab("workspace")}
-                  >
-                    <div className={styles.text}>Workspace Agents</div>
-                    <div className={styles.badge3}>
-                      <div className={styles.text3}>8</div>
+        {selectedNode ? (
+          <AgentForm onCancel={() => setSelectedNode(null)} onSave={() => setSelectedNode(null)} />
+        ) : (
+          <>
+            <div className={styles.bodyContentInner}>
+              <div className={styles.headerParent}>
+                <div className={styles.header}>
+                  <div className={styles.buttonsbutton}>
+                    <ChevronLeft className="w-5 h-5" />
+                    <div className={styles.textPadding}>
+                      <div className={styles.text}>Back to iFlows</div>
                     </div>
                   </div>
                 </div>
+                <div className={styles.buttonGroup}>
+                  <div className={styles.buttonGroupBase}>
+                    <div className={styles.text2}>Order Support</div>
+                  </div>
+                  <div className={styles.buttonGroupBase2}>
+                    <ChevronLeft className="w-5 h-5" />
+                  </div>
+                </div>
+                <div className={styles.badgeParent}>
+                  <div className={styles.badge}>
+                    <div className={styles.text3}>Draft</div>
+                  </div>
+                  <div className={styles.frameChild} />
+                  <div className={styles.saved2minsAgo}>Saved 2mins ago</div>
+                </div>
               </div>
-              <div className={styles.messageAction}>
-                <div className={styles.inputField}>
+            </div>
+            <div className={styles.bodyContentChild}>
+              <div className={styles.frameParent}>
+                <div className={styles.frameGroup}>
                   <div className={styles.horizontalTabsWrapper}>
-                    <div className={styles.input}>
-                      <div className={styles.content}>
-                        <Search className="w-5 h-5 text-text-quaternary" />
-                        <div className={styles.text8}>Search all nodes.. </div>
+                    <div className={styles.horizontalTabs}>
+                      <div
+                        className={`${styles.tabButtonBase} ${
+                          activeTab === "all" ? "" : styles.tabButtonBase2
+                        } ${activeTab === "all" ? styles.activeTab : ""}`}
+                        onClick={() => setActiveTab("all")}
+                      >
+                        <div className={styles.text}>All Nodes</div>
+                        <div className={styles.badge2}>
+                          <div className={styles.text3}>19</div>
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.tabButtonBase} ${
+                          activeTab === "workspace" ? "" : styles.tabButtonBase2
+                        } ${activeTab === "workspace" ? styles.activeTab : ""}`}
+                        onClick={() => setActiveTab("workspace")}
+                      >
+                        <div className={styles.text}>Workspace Agents</div>
+                        <div className={styles.badge3}>
+                          <div className={styles.text3}>8</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div className={styles.messageAction}>
+                    <div className={styles.inputField}>
+                      <div className={styles.inputWithLabel}>
+                        <div className={styles.input}>
+                          <Search className="w-5 h-5 text-text-quaternary" />
+                          <div className={styles.content}>
+                            <div className={styles.text4}>Search all nodes..</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.scrollableArea}>
+                    {activeTab === "all" ? (
+                      <>
+                        <div className={styles.sectionHeader}>
+                          <div className={styles.subheading}>Core Agent Templates</div>
+                          <div className={styles.number}>6</div>
+                        </div>
+                        <div className={styles.agentNodeCardParent}>
+                          {coreNodes.map((node) => (
+                            <NodeCard
+                              key={node.title}
+                              title={node.title}
+                              icon={node.icon}
+                              variant="core"
+                              onDragStart={
+                                node.title === "Basic Agent"
+                                  ? (event) => onDragStart(event, "basicAgent")
+                                  : undefined
+                              }
+                            />
+                          ))}
+                        </div>
+                        <div className={styles.sectionHeader}>
+                          <div className={styles.subheading}>Data Agent Templates</div>
+                          <div className={styles.number}>6</div>
+                        </div>
+                        <div className={styles.agentNodeCardParent}>
+                          {dataNodesList.map((node) => (
+                            <NodeCard key={node.title} title={node.title} icon={node.icon} variant="data" />
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <div className={styles.agentNodeCardParent}>
+                        {workspaceAgents.map((agent, index) => (
+                          <WorkspaceAgentCard key={index} title={agent.title} description={agent.description} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className={`${styles.bodyContent} custom-scrollbar`}>
-            {activeTab === "all" ? (
-              <>
-                <div className={styles.agentTemplatesGroup}>
-                  <div className={styles.header6}>
-                    <div className={styles.coreAgentTemplates}>Core Agent Templates</div>
-                    <div className={styles.badge3}>
-                      <div className={styles.text7}>6</div>
-                    </div>
-                  </div>
-                  <div className={styles.agentNodeCardParent}>
-                    {coreNodes.map((node) => (
-                      <NodeCard
-                        key={node.title}
-                        title={node.title}
-                        icon={node.icon}
-                        variant="core"
-                        onDragStart={
-                          node.title === "Basic Agent"
-                            ? (event) => onDragStart(event, "basicAgent")
-                            : undefined
-                        }
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className={styles.agentTemplatesGroup}>
-                  <div className={styles.header6}>
-                    <div className={styles.coreAgentTemplates}>Data Agent Templates</div>
-                    <div className={styles.badge3}>
-                      <div className={styles.text7}>6</div>
-                    </div>
-                  </div>
-                  <div className={styles.agentNodeCardParent}>
-                    {dataNodesList.map((node, index) => (
-                      <NodeCard
-                        key={`${node.title}-${index}`}
-                        title={node.title}
-                        icon={node.icon}
-                        variant="data"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className={styles.workspaceAgentsList}>
-                {workspaceAgents.map((agent, index) => (
-                  <WorkspaceAgentCard
-                    key={index}
-                    title={agent.title}
-                    description={agent.description}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
 
       {/* Main Content Area */}
@@ -456,6 +450,7 @@ const WorkflowEditorContent: React.FC = () => {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                onNodeClick={onNodeClick}
                 nodeTypes={nodeTypes}
                 fitView
               >
