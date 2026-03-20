@@ -1,24 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AgentForm.module.css";
-import { ChevronLeft, ChevronRight, HelpCircle, Pencil, Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, HelpCircle, Pencil, Trash2, Minus } from "lucide-react";
 import PromptTemplateDrawer from "./PromptTemplateDrawer";
 import ModelDrawer from "./ModelDrawer";
 import AdvancedDrawer from "./AdvancedDrawer";
 
-interface AgentFormProps {
-  onCancel: () => void;
-  onSave: () => void;
+export interface AgentFormData {
+  name: string;
+  purpose: string;
+  selectedTemplateName: string | null;
+  selectedModelName: string | null;
+  addedTools: any[];
+  isHumanReviewEnabled: boolean;
+  isSelfLearningEnabled: boolean;
 }
 
-const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
+interface AgentFormProps {
+  onCancel: () => void;
+  onSave: (data: AgentFormData) => void;
+  initialData?: Partial<AgentFormData>;
+}
+
+const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave, initialData }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isModelDrawerOpen, setIsModelDrawerOpen] = useState(false);
   const [isAdvancedDrawerOpen, setIsAdvancedDrawerOpen] = useState(false);
   
-  const [agentName, setAgentName] = useState("Order Support");
-  const [agentPurpose, setAgentPurpose] = useState("");
-  const [selectedTemplateName, setSelectedTemplateName] = useState<string | null>(null);
-  const [selectedModelName, setSelectedModelName] = useState<string | null>(null);
+  const [agentName, setAgentName] = useState(initialData?.name || "Order Support");
+  const [agentPurpose, setAgentPurpose] = useState(initialData?.purpose || "");
+  const [selectedTemplateName, setSelectedTemplateName] = useState<string | null>(initialData?.selectedTemplateName || null);
+  const [selectedModelName, setSelectedModelName] = useState<string | null>(initialData?.selectedModelName || null);
+
+  const [isAdvancedExpanded, setIsAdvancedExpanded] = useState(false);
+  const [addedTools, setAddedTools] = useState<any[]>(initialData?.addedTools || []);
+  const [isHumanReviewEnabled, setIsHumanReviewEnabled] = useState(initialData?.isHumanReviewEnabled || false);
+  const [isSelfLearningEnabled, setIsSelfLearningEnabled] = useState(initialData?.isSelfLearningEnabled || false);
+
+  // Sync with initialData if it changes
+  useEffect(() => {
+    if (initialData) {
+      if (initialData.name) setAgentName(initialData.name);
+      if (initialData.purpose) setAgentPurpose(initialData.purpose);
+      if (initialData.selectedTemplateName !== undefined) setSelectedTemplateName(initialData.selectedTemplateName);
+      if (initialData.selectedModelName !== undefined) setSelectedModelName(initialData.selectedModelName);
+      if (initialData.addedTools) setAddedTools(initialData.addedTools);
+      if (initialData.isHumanReviewEnabled !== undefined) setIsHumanReviewEnabled(initialData.isHumanReviewEnabled);
+      if (initialData.isSelfLearningEnabled !== undefined) setIsSelfLearningEnabled(initialData.isSelfLearningEnabled);
+    }
+  }, [initialData]);
 
   const handleCreateTemplate = (name: string) => {
     setSelectedTemplateName(name);
@@ -28,6 +57,34 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
   const handleAddModel = (name: string) => {
     setSelectedModelName(name);
     setIsModelDrawerOpen(false);
+  };
+
+  const handleAddTools = (tools: any[]) => {
+    setAddedTools(tools);
+    setIsAdvancedDrawerOpen(false);
+    if (tools.length > 0) {
+      setIsAdvancedExpanded(true);
+    }
+  };
+
+  const handleAdvancedOptionsClick = () => {
+    if (addedTools.length === 0 && !isAdvancedExpanded) {
+      setIsAdvancedDrawerOpen(true);
+    } else {
+      setIsAdvancedExpanded(!isAdvancedExpanded);
+    }
+  };
+
+  const handleSave = () => {
+    onSave({
+      name: agentName,
+      purpose: agentPurpose,
+      selectedTemplateName,
+      selectedModelName,
+      addedTools,
+      isHumanReviewEnabled,
+      isSelfLearningEnabled
+    });
   };
 
   return (
@@ -212,17 +269,108 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                 </div>
               </div>
             </div>
+            
             <div className={styles.accordionItem}>
               <div 
                 className={styles.accordionTitle}
-                onClick={() => setIsAdvancedDrawerOpen(true)}
+                onClick={handleAdvancedOptionsClick}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && setIsAdvancedDrawerOpen(true)}
+                onKeyDown={(e) => e.key === "Enter" && handleAdvancedOptionsClick()}
               >
                 <div className={styles.title}>Advanced Options</div>
-                <ChevronRight className={styles.chevronLeftIcon} />
+                {isAdvancedExpanded ? <Minus size={16} /> : <ChevronRight className={styles.chevronLeftIcon} />}
               </div>
+              
+              {isAdvancedExpanded && (
+                <div className={styles.advancedSection}>
+                  <div className={styles.advancedCategory}>
+                    <div className={styles.categoryTitleWrapper}>
+                      <div className={styles.categoryTitle}>Data and Tools</div>
+                      <HelpCircle size={14} color="#717680" />
+                    </div>
+                    
+                    <div className={styles.addedToolsList}>
+                      {addedTools.map((tool) => (
+                        <div key={tool.id} className={styles.selectedTemplateCard}>
+                          <div className={styles.templateName}>{tool.name}</div>
+                          <div className={styles.templateActions}>
+                            <div className={styles.actionIcon} onClick={() => setAddedTools(addedTools.filter(t => t.id !== tool.id))}>
+                              <Trash2 size={18} />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className={styles.dashCard} onClick={() => setIsAdvancedDrawerOpen(true)}>
+                      <div className={styles.dashCardContent}>
+                        <div className={styles.dashCardTitle}>Add data and tools</div>
+                        <div className={styles.dashCardSub}>No tools and/or data configured yet</div>
+                      </div>
+                      <ChevronRight size={20} color="#717680" />
+                    </div>
+                  </div>
+
+                  <div className={styles.advancedCategory}>
+                    <div className={styles.categoryTitleWrapper}>
+                      <div className={styles.categoryTitle}>Guardrails</div>
+                      <HelpCircle size={14} color="#717680" />
+                    </div>
+                    <div className={styles.dashCard}>
+                      <div className={styles.dashCardContent}>
+                        <div className={styles.dashCardTitle}>Setup guardrails</div>
+                        <div className={styles.dashCardSub}>No guardrails configured yet</div>
+                      </div>
+                      <ChevronRight size={20} color="#717680" />
+                    </div>
+                  </div>
+
+                  <div className={styles.advancedCategory}>
+                    <div className={styles.categoryTitleWrapper}>
+                      <div className={styles.categoryTitle}>Output Broadcasting</div>
+                      <HelpCircle size={14} color="#717680" />
+                    </div>
+                    <div className={styles.dashCard}>
+                      <div className={styles.dashCardContent}>
+                        <div className={styles.dashCardTitle}>Add output broadcasting</div>
+                        <div className={styles.dashCardSub}>No guardrails configured yet</div>
+                      </div>
+                      <ChevronRight size={20} color="#717680" />
+                    </div>
+                  </div>
+
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleText}>
+                      <div className={styles.toggleLabel}>Human Review</div>
+                      <div className={styles.toggleDescription}>
+                        Require human approval before the agent performs certain actions.
+                      </div>
+                    </div>
+                    <div 
+                      className={`${styles.toggleSwitch} ${isHumanReviewEnabled ? styles.active : ""}`}
+                      onClick={() => setIsHumanReviewEnabled(!isHumanReviewEnabled)}
+                    >
+                      <div className={styles.toggleThumb}></div>
+                    </div>
+                  </div>
+
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleText}>
+                      <div className={styles.toggleLabel}>Self-learning</div>
+                      <div className={styles.toggleDescription}>
+                        Let your agent learn from past interactions to improve over time.
+                      </div>
+                    </div>
+                    <div 
+                      className={`${styles.toggleSwitch} ${isSelfLearningEnabled ? styles.active : ""}`}
+                      onClick={() => setIsSelfLearningEnabled(!isSelfLearningEnabled)}
+                    >
+                      <div className={styles.toggleThumb}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -235,7 +383,7 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                 <div className={styles.text}>Cancel</div>
               </div>
             </div>
-            <div className={styles.buttonsbutton3} onClick={onSave}>
+            <div className={styles.buttonsbutton3} onClick={handleSave}>
               <div className={styles.textPadding}>
                 <div className={styles.text}>Save</div>
               </div>
@@ -257,6 +405,7 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
       <AdvancedDrawer
         isOpen={isAdvancedDrawerOpen}
         onClose={() => setIsAdvancedDrawerOpen(false)}
+        onAdd={handleAddTools}
       />
     </>
   );

@@ -35,8 +35,9 @@ import {
     Play,
     UploadCloud,
     Zap,
+    Bot,
 } from "lucide-react";
-import AgentForm from "./AgentForm";
+import AgentForm, { AgentFormData } from "./AgentForm";
 import WorkflowTest from "./WorkflowTest";
 import PlaygroundSidebar from "./PlaygroundSidebar";
 import TutorialModal from "./TutorialModal";
@@ -89,7 +90,7 @@ const GhostNode = () => {
     );
 };
 
-const BasicAgentNode: React.FC = () => (
+const BasicAgentNode: React.FC<{ data: any }> = ({ data }) => (
     <div className={styles.basicAgentNodeContainer}>
         <Handle
             type="target"
@@ -100,11 +101,11 @@ const BasicAgentNode: React.FC = () => (
             <div className={styles.basicAgentNodeMainContent}>
                 <div className={styles.basicAgentNodeHeader}>
                     <div className={styles.basicAgentNodeIcon}>
-                        <Cpu className="w-6 h-6 text-[#005BB5]" />
+                        <Bot className="w-6 h-6 text-[#005BB5]" />
                     </div>
                     <div className={styles.basicAgentNodeStatusWrapper}>
                         <div className={styles.basicAgentNodeStatus}>
-                            Pending..
+                            {data.name || "Pending.."}
                         </div>
                     </div>
                 </div>
@@ -114,7 +115,7 @@ const BasicAgentNode: React.FC = () => (
                             Prompt Template:{" "}
                         </span>
                         <span className={styles.basicAgentNodeValue}>
-                            Pending...
+                            {data.selectedTemplateName || "Pending..."}
                         </span>
                     </div>
                 </div>
@@ -124,7 +125,7 @@ const BasicAgentNode: React.FC = () => (
                             Intelligence Source:{" "}
                         </span>
                         <span className={styles.basicAgentNodeValue}>
-                            Pending...
+                            {data.selectedModelName || "Pending..."}
                         </span>
                     </div>
                 </div>
@@ -228,7 +229,7 @@ const WorkflowEditorContent: React.FC = () => {
     const iflowId = params.iflowId as string;
 
     const coreNodes = [
-        { title: "Basic Agent", icon: Cpu },
+        { title: "Basic Agent", icon: Bot },
         { title: "Decision-maker", icon: Filter },
         { title: "Planner", icon: Layout },
         { title: "Replanner", icon: RefreshCw },
@@ -390,7 +391,17 @@ const WorkflowEditorContent: React.FC = () => {
                 ) : selectedNode ? (
                     <AgentForm
                         onCancel={() => setSelectedNode(null)}
-                        onSave={() => setSelectedNode(null)}
+                        onSave={(data: AgentFormData) => {
+                            setNodes((nds) =>
+                                nds.map((node) =>
+                                    node.id === selectedNode.id
+                                        ? { ...node, data: { ...node.data, ...data } }
+                                        : node
+                                )
+                            );
+                            setSelectedNode(null);
+                        }}
+                        initialData={selectedNode.data}
                     />
                 ) : (
                     <>
@@ -563,10 +574,10 @@ const WorkflowEditorContent: React.FC = () => {
                                                                 node.title ===
                                                                 "Basic Agent"
                                                                     ? (event) =>
-                                                                          onDragStart(
-                                                                              event,
-                                                                              "basicAgent",
-                                                                          )
+                                                                           onDragStart(
+                                                                               event,
+                                                                               "basicAgent",
+                                                                           )
                                                                     : undefined
                                                             }
                                                         />
