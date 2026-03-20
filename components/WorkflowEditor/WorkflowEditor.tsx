@@ -20,7 +20,6 @@ import "@xyflow/react/dist/style.css";
 import {
     ChevronLeft,
     Search,
-    MoreVertical,
     Layout,
     Filter,
     MessageSquare,
@@ -34,6 +33,7 @@ import {
     Save,
     Play,
     UploadCloud,
+    GripVertical,
     Zap,
     Bot,
 } from "lucide-react";
@@ -184,7 +184,7 @@ const NodeCard: React.FC<
                     <Icon className={`w-5 h-5 ${iconColorClass}`} />
                 </div>
                 <div className={styles.dotsVerticalParent}>
-                    <MoreVertical className={styles.dotsVerticalIcon} />
+                    <GripVertical className={styles.dotsVerticalIcon} />
                 </div>
             </div>
             <div className={styles.textAndEmailCapture}>
@@ -209,7 +209,7 @@ const WorkspaceAgentCard: React.FC<{ title: string; description: string }> = ({
                 </div>
             </div>
             <div className={styles.dotsVerticalParent}>
-                <MoreVertical className={styles.dotsVerticalIcon} />
+                <GripVertical className={styles.dotsVerticalIcon} />
             </div>
         </div>
     </div>
