@@ -3,6 +3,7 @@ import styles from "./AgentForm.module.css";
 import { ChevronLeft, ChevronRight, HelpCircle } from "lucide-react";
 import PromptTemplateDrawer from "./PromptTemplateDrawer";
 import ModelDrawer from "./ModelDrawer";
+import AdvancedDrawer from "./AdvancedDrawer";
 
 interface AgentFormProps {
   onCancel: () => void;
@@ -12,6 +13,7 @@ interface AgentFormProps {
 const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isModelDrawerOpen, setIsModelDrawerOpen] = useState(false);
+  const [isAdvancedDrawerOpen, setIsAdvancedDrawerOpen] = useState(false);
 
   return (
     <>
@@ -139,7 +141,13 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
               </div>
             </div>
             <div className={styles.accordionItem}>
-              <div className={styles.accordionTitle}>
+              <div 
+                className={styles.accordionTitle}
+                onClick={() => setIsAdvancedDrawerOpen(true)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && setIsAdvancedDrawerOpen(true)}
+              >
                 <div className={styles.title}>Advanced Options</div>
                 <ChevronRight className={styles.chevronLeftIcon} />
               </div>
@@ -171,6 +179,10 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
       <ModelDrawer
         isOpen={isModelDrawerOpen}
         onClose={() => setIsModelDrawerOpen(false)}
+      />
+      <AdvancedDrawer
+        isOpen={isAdvancedDrawerOpen}
+        onClose={() => setIsAdvancedDrawerOpen(false)}
       />
     </>
   );

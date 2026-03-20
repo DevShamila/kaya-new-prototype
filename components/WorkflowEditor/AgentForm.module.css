@@ -95,6 +95,8 @@
     z-index: 0;
 }
 
+
+
 .badgeParent {
     display: flex;
     align-items: center;
@@ -501,6 +503,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.accordionTitle:hover {
+    background-color: rgba(0, 0, 0, 0.02);
 }
 
 .title {
