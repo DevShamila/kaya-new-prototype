@@ -403,9 +403,12 @@ const WorkflowEditorContent: React.FC = () => {
                             setNodes((nds) =>
                                 nds.map((node) =>
                                     node.id === selectedNode.id
-                                        ? { ...node, data: { ...node.data, ...data } }
-                                        : node
-                                )
+                                        ? {
+                                              ...node,
+                                              data: { ...node.data, ...data },
+                                          }
+                                        : node,
+                                ),
                             );
                             setSelectedNode(null);
                         }}
@@ -416,9 +419,15 @@ const WorkflowEditorContent: React.FC = () => {
                         <div className={styles.bodyContentInner}>
                             <div className={styles.headerParent}>
                                 <div className={styles.header}>
-                                    <div 
+                                    <div
                                         className={styles.buttonsbutton}
-                                        onClick={() => workspaceId && iflowId && router.push(`/${workspaceId}/${iflowId}`)}
+                                        onClick={() =>
+                                            workspaceId &&
+                                            iflowId &&
+                                            router.push(
+                                                `/${workspaceId}/${iflowId}`,
+                                            )
+                                        }
                                     >
                                         <ChevronLeft className="w-5 h-5" />
                                         <div className={styles.textPadding}>
@@ -585,10 +594,10 @@ const WorkflowEditorContent: React.FC = () => {
                                                                 node.title ===
                                                                 "Basic Agent"
                                                                     ? (event) =>
-                                                                           onDragStart(
-                                                                               event,
-                                                                               "basicAgent",
-                                                                           )
+                                                                          onDragStart(
+                                                                              event,
+                                                                              "basicAgent",
+                                                                          )
                                                                     : undefined
                                                             }
                                                         />
@@ -737,7 +746,7 @@ const WorkflowEditorContent: React.FC = () => {
                                                         styles.actionButtonText
                                                     }
                                                 >
-                                                    Test
+                                                    Playground
                                                 </span>
                                             </div>
                                         </button>
