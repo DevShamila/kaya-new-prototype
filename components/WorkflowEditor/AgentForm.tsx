@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from "./AgentForm.module.css";
 import { ChevronLeft, ChevronRight, HelpCircle } from "lucide-react";
-import EditorDrawer from "./EditorDrawer";
+import PromptTemplateDrawer from "./PromptTemplateDrawer";
+import ModelDrawer from "./ModelDrawer";
 
 interface AgentFormProps {
   onCancel: () => void;
@@ -10,6 +11,7 @@ interface AgentFormProps {
 
 const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isModelDrawerOpen, setIsModelDrawerOpen] = useState(false);
 
   return (
     <>
@@ -110,7 +112,10 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                         <HelpCircle className={styles.helpCircleIcon} />
                       </div>
                     </div>
-                    <div className={styles.navMenuItemCardParent}>
+                    <div
+                      className={styles.navMenuItemCardParent}
+                      onClick={() => setIsModelDrawerOpen(true)}
+                    >
                       <div className={styles.navMenuItemCard}>
                         <div className={styles.content2}>
                           <div className={styles.textAndSupportingText}>
@@ -153,11 +158,13 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
         </div>
       </div>
 
-      <EditorDrawer
+      <PromptTemplateDrawer
         isOpen={isEditorOpen}
         onClose={() => setIsEditorOpen(false)}
-        title="Setup Prompt Template"
-        subtitle="Provide details to start building your prompt instruction."
+      />
+      <ModelDrawer
+        isOpen={isModelDrawerOpen}
+        onClose={() => setIsModelDrawerOpen(false)}
       />
     </>
   );
