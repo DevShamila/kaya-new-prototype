@@ -1,0 +1,939 @@
+.bodyContentParent {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    text-align: left;
+    font-size: 14px;
+    color: #535862;
+    font-family: var(--font-encode-sans), "Encode Sans", sans-serif;
+    background-color: #f9f9fb;
+}
+
+.bodyContent {
+    align-self: stretch;
+    filter: drop-shadow(0px 0px 12px rgba(164, 167, 174, 0.35));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    z-index: 10;
+}
+
+.bodyContentInner {
+    width: 400px;
+    border-radius: 0px;
+    background-color: #fff;
+    border: 1px solid #d9d9e0;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px 16px;
+}
+
+.headerParent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.header {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttonsbutton {
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px 10px 0px;
+    gap: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.buttonsbutton:hover {
+    background-color: #f5f5f5;
+}
+
+.chevronLeftIcon {
+    width: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.textPadding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 2px;
+}
+
+.text {
+    position: relative;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.buttonGroup {
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    isolation: isolate;
+    font-size: 20px;
+    color: #181d27;
+    border: 1px solid #e9eaeb;
+}
+
+.buttonGroupBase {
+    background-color: #fafafa;
+    border-right: 1px solid #e9eaeb;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    min-height: 40px;
+    z-index: 1;
+}
+
+.text2 {
+    position: relative;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.buttonGroupBase2 {
+    align-self: stretch;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px 8px 14px;
+    box-sizing: border-box;
+    min-height: 40px;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.badgeParent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #414651;
+}
+
+.badge {
+    border-radius: 9999px;
+    background-color: #fafafa;
+    border: 1px solid #e9eaeb;
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+}
+
+.text3 {
+    position: relative;
+    line-height: 18px;
+    font-weight: 500;
+}
+
+.frameChild {
+    height: 4px;
+    width: 4px;
+    position: relative;
+    border-radius: 50%;
+    background-color: #a4a7ae;
+}
+
+.saved2minsAgo {
+    position: relative;
+    line-height: 18px;
+    font-weight: 500;
+    color: #535862;
+}
+
+.bodyContentChild {
+    width: 400px;
+    flex: 1;
+    border-radius: 0px;
+    background-color: #fff;
+    border-right: 1px solid #d9d9e0;
+    border-bottom: 1px solid #d9d9e0;
+    border-left: 1px solid #d9d9e0;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+    color: #cc3e07;
+}
+
+.frameParent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1;
+    min-height: 0;
+}
+
+.frameGroup {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.horizontalTabsWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.horizontalTabs {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tabButtonBase {
+    height: 36px;
+    border-radius: 6px;
+    background-color: #fff3ee;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.badge2 {
+    border-radius: 9999px;
+    background-color: #fff3ee;
+    border: 1px solid #ffc9ab;
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.tabButtonBase2 {
+    height: 36px;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    gap: 8px;
+    color: #717680;
+    cursor: pointer;
+}
+
+.badge3 {
+    border-radius: 9999px;
+    background-color: #fafafa;
+    border: 1px solid #e9eaeb;
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #414651;
+}
+
+.messageAction {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+    color: #717680;
+}
+
+.inputField {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input {
+    align-self: stretch;
+    box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #d5d7da;
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.text8 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.frameContainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    color: #535862;
+    overflow-y: auto;
+    padding-right: 8px;
+    flex: 1;
+    min-height: 0;
+}
+
+.coreAgentTemplatesParent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.agentNodeCardParent {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 16px;
+    color: #181d27;
+}
+
+.agentNodeCard {
+    height: 102px;
+    width: calc(50% - 8px);
+    border-radius: 16px;
+    background-color: #fff;
+    border: 1px solid #e9eaeb;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+    cursor: grab;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.agentNodeCard:hover {
+    border-color: #ffc9ab;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.featuredIconParent {
+    align-self: stretch;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.featuredIcon {
+    height: 38px;
+    width: 38px;
+    border-radius: 9999px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.featuredIconBlue {
+    background-color: #eff8ff;
+}
+
+.featuredIconGreen {
+    background-color: #ecfdf3;
+}
+
+.dotsVerticalParent {
+    display: flex;
+    align-items: center;
+    padding: 4px 0px 0px;
+}
+
+.dotsVerticalIcon {
+    width: 20px;
+    color: #a4a7ae;
+}
+
+.textAndEmailCapture {
+    align-self: stretch;
+    display: flex;
+    align-items: flex-start;
+}
+
+.headingAndSupportingText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.heading {
+    align-self: stretch;
+    position: relative;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.agentNodeCard11 {
+    height: 102px;
+    width: calc(50% - 8px);
+    border-radius: 16px;
+    background-color: #fff;
+    border: 1px solid #e9eaeb;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+    cursor: grab;
+}
+
+.bodyContent2 {
+    align-self: stretch;
+    flex: 1;
+    filter: drop-shadow(0px 0px 12px rgba(164, 167, 174, 0.35));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    font-size: 46.07px;
+    color: #e9eaeb;
+    font-family: "Cabinet Grotesk Variable", sans-serif;
+}
+
+.groupDiv {
+    align-self: stretch;
+    height: 100%;
+    position: relative;
+}
+
+.bodyContentLivesHereParent {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 0px;
+    background-color: #e8e8ec;
+    border: 1px solid #d9d9e0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 16px;
+    isolation: isolate;
+    gap: 0px;
+}
+
+.bodyContentLives {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 57.59px;
+    font-weight: 500;
+    z-index: 0;
+}
+
+.helpmenu {
+    height: 40px;
+    width: 40px;
+    margin: 0 !important;
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.35);
+    border-radius: 16777200px;
+    background-color: #181d27;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    font-family: Inter, sans-serif;
+    cursor: pointer;
+}
+
+.text11 {
+    height: 28px;
+    width: 9.7px;
+    position: relative;
+}
+
+.div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    letter-spacing: -0.45px;
+    line-height: 28px;
+    flex-shrink: 0;
+}
+
+.dragAndDropToGetStartedParent {
+    height: 235px;
+    width: 541px;
+    margin: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    border: 4px dashed #d5d7da;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    gap: 20px;
+    z-index: 2;
+    font-size: 32px;
+    color: #717680;
+    font-family: var(--font-encode-sans), "Encode Sans", sans-serif;
+}
+
+.dragAndDrop {
+    position: relative;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.startBuildingYour {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+.buttonsbutton2 {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #535862;
+    cursor: pointer;
+}
+
+.buttonsbutton2:hover {
+    text-decoration: underline;
+}
+
+.floatingActions {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    box-shadow:
+        0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset,
+        0px -2px 0px rgba(10, 13, 18, 0.05) inset,
+        0px 1px 2px rgba(10, 13, 18, 0.05);
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid #d9d9e0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 12px;
+    z-index: 100;
+}
+
+.actionButtonGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.saveButton {
+    box-shadow:
+        0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset,
+        0px -2px 0px rgba(10, 13, 18, 0.05) inset,
+        0px 1px 2px rgba(10, 13, 18, 0.05);
+    border-radius: 8px;
+    background: #005bb5;
+    border: 2px solid transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    gap: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.saveButton:hover {
+    opacity: 0.9;
+}
+
+.testButton {
+    box-shadow:
+        0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset,
+        0px -2px 0px rgba(10, 13, 18, 0.05) inset,
+        0px 1px 2px rgba(10, 13, 18, 0.05);
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #d5d7da;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    gap: 4px;
+    color: #414651;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.testButton:hover {
+    background-color: #f9f9fb;
+}
+
+.publishButton {
+    box-shadow:
+        0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset,
+        0px -2px 0px rgba(10, 13, 18, 0.05) inset,
+        0px 1px 2px rgba(10, 13, 18, 0.05);
+    border-radius: 8px;
+    background: radial-gradient(
+        423.78% 126.68% at 24.61% -88.89%,
+        #005bb5 19.07%,
+        #36374c 39.42%,
+        #32191d 48.08%,
+        #ff5714 83.65%
+    );
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    gap: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: none;
+}
+
+.publishButton:hover {
+    opacity: 0.9;
+}
+
+.actionIcon {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.actionButtonText {
+    line-height: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Custom Start Node Styles */
+.startNodeContainer {
+  min-width: 250px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 2px solid #3ccb7f;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 24px;
+  text-align: left;
+  font-family: var(--font-encode-sans), "Encode Sans", sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.startNodeHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.startNodeIconWrapper {
+  width: 44px;
+  height: 44px;
+  background-color: #dcfce7;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.startNodeIcon {
+  width: 24px;
+  height: 24px;
+  color: #16a34a;
+}
+
+.startNodeTitleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.startNodeTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #181d27;
+  line-height: 1.2;
+}
+
+.startNodeSubtitle {
+  font-size: 12px;
+  color: #535862;
+  font-family: var(--font-inter), Inter, sans-serif;
+}
+
+.startNodeBadge {
+  border-radius: 6px;
+  background-color: #fafafa;
+  border: 1px solid #e9eaeb;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #414651;
+}
+
+/* Ghost Node Styles */
+.ghostNodeContainer {
+  height: 235px;
+  width: 540px;
+  border-radius: 12px;
+  border: 4px dashed #d5d7da;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 20px;
+  text-align: center;
+  background-color: transparent;
+  pointer-events: none; /* Make it feel like a ghost */
+}
+
+.ghostNodeTitle {
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 600;
+  color: #717680;
+  font-family: var(--font-encode-sans), "Encode Sans", sans-serif;
+}
+
+.ghostNodeSubtitle {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #717680;
+}
+
+.ghostNodeButtonText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #535862;
+}
+
+/* Workspace Agent Card Styles */
+.workspaceAgentCard {
+  width: 100%;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 1px solid #d5d7da;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.workspaceAgentCard:hover {
+  border-color: #3ccb7f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.workspaceAgentCardContent {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workspaceAgentCardTextGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.workspaceAgentCardHeading {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #101828;
+}
+
+.workspaceAgentCardDescription {
+  font-size: 12px;
+  line-height: 18px;
+  color: #6a7282;
+  font-weight: 400;
+}
+
+.activeTab {
+  background-color: #fff !important;
+  color: #cc3e07 !important;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+/* Basic Agent Node Styles */
+.basicAgentNodeContainer {
+  min-width: 320px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 2.5px solid #5ea3e0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  font-family: var(--font-encode-sans), "Encode Sans", sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.basicAgentNodeGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.basicAgentNodeMainContent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.basicAgentNodeHeader {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.basicAgentNodeIcon {
+  height: 38px;
+  width: 38px;
+  border-radius: 9999px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basicAgentNodeStatusWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.basicAgentNodeStatus {
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #101828;
+}
+
+.basicAgentNodeDetailWrapper {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.basicAgentNodeDetailText {
+  font-size: 12px;
+  line-height: 18px;
+  color: #535862;
+}
+
+.basicAgentNodeLabel {
+  font-weight: 500;
+}
+
+.basicAgentNodeValue {
+  font-weight: 600;
+}
+
+.basicAgentNodeBadgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.basicAgentBadgePrimary {
+  border-radius: 6px;
+  background-color: #eff8ff;
+  border: 1px solid #b2ddff;
+  padding: 2px 6px;
+  color: #175cd3;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.basicAgentBadgeSecondary {
+  border-radius: 6px;
+  background-color: #fafafa;
+  border: 1px solid #e9eaeb;
+  padding: 2px 6px;
+  color: #414651;
+  font-size: 12px;
+  font-weight: 500;
+}
