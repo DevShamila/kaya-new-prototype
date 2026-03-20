@@ -247,14 +247,6 @@ const WorkflowEditor: React.FC = () => {
             <div className={styles.helpmenu}>
               <HelpCircle className="w-6 h-6" />
             </div>
-
-            <div className={styles.dragAndDropToGetStartedParent}>
-              <div className={styles.dragAndDrop}>Drag and Drop to get started</div>
-              <div className={styles.startBuildingYour}>Start building your workflow</div>
-              <div className={styles.buttonsbutton2}>
-                <div className={styles.text}>Or choose a template to get started</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
