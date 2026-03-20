@@ -62,7 +62,7 @@ const CollapsibleSection = ({
                 )}
             </button>
             {isOpen && (
-                <div className="mt-2 pt-0 px-3 pb-2 flex flex-col gap-2">
+                <div className="mt-2 pt-0 px-3 pb-2 flex flex-col gap-[8px]">
                     {children}
                 </div>
             )}
@@ -210,14 +210,23 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
     if (!activeWorkspace) {
         return (
-            <aside className="w-[312px] shrink-0 h-full pl-5 pr-5 flex flex-col justify-between bg-[#F9F9FB]">
-                <div className="pt-6 pb-8">
+            <aside className="w-[312px] shrink-0 h-full pl-5 pr-1 flex flex-col justify-between bg-[#F9F9FB]">
+                <div className="pt-6">
                     <img
                         src="/logo_main.png"
                         alt="Kaya Logo"
                         className="w-[120px] h-[39px]"
                     />
                 </div>
+
+                {/* New Workspace Button */}
+                <button
+                    className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3.5 rounded-lg text-sm font-semibold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                    style={{ backgroundImage: 'url(/btn-gradient.svg)', backgroundSize: 'cover', backgroundPosition: 'center', margin: '32px 0' }}
+                >
+                    <Plus className="w-5 h-5 text-white" />
+                    New Workspace
+                </button>
 
                 <nav className="flex-1 flex flex-col gap-6 overflow-y-auto">
                     {enterpriseSections.map((section) => (
@@ -239,6 +248,28 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         </SidebarSection>
                     ))}
                 </nav>
+
+                {/* New Features Notification Card */}
+                <div className="mx-0 mb-4 p-4 rounded-xl border border-border-secondary bg-white flex flex-col gap-3">
+                    <div className="flex items-start justify-between">
+                        <div className="w-10 h-10 flex items-center justify-center">
+                            <img src="/featured-icon.svg" alt="" className="w-10 h-10" />
+                        </div>
+                        <button className="text-text-tertiary hover:text-text-primary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <div className="text-sm font-semibold text-text-primary leading-5">New features available!</div>
+                        <div className="text-sm text-text-tertiary leading-5">Check out the new configurations that we've just added to our setup options!</div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <button className="text-sm font-semibold text-[#535862] hover:text-text-primary leading-5">Dismiss</button>
+                        <button className="text-sm font-semibold text-[#004A96] hover:text-[#003570] leading-5">Go to Setup!</button>
+                    </div>
+                </div>
 
                 <div className="py-5 pb-6 flex justify-between items-start border-t border-border-secondary">
                     <div className="flex items-center gap-2">
@@ -272,15 +303,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
     if (activeAgent) {
         return (
-            <aside className="w-[312px] shrink-0 h-full pl-5 flex flex-col justify-between border-r border-border-secondary bg-[#F9F9FB] font-inter">
+            <aside className="w-[312px] shrink-0 h-full pl-5 flex flex-col justify-between bg-[#F9F9FB] font-inter">
                 <div className="flex-1 flex flex-col overflow-y-auto">
                     {/* Header */}
-                    <div className="pt-6 pb-4 flex flex-col gap-4">
-                        <img
-                            src="/logo_main.png"
-                            alt="Kaya Logo"
-                            className="w-[120px] h-[39px]"
-                        />
+                    <div className="pt-6 pb-4">
                         <Link
                             href={`/${activeWorkspace}`}
                             className="flex items-center gap-1 py-2 text-sm font-semibold text-text-tertiary hover:text-text-primary transition-colors pr-4"
@@ -455,15 +481,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
     if (activeIFlow) {
         return (
-            <aside className="w-[312px] shrink-0 h-full pl-5 flex flex-col justify-between border-r border-border-secondary bg-[#F9F9FB] font-inter">
+            <aside className="w-[312px] shrink-0 h-full pl-5 flex flex-col justify-between bg-[#F9F9FB] font-inter">
                 <div className="flex-1 flex flex-col overflow-y-auto">
                     {/* Header */}
-                    <div className="pt-6 pb-4 flex flex-col gap-4">
-                        <img
-                            src="/logo_main.png"
-                            alt="Kaya Logo"
-                            className="w-[120px] h-[39px]"
-                        />
+                    <div className="pt-6 pb-4">
                         <Link
                             href={`/${activeWorkspace}`}
                             className="flex items-center gap-1 py-2 text-sm font-semibold text-text-tertiary hover:text-text-primary transition-colors pr-4"
@@ -661,15 +682,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
     }
 
     return (
-        <aside className="w-[296px] shrink-0 h-full pl-5 pr-3 flex flex-col justify-between bg-[#F9F9FB] font-inter">
+        <aside className="w-[312px] shrink-0 h-full pl-5 pr-1 flex flex-col justify-between bg-[#F9F9FB] font-inter">
             <div className="flex-1 flex flex-col overflow-y-auto">
                 {/* Header */}
-                <div className="pt-6 pb-4 flex flex-col gap-4">
-                    <img
-                        src="/logo_main.png"
-                        alt="Kaya Logo"
-                        className="w-[120px] h-[39px]"
-                    />
+                <div className="pt-6 pb-[32px]">
                     <Link
                         href="/"
                         className="flex items-center gap-1 py-2 text-sm font-semibold text-text-tertiary hover:text-text-primary transition-colors pr-4"
@@ -680,73 +696,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 </div>
 
                 {/* Workspace Controls */}
-                <div className="pr-5 flex flex-col gap-4 mb-8">
-                    <div className="relative" ref={dropdownRef}>
-                        <div
-                            className="w-full shadow-[0_0_0_1px_#E9EAEB_inset,0_-2px_0_0_rgba(10,13,18,0.05)_inset,0_1px_2px_0_rgba(10,13,18,0.05)] rounded-lg bg-white overflow-hidden flex items-center justify-between py-2 px-3 gap-2 group cursor-pointer hover:border-border-primary transition-all"
-                            role="button"
-                            tabIndex={0}
-                            onClick={() =>
-                                setIsWorkspaceDropdownOpen(
-                                    !isWorkspaceDropdownOpen,
-                                )
-                            }
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                    setIsWorkspaceDropdownOpen(
-                                        !isWorkspaceDropdownOpen,
-                                    );
-                                }
-                            }}
-                        >
-                            <span className="text-sm font-semibold text-text-tertiary font-encode overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0">
-                                {displayWorkspaceName}
-                            </span>
-                            <img
-                                src="/user-toggle.svg"
-                                alt=""
-                                className={`w-[8px] h-[13px] shrink-0 transition-transform ${
-                                    isWorkspaceDropdownOpen ? "rotate-180" : ""
-                                }`}
-                            />
-                        </div>
-
-                        {isWorkspaceDropdownOpen && (
-                            <div className="absolute top-full left-0 w-full mt-1 bg-white border border-border-secondary rounded-lg shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] z-50 py-1">
-                                {workspaces.map((ws) => (
-                                    <button
-                                        key={ws.id}
-                                        className="w-full text-left px-3 py-2 text-sm hover:bg-[#F9F9FB] transition-colors"
-                                        onClick={() => {
-                                            setIsWorkspaceDropdownOpen(false);
-                                            router.push(`/${ws.id}`);
-                                        }}
-                                    >
-                                        <span
-                                            className={
-                                                activeWorkspace === ws.id
-                                                    ? "font-semibold text-brand-orange"
-                                                    : "text-text-tertiary"
-                                            }
-                                        >
-                                            {ws.name}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
+                <div className="pr-5 flex flex-col gap-4 mb-[8px]">
                     <div className="flex flex-col gap-2">
-                        <SidebarItem
-                            name="Workspace Overview"
-                            icon={Building2}
-                            isActive={activeTab === "Workspace Overview"}
-                            onClick={() => {
-                                setActiveTab("Workspace Overview");
-                                router.push(`/${activeWorkspace}`);
-                            }}
-                        />
                         <button
                             className="w-full shadow-[0_1px_10px_rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center py-2 px-3 gap-1 hover:opacity-90 transition-opacity active:scale-[0.98]"
                             style={{
@@ -768,6 +719,15 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
                 {/* Navigation Chunks */}
                 <nav className="flex-1 flex flex-col gap-8 pr-5 pb-8">
+                    <SidebarItem
+                        name="Workspace Overview"
+                        icon={Building2}
+                        isActive={activeTab === "Workspace Overview"}
+                        onClick={() => {
+                            setActiveTab("Workspace Overview");
+                            router.push(`/${activeWorkspace}`);
+                        }}
+                    />
                     <SidebarSection title="MANAGE">
                         <SidebarItem
                             name="iFlows"

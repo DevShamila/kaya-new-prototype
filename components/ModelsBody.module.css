@@ -132,7 +132,9 @@
 .text2 {
     position: relative;
     line-height: 20px;
+    font-size: 14px;
     font-weight: 600;
+    color: #414651;
     white-space: pre-wrap;
 }
 .buttonsbutton2 {
@@ -160,7 +162,9 @@
 .text3 {
     position: relative;
     line-height: 20px;
+    font-size: 14px;
     font-weight: 600;
+    color: #414651;
 }
 .actions2 {
     display: none;
