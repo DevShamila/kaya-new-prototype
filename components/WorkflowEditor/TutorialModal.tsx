@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './TutorialModal.module.css';
-import { X, ArrowUpRight } from 'lucide-react';
+import { X, ArrowUpRight, Play, Volume2, Maximize2, Settings } from 'lucide-react';
 
 interface TutorialModalProps {
     isOpen: boolean;
@@ -8,8 +8,22 @@ interface TutorialModalProps {
 }
 
 const TutorialModal: React.FC<TutorialModalProps> = ({ isOpen, onClose }) => {
+    const [step, setStep] = useState(1);
+
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
+            if (step === 1) {
+                setStep(2);
+            } else {
+                onClose();
+            }
+        }
+    };
+
+    const handleNext = () => {
+        if (step === 1) {
+            setStep(2);
+        } else {
             onClose();
         }
     };
@@ -29,7 +43,9 @@ const TutorialModal: React.FC<TutorialModalProps> = ({ isOpen, onClose }) => {
                 <div className={styles.modalHeader}>
                     <div className={styles.content}>
                         <div className={styles.textAndSupportingText}>
-                            <div className={styles.text}>Start building your iFlow</div>
+                            <div className={styles.text}>
+                                {step === 1 ? 'Start building your iFlow' : 'Learn the basics'}
+                            </div>
                         </div>
                     </div>
                     <div className={styles.buttonsbuttonCloseX} onClick={onClose} role="button" tabIndex={0} onKeyDown={handleKeyDown}>
@@ -38,111 +54,155 @@ const TutorialModal: React.FC<TutorialModalProps> = ({ isOpen, onClose }) => {
                     <div className={styles.paddingBottom} />
                 </div>
                 
-                <div className={styles.content2}>
-                    <div className={styles.pricingCards}>
-                        <div className={styles.pricingCard}>
-                            <div className={styles.header}>
-                                <div className={styles.iconsPlaceholder}>1</div>
-                                <div className={styles.headingAndSupportingText}>
-                                    <div className={styles.text}>1. Create or Add Agents</div>
-                                </div>
-                            </div>
-                            <div className={styles.content3}>
-                                <div className={styles.checkItems}>
-                                    <div className={styles.checkItemTextParent}>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Set role & instructions</div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Choose AI model</div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Connect APIs & data</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.buttonsbutton}>
-                                        <div className={styles.text5}>Learn More</div>
-                                        <ArrowUpRight size={20} className={styles.arrowNarrowUpRightIcon} />
+                {step === 1 ? (
+                    <div className={styles.content2}>
+                        <div className={styles.pricingCards}>
+                            <div className={styles.pricingCard}>
+                                <div className={styles.header}>
+                                    <div className={styles.iconsPlaceholder}>1</div>
+                                    <div className={styles.headingAndSupportingText}>
+                                        <div className={styles.text}>1. Create or Add Agents</div>
                                     </div>
                                 </div>
+                                <div className={styles.content3}>
+                                    <div className={styles.checkItems}>
+                                        <div className={styles.checkItemTextParent}>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Set role & instructions</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Choose AI model</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Connect APIs & data</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.buttonsbutton}>
+                                            <div className={styles.text5}>Learn More</div>
+                                            <ArrowUpRight size={20} className={styles.arrowNarrowUpRightIcon} />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className={styles.pricingCard2}>
-                            <div className={styles.header}>
-                                <div className={styles.iconsPlaceholder}>2</div>
-                                <div className={styles.headingAndSupportingText}>
-                                    <div className={styles.text}>2. Connect & Orchestrate Agents</div>
-                                </div>
-                            </div>
-                            <div className={styles.content3}>
-                                <div className={styles.checkItems}>
-                                    <div className={styles.checkItemTextParent}>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Link agents in sequence</div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Add routing logic</div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Build multi-agent automation</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={styles.buttonsbutton}>
-                                        <div className={styles.text5}>Learn More</div>
-                                        <ArrowUpRight size={20} className={styles.arrowNarrowUpRightIcon} />
+                            <div className={styles.pricingCard2}>
+                                <div className={styles.header}>
+                                    <div className={styles.iconsPlaceholder}>2</div>
+                                    <div className={styles.headingAndSupportingText}>
+                                        <div className={styles.text}>2. Connect & Orchestrate Agents</div>
                                     </div>
                                 </div>
+                                <div className={styles.content3}>
+                                    <div className={styles.checkItems}>
+                                        <div className={styles.checkItemTextParent}>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Link agents in sequence</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Add routing logic</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Build multi-agent automation</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.buttonsbutton}>
+                                            <div className={styles.text5}>Learn More</div>
+                                            <ArrowUpRight size={20} className={styles.arrowNarrowUpRightIcon} />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className={styles.pricingCard2}>
-                            <div className={styles.header}>
-                                <div className={styles.iconsPlaceholder}>3</div>
-                                <div className={styles.headingAndSupportingText}>
-                                    <div className={styles.text}>3. Test & Deploy</div>
-                                </div>
-                            </div>
-                            <div className={styles.content3}>
-                                <div className={styles.checkItems}>
-                                    <div className={styles.checkItemTextParent}>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Run with sample data</div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Monitor performance</div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.checkItemText}>
-                                            <div className={styles.textAndSupportingText}>
-                                                <div className={styles.text2}>• Validate before going live</div>
-                                            </div>
-                                        </div>
+                            <div className={styles.pricingCard2}>
+                                <div className={styles.header}>
+                                    <div className={styles.iconsPlaceholder}>3</div>
+                                    <div className={styles.headingAndSupportingText}>
+                                        <div className={styles.text}>3. Test & Deploy</div>
                                     </div>
-                                    <div className={styles.buttonsbutton}>
-                                        <div className={styles.text5}>Learn More</div>
-                                        <ArrowUpRight size={20} className={styles.arrowNarrowUpRightIcon} />
+                                </div>
+                                <div className={styles.content3}>
+                                    <div className={styles.checkItems}>
+                                        <div className={styles.checkItemTextParent}>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Run with sample data</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Monitor performance</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.checkItemText}>
+                                                <div className={styles.textAndSupportingText}>
+                                                    <div className={styles.text2}>• Validate before going live</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.buttonsbutton}>
+                                            <div className={styles.text5}>Learn More</div>
+                                            <ArrowUpRight size={20} className={styles.arrowNarrowUpRightIcon} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <div className={styles.content2Step2}>
+                        <div className={styles.videoPlayer169}>
+                            <div className={styles.videoOverlayAction}>
+                                <div className={styles.playButtonLarge}>
+                                    <Play size={32} fill="white" color="white" />
+                                </div>
+                            </div>
+                            <div className={styles.videoActionsBar}>
+                                <div className={styles.content3Video}>
+                                    <div className={styles.videoActionButton}>
+                                        <Play size={16} fill="white" color="white" />
+                                    </div>
+                                    <div className={styles.videoVolumeSlider}>
+                                        <div className={styles.videoActionButton}>
+                                            <Volume2 size={16} color="white" />
+                                        </div>
+                                        <div className={styles.videoVolumeSliderHandle}>
+                                            <div className={styles.progress}>
+                                                <div className={styles.controlHandle} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={styles.videoProgress}>
+                                        <div className={styles.timestampStart}>00:00</div>
+                                        <div className={styles.progressSlider}>
+                                            <div className={styles.bufferingProgress} />
+                                            <div className={styles.progressLine} />
+                                        </div>
+                                        <div className={styles.timestampEnd}>-01:24</div>
+                                    </div>
+                                    <div className={styles.videoActionButton3}>
+                                        <div className={styles.speed}>1</div>
+                                        <Settings size={12} color="white" />
+                                    </div>
+                                    <div className={styles.videoActionButton}>
+                                        <Maximize2 size={16} color="white" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <div className={styles.modalActions}>
                     <div className={styles.dividerWrap} />
@@ -159,9 +219,11 @@ const TutorialModal: React.FC<TutorialModalProps> = ({ isOpen, onClose }) => {
                             <div className={styles.buttonsbutton4} onClick={onClose}>
                                 <div className={styles.text15}>Skip</div>
                             </div>
-                            <div className={styles.buttonsbutton5} onClick={onClose}>
+                            <div className={styles.buttonsbutton5} onClick={handleNext}>
                                 <div className={styles.textPadding}>
-                                    <div className={styles.text15}>Next</div>
+                                    <div className={styles.text15}>
+                                        {step === 1 ? 'Next' : 'Finish'}
+                                    </div>
                                 </div>
                             </div>
                         </div>

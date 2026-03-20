@@ -12,7 +12,7 @@
 }
 
 .modal {
-    width: 950px; /* Adjust width based on 3 cards of 286px + gaps */
+    width: 950px;
     max-width: 95%;
     position: relative;
     box-shadow: 0px 20px 24px -4px rgba(10, 13, 18, 0.08), 
@@ -99,13 +99,17 @@
     z-index: 2;
 }
 
-.content2 {
+.content2, .content2Step2 {
     align-self: stretch;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 20px 24px 0px;
     color: #101828;
+}
+
+.content2Step2 {
+    align-items: center;
 }
 
 .pricingCards {
@@ -116,20 +120,7 @@
     justify-content: center;
 }
 
-.pricingCard {
-    width: 286px;
-    box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
-    border-radius: 12px;
-    background-color: #fff;
-    border: 1px solid #d5d7da;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    color: #181d27;
-}
-
-.pricingCard2 {
+.pricingCard, .pricingCard2 {
     width: 286px;
     box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
     border-radius: 12px;
@@ -228,6 +219,171 @@
     width: 20px;
 }
 
+/* Step 2 Video Styles */
+.videoPlayer169 {
+    align-self: stretch;
+    height: 505.1px;
+    position: relative;
+    border-radius: 12px;
+    background-color: #c4c4c4;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.videoOverlayAction {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playButtonLarge {
+    height: 64px;
+    width: 64px;
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.videoActionsBar {
+    position: absolute;
+    width: 100%;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 48px 32px 24px;
+    box-sizing: border-box;
+}
+
+.content3Video {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: white;
+    font-size: 12px;
+}
+
+.videoActionButton {
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.videoVolumeSlider {
+    width: 84px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0px 8px 0px 0px;
+    box-sizing: border-box;
+}
+
+.videoVolumeSliderHandle {
+    height: 4px;
+    flex: 1;
+    position: relative;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.progress {
+    position: absolute;
+    width: 70%; /* Example progress */
+    top: 0px;
+    left: 0px;
+    border-radius: 9999px;
+    background-color: #fff;
+    height: 4px;
+}
+
+.controlHandle {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    border-radius: 9999px;
+    background-color: #fff;
+    width: 12px;
+    height: 12px;
+}
+
+.videoProgress {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0px 8px;
+    gap: 8px;
+}
+
+.timestampStart, .timestampEnd {
+    width: auto;
+    min-width: 36px;
+    line-height: 18px;
+    font-weight: 600;
+}
+
+.progressSlider {
+    height: 8px;
+    flex: 1;
+    position: relative;
+    backdrop-filter: blur(8px);
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.bufferingProgress {
+    position: absolute;
+    height: 100%;
+    width: 17.83%;
+    left: 0%;
+    border-radius: 9999px;
+    background-color: #fff;
+    opacity: 0.3;
+}
+
+.progressLine {
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    border-radius: 9999px;
+    background-color: #fff;
+    width: 10%; /* Example progress */
+}
+
+.videoActionButton3 {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.speed {
+    font-weight: 600;
+}
+
+/* Modal Actions */
 .modalActions {
     align-self: stretch;
     display: flex;
@@ -262,27 +418,15 @@
     cursor: pointer;
 }
 
-.input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 0px 0px;
-}
-
 .checkboxBase {
     height: 16px;
     width: 16px;
-    position: relative;
     border-radius: 4px;
     border: 1px solid #d5d7da;
     box-sizing: border-box;
-    overflow: hidden;
-    flex-shrink: 0;
 }
 
 .text14 {
-    align-self: stretch;
-    position: relative;
     line-height: 20px;
     font-weight: 500;
 }
@@ -297,51 +441,28 @@
     color: #535862;
 }
 
-.buttonsbutton4 {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.buttonsbutton4, .buttonsbutton5 {
     padding: 10px 16px;
     border-radius: 8px;
-    transition: background-color 0.2s;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.buttonsbutton4 {
+    background: transparent;
 }
 
 .buttonsbutton4:hover {
     background-color: #f9f9fb;
 }
 
-.text15 {
-    position: relative;
-    line-height: 24px;
-    font-weight: 600;
-}
-
 .buttonsbutton5 {
-    box-shadow: 0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset, 
-                0px -2px 0px rgba(10, 13, 18, 0.05) inset, 
-                0px 1px 2px rgba(10, 13, 18, 0.05);
-    border-radius: 8px;
     background: #005bb5;
-    border: 1px solid #005bb5;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 16px;
     color: #fff;
-    cursor: pointer;
-    transition: opacity 0.2s;
+    border: 1px solid #005bb5;
 }
 
 .buttonsbutton5:hover {
     opacity: 0.9;
-}
-
-.textPadding {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px 2px;
 }

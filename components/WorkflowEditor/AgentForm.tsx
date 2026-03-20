@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./AgentForm.module.css";
-import { ChevronLeft, ChevronRight, HelpCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, HelpCircle, Pencil, Trash2 } from "lucide-react";
 import PromptTemplateDrawer from "./PromptTemplateDrawer";
 import ModelDrawer from "./ModelDrawer";
 import AdvancedDrawer from "./AdvancedDrawer";
@@ -14,6 +14,21 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isModelDrawerOpen, setIsModelDrawerOpen] = useState(false);
   const [isAdvancedDrawerOpen, setIsAdvancedDrawerOpen] = useState(false);
+  
+  const [agentName, setAgentName] = useState("Order Support");
+  const [agentPurpose, setAgentPurpose] = useState("");
+  const [selectedTemplateName, setSelectedTemplateName] = useState<string | null>(null);
+  const [selectedModelName, setSelectedModelName] = useState<string | null>(null);
+
+  const handleCreateTemplate = (name: string) => {
+    setSelectedTemplateName(name);
+    setIsEditorOpen(false);
+  };
+
+  const handleAddModel = (name: string) => {
+    setSelectedModelName(name);
+    setIsModelDrawerOpen(false);
+  };
 
   return (
     <>
@@ -29,7 +44,7 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
           </div>
           <div className={styles.buttonGroup}>
             <div className={styles.buttonGroupBase}>
-              <div className={styles.text2}>Order Support</div>
+              <div className={styles.text2}>{agentName}</div>
             </div>
             <div className={styles.buttonGroupBase2}>
               <ChevronLeft className={styles.chevronLeftIcon} />
@@ -63,11 +78,12 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                     <div className={styles.labelWrapper}>
                       <div className={styles.label}>Name</div>
                     </div>
-                    <div className={styles.input}>
-                      <div className={styles.content}>
-                        <div className={styles.text5}>e.g. Customer Service Agent</div>
-                      </div>
-                    </div>
+                    <input 
+                      className={styles.input}
+                      value={agentName}
+                      onChange={(e) => setAgentName(e.target.value)}
+                      placeholder="e.g. Customer Service Agent"
+                    />
                   </div>
                 </div>
                 <div className={styles.textareaInputField}>
@@ -75,9 +91,12 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                     <div className={styles.labelWrapper2}>
                       <div className={styles.label}>Purpose</div>
                     </div>
-                    <div className={styles.input2}>
-                      <div className={styles.text6}>What does this agent do?</div>
-                    </div>
+                    <textarea 
+                      className={styles.input2}
+                      value={agentPurpose}
+                      onChange={(e) => setAgentPurpose(e.target.value)}
+                      placeholder="What does this agent do?"
+                    />
                   </div>
                 </div>
                 <div className={styles.textareaInputField2}>
@@ -88,26 +107,53 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                         <HelpCircle className={styles.helpCircleIcon} />
                       </div>
                     </div>
-                    <div
-                      className={styles.navMenuItemCardParent}
-                      onClick={() => setIsEditorOpen(true)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => e.key === "Enter" && setIsEditorOpen(true)}
-                    >
-                      <div className={styles.navMenuItemCard}>
-                        <div className={styles.content2}>
-                          <div className={styles.textAndSupportingText}>
-                            <div className={styles.text7}>Set up prompt instruction</div>
-                            <div className={styles.supportingText}>
-                              No prompt instruction configured yet
-                            </div>
+                    {selectedTemplateName ? (
+                      <div className={styles.selectedTemplateCard}>
+                        <div className={styles.templateName}>{selectedTemplateName}</div>
+                        <div className={styles.templateActions}>
+                          <div 
+                            className={styles.actionIcon} 
+                            onClick={(e) => { e.stopPropagation(); setIsEditorOpen(true); }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === "Enter" && setIsEditorOpen(true)}
+                          >
+                            <Pencil size={18} />
+                          </div>
+                          <div 
+                            className={styles.actionIcon} 
+                            onClick={(e) => { e.stopPropagation(); setSelectedTemplateName(null); }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === "Enter" && setSelectedTemplateName(null)}
+                          >
+                            <Trash2 size={18} />
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className={styles.chevronRightIcon} />
-                    </div>
+                    ) : (
+                      <div
+                        className={styles.navMenuItemCardParent}
+                        onClick={() => setIsEditorOpen(true)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === "Enter" && setIsEditorOpen(true)}
+                      >
+                        <div className={styles.navMenuItemCard}>
+                          <div className={styles.content2}>
+                            <div className={styles.textAndSupportingText}>
+                              <div className={styles.text7}>Set up prompt instruction</div>
+                              <div className={styles.supportingText}>
+                                No prompt instruction configured yet
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ChevronRight className={styles.chevronRightIcon} />
+                      </div>
+                    )}
                   </div>
+                  <div className={styles.hintText}>Define the agent's role, tone, and key rules.</div>
                 </div>
                 <div className={styles.textareaInputField2}>
                   <div className={styles.inputWithLabel3}>
@@ -117,25 +163,51 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                         <HelpCircle className={styles.helpCircleIcon} />
                       </div>
                     </div>
-                    <div
-                      className={styles.navMenuItemCardParent}
-                      onClick={() => setIsModelDrawerOpen(true)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => e.key === "Enter" && setIsModelDrawerOpen(true)}
-                    >
-                      <div className={styles.navMenuItemCard}>
-                        <div className={styles.content2}>
-                          <div className={styles.textAndSupportingText}>
-                            <div className={styles.text7}>Select model</div>
-                            <div className={styles.supportingText}>
-                              No intelligence source configured yet
-                            </div>
+                    {selectedModelName ? (
+                      <div className={styles.selectedTemplateCard}>
+                        <div className={styles.templateName}>{selectedModelName}</div>
+                        <div className={styles.templateActions}>
+                          <div 
+                            className={styles.actionIcon} 
+                            onClick={(e) => { e.stopPropagation(); setIsModelDrawerOpen(true); }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === "Enter" && setIsModelDrawerOpen(true)}
+                          >
+                            <Pencil size={18} />
+                          </div>
+                          <div 
+                            className={styles.actionIcon} 
+                            onClick={(e) => { e.stopPropagation(); setSelectedModelName(null); }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === "Enter" && setSelectedModelName(null)}
+                          >
+                            <Trash2 size={18} />
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className={styles.chevronRightIcon} />
-                    </div>
+                    ) : (
+                      <div
+                        className={styles.navMenuItemCardParent}
+                        onClick={() => setIsModelDrawerOpen(true)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === "Enter" && setIsModelDrawerOpen(true)}
+                      >
+                        <div className={styles.navMenuItemCard}>
+                          <div className={styles.content2}>
+                            <div className={styles.textAndSupportingText}>
+                              <div className={styles.text7}>Select model</div>
+                              <div className={styles.supportingText}>
+                                No intelligence source configured yet
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ChevronRight className={styles.chevronRightIcon} />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -175,10 +247,12 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
       <PromptTemplateDrawer
         isOpen={isEditorOpen}
         onClose={() => setIsEditorOpen(false)}
+        onCreate={handleCreateTemplate}
       />
       <ModelDrawer
         isOpen={isModelDrawerOpen}
         onClose={() => setIsModelDrawerOpen(false)}
+        onAdd={handleAddModel}
       />
       <AdvancedDrawer
         isOpen={isAdvancedDrawerOpen}
