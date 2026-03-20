@@ -1,8 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import {
+  ReactFlow,
+  Background,
+  Controls,
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  Connection,
+  Edge,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 import {
   ChevronLeft,
   Search,
@@ -61,7 +72,7 @@ const WorkflowEditor: React.FC = () => {
     { title: "Fallback", icon: AlertCircle },
   ];
 
-  const dataNodes = [
+  const dataNodesList = [
     { title: "Loader", icon: Database },
     { title: "Cleaner", icon: FileJson },
     { title: "Agent", icon: MessageSquare },
@@ -69,6 +80,31 @@ const WorkflowEditor: React.FC = () => {
     { title: "Voice Agent", icon: Volume2 },
     { title: "Fallback Agent", icon: AlertCircle },
   ];
+
+  const initialNodes = [
+    {
+      id: "start",
+      position: { x: 100, y: 100 },
+      data: { label: "Start" },
+      style: {
+        background: "#fff",
+        border: "1px solid #d5d7da",
+        borderRadius: "12px",
+        padding: "10px",
+        width: 150,
+      },
+    },
+  ];
+
+  const initialEdges: Edge[] = [];
+
+  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const onConnect = useCallback(
+    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+    [setEdges]
+  );
 
   return (
     <div className={styles.bodyContentParent}>
@@ -158,8 +194,8 @@ const WorkflowEditor: React.FC = () => {
                   </div>
                 </div>
                 <div className={styles.agentNodeCardParent}>
-                  {dataNodes.map((node) => (
-                    <NodeCard key={node.title} title={node.title} icon={node.icon} />
+                  {dataNodesList.map((node, index) => (
+                    <NodeCard key={`${node.title}-${index}`} title={node.title} icon={node.icon} />
                   ))}
                 </div>
               </div>
@@ -171,10 +207,20 @@ const WorkflowEditor: React.FC = () => {
       {/* Main Content Area */}
       <div className={styles.bodyContent2}>
         <div className={styles.groupDiv}>
-          <div className={styles.bodyContentLivesHereParent}>
-            <div className={styles.bodyContentLives}>Body Content lives here...</div>
+            <div className={styles.bodyContentLivesHereParent}>
+              <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                fitView
+              >
+                <Background color="#aaa" gap={20} />
+                <Controls />
+              </ReactFlow>
 
-            {/* Floating Action Bar */}
+              {/* Floating Action Bar */}
             <div className={styles.floatingActions}>
               <div className={styles.actionButtonGroup}>
                 <button className={styles.saveButton}>
