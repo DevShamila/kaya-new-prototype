@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./AgentForm.module.css";
-import { ChevronLeft, ChevronRight, HelpCircle, Pencil, Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, HelpCircle, Pencil, Trash2, Minus } from "lucide-react";
 import PromptTemplateDrawer from "./PromptTemplateDrawer";
 import ModelDrawer from "./ModelDrawer";
 import AdvancedDrawer from "./AdvancedDrawer";
@@ -20,6 +20,11 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
   const [selectedTemplateName, setSelectedTemplateName] = useState<string | null>(null);
   const [selectedModelName, setSelectedModelName] = useState<string | null>(null);
 
+  const [isAdvancedExpanded, setIsAdvancedExpanded] = useState(false);
+  const [addedTools, setAddedTools] = useState<any[]>([]);
+  const [isHumanReviewEnabled, setIsHumanReviewEnabled] = useState(false);
+  const [isSelfLearningEnabled, setIsSelfLearningEnabled] = useState(false);
+
   const handleCreateTemplate = (name: string) => {
     setSelectedTemplateName(name);
     setIsEditorOpen(false);
@@ -28,6 +33,22 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
   const handleAddModel = (name: string) => {
     setSelectedModelName(name);
     setIsModelDrawerOpen(false);
+  };
+
+  const handleAddTools = (tools: any[]) => {
+    setAddedTools(tools);
+    setIsAdvancedDrawerOpen(false);
+    if (tools.length > 0) {
+      setIsAdvancedExpanded(true);
+    }
+  };
+
+  const handleAdvancedOptionsClick = () => {
+    if (addedTools.length === 0 && !isAdvancedExpanded) {
+      setIsAdvancedDrawerOpen(true);
+    } else {
+      setIsAdvancedExpanded(!isAdvancedExpanded);
+    }
   };
 
   return (
@@ -212,17 +233,108 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                 </div>
               </div>
             </div>
+            
             <div className={styles.accordionItem}>
               <div 
                 className={styles.accordionTitle}
-                onClick={() => setIsAdvancedDrawerOpen(true)}
+                onClick={handleAdvancedOptionsClick}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && setIsAdvancedDrawerOpen(true)}
+                onKeyDown={(e) => e.key === "Enter" && handleAdvancedOptionsClick()}
               >
                 <div className={styles.title}>Advanced Options</div>
-                <ChevronRight className={styles.chevronLeftIcon} />
+                {isAdvancedExpanded ? <Minus size={16} /> : <ChevronRight className={styles.chevronLeftIcon} />}
               </div>
+              
+              {isAdvancedExpanded && (
+                <div className={styles.advancedSection}>
+                  <div className={styles.advancedCategory}>
+                    <div className={styles.categoryTitleWrapper}>
+                      <div className={styles.categoryTitle}>Data and Tools</div>
+                      <HelpCircle size={14} color="#717680" />
+                    </div>
+                    
+                    <div className={styles.addedToolsList}>
+                      {addedTools.map((tool) => (
+                        <div key={tool.id} className={styles.selectedTemplateCard}>
+                          <div className={styles.templateName}>{tool.name}</div>
+                          <div className={styles.templateActions}>
+                            <div className={styles.actionIcon} onClick={() => setAddedTools(addedTools.filter(t => t.id !== tool.id))}>
+                              <Trash2 size={18} />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className={styles.dashCard} onClick={() => setIsAdvancedDrawerOpen(true)}>
+                      <div className={styles.dashCardContent}>
+                        <div className={styles.dashCardTitle}>Add data and tools</div>
+                        <div className={styles.dashCardSub}>No tools and/or data configured yet</div>
+                      </div>
+                      <ChevronRight size={20} color="#717680" />
+                    </div>
+                  </div>
+
+                  <div className={styles.advancedCategory}>
+                    <div className={styles.categoryTitleWrapper}>
+                      <div className={styles.categoryTitle}>Guardrails</div>
+                      <HelpCircle size={14} color="#717680" />
+                    </div>
+                    <div className={styles.dashCard}>
+                      <div className={styles.dashCardContent}>
+                        <div className={styles.dashCardTitle}>Setup guardrails</div>
+                        <div className={styles.dashCardSub}>No guardrails configured yet</div>
+                      </div>
+                      <ChevronRight size={20} color="#717680" />
+                    </div>
+                  </div>
+
+                  <div className={styles.advancedCategory}>
+                    <div className={styles.categoryTitleWrapper}>
+                      <div className={styles.categoryTitle}>Output Broadcasting</div>
+                      <HelpCircle size={14} color="#717680" />
+                    </div>
+                    <div className={styles.dashCard}>
+                      <div className={styles.dashCardContent}>
+                        <div className={styles.dashCardTitle}>Add output broadcasting</div>
+                        <div className={styles.dashCardSub}>No guardrails configured yet</div>
+                      </div>
+                      <ChevronRight size={20} color="#717680" />
+                    </div>
+                  </div>
+
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleText}>
+                      <div className={styles.toggleLabel}>Human Review</div>
+                      <div className={styles.toggleDescription}>
+                        Require human approval before the agent performs certain actions.
+                      </div>
+                    </div>
+                    <div 
+                      className={`${styles.toggleSwitch} ${isHumanReviewEnabled ? styles.active : ""}`}
+                      onClick={() => setIsHumanReviewEnabled(!isHumanReviewEnabled)}
+                    >
+                      <div className={styles.toggleThumb}></div>
+                    </div>
+                  </div>
+
+                  <div className={styles.toggleRow}>
+                    <div className={styles.toggleText}>
+                      <div className={styles.toggleLabel}>Self-learning</div>
+                      <div className={styles.toggleDescription}>
+                        Let your agent learn from past interactions to improve over time.
+                      </div>
+                    </div>
+                    <div 
+                      className={`${styles.toggleSwitch} ${isSelfLearningEnabled ? styles.active : ""}`}
+                      onClick={() => setIsSelfLearningEnabled(!isSelfLearningEnabled)}
+                    >
+                      <div className={styles.toggleThumb}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -257,6 +369,7 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
       <AdvancedDrawer
         isOpen={isAdvancedDrawerOpen}
         onClose={() => setIsAdvancedDrawerOpen(false)}
+        onAdd={handleAddTools}
       />
     </>
   );
