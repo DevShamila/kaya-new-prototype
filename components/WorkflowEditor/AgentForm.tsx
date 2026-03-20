@@ -1,29 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AgentForm.module.css";
 import { ChevronLeft, ChevronRight, HelpCircle, Pencil, Trash2, Minus } from "lucide-react";
 import PromptTemplateDrawer from "./PromptTemplateDrawer";
 import ModelDrawer from "./ModelDrawer";
 import AdvancedDrawer from "./AdvancedDrawer";
 
-interface AgentFormProps {
-  onCancel: () => void;
-  onSave: () => void;
+export interface AgentFormData {
+  name: string;
+  purpose: string;
+  selectedTemplateName: string | null;
+  selectedModelName: string | null;
+  addedTools: any[];
+  isHumanReviewEnabled: boolean;
+  isSelfLearningEnabled: boolean;
 }
 
-const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
+interface AgentFormProps {
+  onCancel: () => void;
+  onSave: (data: AgentFormData) => void;
+  initialData?: Partial<AgentFormData>;
+}
+
+const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave, initialData }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isModelDrawerOpen, setIsModelDrawerOpen] = useState(false);
   const [isAdvancedDrawerOpen, setIsAdvancedDrawerOpen] = useState(false);
   
-  const [agentName, setAgentName] = useState("Order Support");
-  const [agentPurpose, setAgentPurpose] = useState("");
-  const [selectedTemplateName, setSelectedTemplateName] = useState<string | null>(null);
-  const [selectedModelName, setSelectedModelName] = useState<string | null>(null);
+  const [agentName, setAgentName] = useState(initialData?.name || "Order Support");
+  const [agentPurpose, setAgentPurpose] = useState(initialData?.purpose || "");
+  const [selectedTemplateName, setSelectedTemplateName] = useState<string | null>(initialData?.selectedTemplateName || null);
+  const [selectedModelName, setSelectedModelName] = useState<string | null>(initialData?.selectedModelName || null);
 
   const [isAdvancedExpanded, setIsAdvancedExpanded] = useState(false);
-  const [addedTools, setAddedTools] = useState<any[]>([]);
-  const [isHumanReviewEnabled, setIsHumanReviewEnabled] = useState(false);
-  const [isSelfLearningEnabled, setIsSelfLearningEnabled] = useState(false);
+  const [addedTools, setAddedTools] = useState<any[]>(initialData?.addedTools || []);
+  const [isHumanReviewEnabled, setIsHumanReviewEnabled] = useState(initialData?.isHumanReviewEnabled || false);
+  const [isSelfLearningEnabled, setIsSelfLearningEnabled] = useState(initialData?.isSelfLearningEnabled || false);
+
+  // Sync with initialData if it changes
+  useEffect(() => {
+    if (initialData) {
+      if (initialData.name) setAgentName(initialData.name);
+      if (initialData.purpose) setAgentPurpose(initialData.purpose);
+      if (initialData.selectedTemplateName !== undefined) setSelectedTemplateName(initialData.selectedTemplateName);
+      if (initialData.selectedModelName !== undefined) setSelectedModelName(initialData.selectedModelName);
+      if (initialData.addedTools) setAddedTools(initialData.addedTools);
+      if (initialData.isHumanReviewEnabled !== undefined) setIsHumanReviewEnabled(initialData.isHumanReviewEnabled);
+      if (initialData.isSelfLearningEnabled !== undefined) setIsSelfLearningEnabled(initialData.isSelfLearningEnabled);
+    }
+  }, [initialData]);
 
   const handleCreateTemplate = (name: string) => {
     setSelectedTemplateName(name);
@@ -49,6 +73,18 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
     } else {
       setIsAdvancedExpanded(!isAdvancedExpanded);
     }
+  };
+
+  const handleSave = () => {
+    onSave({
+      name: agentName,
+      purpose: agentPurpose,
+      selectedTemplateName,
+      selectedModelName,
+      addedTools,
+      isHumanReviewEnabled,
+      isSelfLearningEnabled
+    });
   };
 
   return (
@@ -347,7 +383,7 @@ const AgentForm: React.FC<AgentFormProps> = ({ onCancel, onSave }) => {
                 <div className={styles.text}>Cancel</div>
               </div>
             </div>
-            <div className={styles.buttonsbutton3} onClick={onSave}>
+            <div className={styles.buttonsbutton3} onClick={handleSave}>
               <div className={styles.textPadding}>
                 <div className={styles.text}>Save</div>
               </div>
