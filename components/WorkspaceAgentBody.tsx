@@ -106,12 +106,13 @@ const WorkspaceAgentBody = () => {
                                     </div>
                                     <div className="text-base font-semibold text-[#181d27] leading-6">{agent.name}</div>
                                     <div className="text-sm text-[#414651] leading-5">This agent handles {agent.name.toLowerCase()} tasks.</div>
-                                    <div className="flex items-center gap-6 mt-1">
-                                        <span className="text-sm text-[#717680]">Agent Type: <b className="text-[#181d27] font-semibold">{agent.agentType}</b></span>
-                                        <span className="text-sm text-[#717680]">Model: <b className="text-[#181d27] font-semibold">{agent.model}</b></span>
+                                    <div className={styles.flatCardMeta}>
+                                        <span>Agent Type: <b className="text-[#181d27] font-semibold">{agent.agentType}</b></span>
+                                        <span className="text-[#d5d7da]">|</span>
+                                        <span>Model: <b className="text-[#181d27] font-semibold">{agent.model}</b></span>
                                     </div>
                                     <div className="text-sm text-[#717680]">Last modified: <b className="text-[#181d27] font-medium">{agent.lastModified}</b></div>
-                                    <div className="flex justify-end mt-1">
+                                    <div className={styles.flatCardFooter}>
                                         <button className="px-3.5 py-1.5 border border-[#d5d7da] rounded-lg text-sm font-medium text-[#414651] bg-white hover:bg-gray-50 cursor-pointer">
                                             View
                                         </button>
@@ -165,41 +166,22 @@ const WorkspaceAgentBody = () => {
                                 <div className={styles.emptyState}>No agents match your search.</div>
                             )}
                             {filteredAgents.map((agent) => (
-                                <div key={agent.id} className={styles.integrationCardDesktopGrid}>
-                                    <div className={styles.content6}>
-                                        <div className={styles.headingAndToggle}>
-                                            <div className={agent.status === "Published" ? styles.badge : styles.badge6}>
-                                                <div className={styles.text7}>{agent.status}</div>
-                                            </div>
-                                            <div className={styles.headingAndIcon}>
-                                                <div className={styles.iconWrap}>
-                                                    <div className={styles.linear}></div>
-                                                </div>
-                                                <div className={styles.heading}>{agent.name}</div>
-                                            </div>
-                                            <div className={styles.supportingText3}>
-                                                This agent handles {agent.name.toLowerCase()} tasks.
-                                            </div>
-                                            <div className={styles.supportingTextWrapper}>
-                                                <div className={styles.supportingText4}>
-                                                    <span className={styles.agentType}>Agent Type: </span>
-                                                    <b>{agent.agentType} </b>
-                                                    <span className={styles.agentType}>| Model: </span>
-                                                    <b>{agent.model}</b>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.supportingText5}>Last modified: {agent.lastModified}</div>
+                                <div key={agent.id} className={styles.flatCard}>
+                                    <div className={agent.status === "Published" ? styles.badge : styles.badge6}>
+                                        <div className={styles.text7}>{agent.status}</div>
                                     </div>
-                                    <div className={styles.sectionFooter}>
-                                        <img className={styles.dividerIcon2} alt="" />
-                                        <div className={styles.content7}>
-                                            <div className={styles.actions4}>
-                                                <div className={styles.button}>
-                                                    <div className={styles.text2}>View Agent</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="text-base font-semibold text-[#181d27] leading-6">{agent.name}</div>
+                                    <div className="text-sm text-[#414651] leading-5">This agent handles {agent.name.toLowerCase()} tasks.</div>
+                                    <div className={styles.flatCardMeta}>
+                                        <span>Agent Type: <b className="text-[#181d27] font-semibold">{agent.agentType}</b></span>
+                                        <span className="text-[#d5d7da]">|</span>
+                                        <span>Model: <b className="text-[#181d27] font-semibold">{agent.model}</b></span>
+                                    </div>
+                                    <div className="text-sm text-[#717680]">Last modified: <b className="text-[#181d27] font-medium">{agent.lastModified}</b></div>
+                                    <div className={styles.flatCardFooter}>
+                                        <button className="px-3.5 py-1.5 border border-[#d5d7da] rounded-lg text-sm font-medium text-[#414651] bg-white hover:bg-gray-50 cursor-pointer">
+                                            View
+                                        </button>
                                     </div>
                                 </div>
                             ))}

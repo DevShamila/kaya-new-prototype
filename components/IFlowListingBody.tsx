@@ -128,11 +128,12 @@ const IFlowListingBody = () => {
                                     </div>
                                     <div className="text-base font-semibold text-[#181d27] leading-6">{iflow.name}</div>
                                     <div className="text-sm text-[#414651] leading-5">This workflow handles {iflow.name.toLowerCase()} tasks.</div>
-                                    <div className="flex items-center gap-6 mt-1">
-                                        <span className="text-sm text-[#717680]">Agents: <b className="text-[#181d27] font-semibold">{iflow.agents}</b></span>
+                                    <div className={styles.flatCardMeta}>
+                                        <span><b className="text-[#181d27] font-semibold">{iflow.agents}</b> Agents</span>
+                                        <span className="text-[#d5d7da] mx-2">|</span>
+                                        <span>Last modified: <b className="text-[#181d27] font-medium">{iflow.lastModified}</b></span>
                                     </div>
-                                    <div className="text-sm text-[#717680]">Last modified: <b className="text-[#181d27] font-medium">{iflow.lastModified}</b></div>
-                                    <div className="flex justify-end mt-1">
+                                    <div className={styles.flatCardFooter}>
                                         <button
                                             className="px-3.5 py-1.5 border border-[#d5d7da] rounded-lg text-sm font-medium text-[#414651] bg-white hover:bg-gray-50 cursor-pointer"
                                             onClick={() => handleViewIFlow(iflow.id)}
@@ -195,11 +196,12 @@ const IFlowListingBody = () => {
                                     </div>
                                     <div className="text-base font-semibold text-[#181d27] leading-6">{iflow.name}</div>
                                     <div className="text-sm text-[#414651] leading-5">This workflow handles {iflow.name.toLowerCase()} tasks.</div>
-                                    <div className="flex items-center gap-6 mt-1">
-                                        <span className="text-sm text-[#717680]">Agents: <b className="text-[#181d27] font-semibold">{iflow.agents}</b></span>
+                                    <div className={styles.flatCardMeta}>
+                                        <span><b className="text-[#181d27] font-semibold">{iflow.agents}</b> Agents</span>
+                                        <span className="text-[#d5d7da] mx-2">|</span>
+                                        <span>Last modified: <b className="text-[#181d27] font-medium">{iflow.lastModified}</b></span>
                                     </div>
-                                    <div className="text-sm text-[#717680]">Last modified: <b className="text-[#181d27] font-medium">{iflow.lastModified}</b></div>
-                                    <div className="flex justify-end mt-1">
+                                    <div className={styles.flatCardFooter}>
                                         <button
                                             className="px-3.5 py-1.5 border border-[#d5d7da] rounded-lg text-sm font-medium text-[#414651] bg-white hover:bg-gray-50 cursor-pointer"
                                             onClick={() => handleViewIFlow(iflow.id)}
