@@ -330,6 +330,12 @@
   font-size: 30px;
   color: #181d27;
 }
+.number5 {
+  font-size: 24px;
+  position: relative;
+  line-height: 32px;
+  font-weight: 600;
+}
 .badgeWrap {
   display: flex;
   flex-direction: column;
@@ -358,7 +364,7 @@
   font-size: 14px;
   color: #535862;
   margin-top: 16px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .legendSeries {
   display: flex;

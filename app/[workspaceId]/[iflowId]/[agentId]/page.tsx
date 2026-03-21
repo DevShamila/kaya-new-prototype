@@ -3,7 +3,7 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { 
-    Bot, Calendar
+    Bot
 } from "lucide-react";
 
 interface MetricCardProps {
@@ -50,8 +50,6 @@ export default function AgentDetailPage() {
         ? agentId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
         : "Invoice Processing Bot";
 
-    const timeFilters = ["12 months", "30 days", "7 days", "24 hours"];
-
     return (
         <div className="w-full h-full flex flex-col gap-8 py-6 font-inter bg-white rounded-xl overflow-y-auto">
             <div className="flex flex-col gap-8 px-4">
@@ -67,30 +65,6 @@ export default function AgentDetailPage() {
                             </div>
                             <p className="text-base text-text-tertiary leading-6 self-stretch">This agent handles invoice processing tasks.</p>
                         </div>
-                    </div>
-                </div>
-
-                {/* Tabs and Filters */}
-                <div className="w-full flex items-start justify-between gap-5">
-                    <div className="flex items-start shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] rounded-lg border border-[#d5d7da] overflow-hidden bg-white">
-                        {timeFilters.map((filter, idx) => (
-                            <button 
-                                key={filter}
-                                className={`px-4 py-2 text-sm font-semibold min-h-[40px] flex items-center justify-center transition-colors
-                                    ${idx === 0 ? "bg-[#fafafa] text-[#252b37]" : "bg-white text-[#414651] hover:bg-gray-50"}
-                                    ${idx < timeFilters.length - 1 ? "border-r border-[#d5d7da]" : ""}
-                                `}
-                            >
-                                {filter}
-                            </button>
-                        ))}
-                    </div>
-
-                    <div className="flex items-center">
-                        <button className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-border-secondary shadow-sm text-sm font-semibold text-[#717680] hover:bg-gray-50">
-                            <Calendar className="w-5 h-5 text-[#717680]" />
-                            <span>Select dates</span>
-                        </button>
                     </div>
                 </div>
 

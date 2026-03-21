@@ -69,12 +69,11 @@ interface WorkspaceBodyProps {
 }
 
 const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceName }) => {
-    const filters = ["12 months", "30 days", "7 days", "24 hours"];
 
     return (
         <div className="w-full flex flex-col items-start gap-5 font-inter bg-white rounded-xl pt-6">
             {/* Header Section */}
-            <header className="self-stretch flex flex-col px-4 gap-5">
+            <header className="self-stretch flex flex-col px-4 gap-5 mb-3">
                 <div className="self-stretch flex flex-col gap-2">
                     <div className="flex items-center gap-2">
                         <div className="w-[30px] h-[30px] rounded bg-white shadow-[0_0_6px_rgba(164,167,174,0.35)] flex items-center justify-center p-[4px]">
@@ -85,25 +84,6 @@ const WorkspaceBody: React.FC<WorkspaceBodyProps> = ({ workspaceId, workspaceNam
                     <p className="max-w-[640px] text-base text-[#535862] font-[400] leading-6">
                         Automated claims processing and customer support workflows for the insurance division.
                     </p>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-between gap-4 py-4">
-                    <div className="flex shadow-[0_1px_2px_rgba(10,13,18,0.05)] rounded-lg border border-border-secondary overflow-hidden">
-                        {filters.map((filter, i) => (
-                            <button 
-                                key={filter}
-                                className={`px-4 py-2 text-sm font-semibold border-r border-border-secondary last:border-r-0 transition-colors ${
-                                    i === 1 ? 'bg-[#FAFAFA] text-[#414651]' : 'bg-white text-[#414651] hover:bg-gray-50'
-                                }`}
-                            >
-                                {filter}
-                            </button>
-                        ))}
-                    </div>
-                    <button className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-border-secondary shadow-sm text-sm font-semibold text-[#717680] hover:bg-gray-50">
-                        <Calendar className="w-5 h-5 text-[#717680]" />
-                        <span>Select dates</span>
-                    </button>
                 </div>
             </header>
 

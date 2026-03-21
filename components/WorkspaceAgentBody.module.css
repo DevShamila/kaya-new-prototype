@@ -141,6 +141,7 @@
     align-items: flex-start;
     font-size: 24px;
     color: #181d27;
+    margin-bottom: 12px;
 }
 .container {
     align-self: stretch;

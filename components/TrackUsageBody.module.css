@@ -361,7 +361,7 @@
   font-size: 14px;
   color: #535862;
   margin-top: 16px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .legendSeries {
   display: flex;

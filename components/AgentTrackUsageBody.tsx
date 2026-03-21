@@ -79,6 +79,107 @@ const AgentTrackUsageBody: React.FC<AgentTrackUsageBodyProps> = ({ workspaceId, 
                     />
                 </div>
 
+                {/* Token Usage by Model */}
+                <div className={styles.pageHeaderParent}>
+                    <div className={styles.textAndSupportingText2}>
+                        <div className={styles.text15}>Token Usage by Model</div>
+                        <div className={styles.supportingText2}>See which AI models are consuming the most tokens for this agent this month.</div>
+                    </div>
+                    <div className={styles.frameWrapper}>
+                        <div className={styles.lineAndBarChartParent}>
+                            <div className={styles.lineAndBarChart}>
+                                <div className={styles.axis}>
+                                    <div className={styles.content6}>
+                                        <div className={styles.yAxis}>
+                                            {[...new Array(6)].map((_, i) => (
+                                                <div key={`token-y-${i}`} className={styles.yAxisLine}>
+                                                    <div className={styles.divider}></div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className={styles.xAxis}>
+                                            {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m) => (
+                                                <span key={m} className={styles.jan}>{m}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <img src="/chart-data1.svg" alt="Token usage chart" style={{ position: 'absolute', top: -10, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'fill' }} />
+                            </div>
+                            <div className={styles.metrics}>
+                                {[
+                                    { id: "model-1", name: "(Model name)", value: "XXX", change: "9.2%", isUp: true },
+                                    { id: "model-2", name: "(Model name)", value: "XXX", change: "6.6%", isUp: true },
+                                    { id: "model-3", name: "(Model name)", value: "XXX", change: "8.1%", isUp: true },
+                                ].map((model) => (
+                                    <div key={model.id} className={styles.headingAndNumber}>
+                                        <div className={styles.heading4}>{model.name}</div>
+                                        <div className={styles.numberAndBadge4}>
+                                            <div className={styles.number5}>{model.value}</div>
+                                            <div className={styles.badgeWrap}>
+                                                <div className={styles.badge}>
+                                                    {model.isUp ? <TrendingUp className="w-3 h-3 text-[#17B26A]" /> : <TrendingDown className="w-3 h-3 text-[#F04438]" />}
+                                                    <span>{model.change}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={styles.legend}>
+                            {[
+                                { id: "legend-1", name: "(Model name)", color: "#A4BCFD" },
+                                { id: "legend-2", name: "(Model name)", color: "#004A96" },
+                                { id: "legend-3", name: "(Model name)", color: "#1a3a5c" },
+                                { id: "legend-4", name: "(Model name)", color: "#94A3B8" },
+                            ].map((item) => (
+                                <div key={item.id} className={styles.legendSeries}>
+                                    <div className={styles.dotIcon} style={{ backgroundColor: item.color }}></div>
+                                    <span className={styles.modelName}>{item.name}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Credit Spend Over Time */}
+                <div className={styles.pageHeaderParent}>
+                    <div className={styles.textAndSupportingText2}>
+                        <div className={styles.text15}>Credit Spend Over Time</div>
+                        <div className={styles.supportingText2}>12-month view of credit consumption for this agent.</div>
+                    </div>
+                    <div className={styles.frameWrapper}>
+                        <div className={styles.lineAndBarChartParent}>
+                            <div className={styles.lineAndBarChart}>
+                                <div className={styles.axis}>
+                                    <div className={styles.content6}>
+                                        <div className={styles.yAxis}>
+                                            {[...new Array(6)].map((_, i) => (
+                                                <div key={`credit-y-${i}`} className={styles.yAxisLine}>
+                                                    <div className={styles.divider}></div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className={styles.xAxis}>
+                                            {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(m => (
+                                                <span key={m} className={styles.jan}>{m}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <img src="/chart-data2.svg" alt="Credit spend chart" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'fill' }} />
+                            </div>
+                        </div>
+                        <div className={styles.legend}>
+                            <div className={styles.legendSeries}>
+                                <div className={styles.dotIcon} style={{ backgroundColor: '#004A96' }}></div>
+                                <span className={styles.modelName}>Credits Used</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Agent Run History Table */}
                  <div className={styles.pageHeaderParent}>
                     <div className="flex flex-col h-7 justify-center">
