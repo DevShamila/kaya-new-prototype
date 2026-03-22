@@ -504,9 +504,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 name="Test Suites Execution"
                                 icon={FileCheck2}
                                 isActive={activeTab === "Test Suites Execution"}
-                                onClick={() =>
-                                    setActiveTab("Test Suites Execution")
-                                }
+                                onClick={() => {
+                                    setActiveTab("Test Suites Execution");
+                                    activeWorkspace && activeIFlow && router.push(`/${activeWorkspace}/${activeIFlow}/test-suites-execution`);
+                                }}
                             />
                         </SidebarSection>
 
