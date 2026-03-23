@@ -139,7 +139,10 @@ const IFlowListingBody = () => {
                       Placeholder text about; iFlows live here
                     </p>
                   </div>
-                  <button className="flex items-center gap-1 px-3.5 py-2.5 bg-[#005BB5] text-white rounded-lg text-sm font-semibold shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] hover:bg-[#004A96] transition-colors cursor-pointer">
+                  <button 
+                    onClick={() => setIsDrawerOpen(true)}
+                    className="flex items-center gap-1 px-3.5 py-2.5 bg-[#005BB5] text-white rounded-lg text-sm font-semibold shadow-[0_0_0_1px_rgba(10,13,18,0.18)_inset,0_-2px_0_rgba(10,13,18,0.05)_inset,0_1px_2px_rgba(10,13,18,0.05)] hover:bg-[#004A96] transition-colors cursor-pointer"
+                  >
                     <Plus className="w-5 h-5" />
                     <span>Create iFlow</span>
                   </button>

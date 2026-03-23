@@ -9,6 +9,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import styles from "./PlaygroundSidebar.module.css";
+import AddVariableDrawer from "./AddVariableDrawer";
 
 interface PlaygroundSidebarProps {
   onBack: () => void;
@@ -21,6 +22,7 @@ const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
   onCancel,
   onSave,
 }) => {
+  const [isAddVariableDrawerOpen, setIsAddVariableDrawerOpen] = React.useState(false);
   const variables = [{ name: "user_name", value: "John" }];
 
   const agents = [
@@ -85,7 +87,10 @@ const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
                         </div>
                       </div>
                       <div className={styles.actions}>
-                        <div className={styles.buttonsButtonUtility3}>
+                        <div 
+                          className={styles.buttonsButtonUtility3}
+                          onClick={() => setIsAddVariableDrawerOpen(true)}
+                        >
                           <Edit2 className="w-4 h-4 text-text-quaternary" />
                         </div>
                         <div className={styles.buttonsButtonUtility3}>
@@ -97,7 +102,10 @@ const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
                 </div>
               </div>
             </div>
-            <button className={styles.buttonsButton4}>
+            <button 
+              className={styles.buttonsButton4}
+              onClick={() => setIsAddVariableDrawerOpen(true)}
+            >
               <Plus className="w-5 h-5" />
               <div className={styles.textPadding}>
                 <div className={styles.text6}>Add workflow variables</div>
@@ -181,6 +189,10 @@ const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
           </div>
         </div>
       </div>
+      <AddVariableDrawer 
+        isOpen={isAddVariableDrawerOpen} 
+        onClose={() => setIsAddVariableDrawerOpen(false)} 
+      />
     </div>
   );
 };

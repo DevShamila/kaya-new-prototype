@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import SidebarSection from "./SidebarSection";
+import CreateIFlowDrawer from "./CreateIFlowDrawer";
 
 const ScrollCue = ({ containerRef }: { containerRef: React.RefObject<any> }) => {
     const [show, setShow] = useState(false);
@@ -176,6 +177,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
             : "All Workspaces";
     const [activeTab, setActiveTab] = React.useState(initialTab);
     const [isWorkspaceDropdownOpen, setIsWorkspaceDropdownOpen] = useState(false);
+    const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const enterpriseNavRef = useRef<HTMLElement>(null);
     const agentNavRef = useRef<HTMLDivElement>(null);
@@ -630,6 +632,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                         <ChevronDown className="w-4 h-4 text-text-muted" />
                     </button>
                 </div>
+                <CreateIFlowDrawer
+                    isOpen={isCreateDrawerOpen}
+                    onClose={() => setIsCreateDrawerOpen(false)}
+                />
             </aside>
         );
     }
@@ -655,6 +661,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 <div className="pr-5 flex flex-col gap-4 mb-[8px]">
                     <div className="flex flex-col gap-2">
                         <button
+                            onClick={() => setIsCreateDrawerOpen(true)}
                             className="w-full shadow-[0_1px_10px_rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center py-2 px-3 gap-1 hover:opacity-90 transition-opacity active:scale-[0.98]"
                             style={{
                                 backgroundImage: "url(/btn-gradient.svg)",
@@ -667,7 +674,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 strokeWidth={3}
                             />
                             <span className="text-sm font-semibold text-white">
-                                Create
+                                Create iFlow
                             </span>
                         </button>
                     </div>
@@ -884,6 +891,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                     />
                 </button>
             </div>
+            <CreateIFlowDrawer
+                isOpen={isCreateDrawerOpen}
+                onClose={() => setIsCreateDrawerOpen(false)}
+            />
         </aside>
     );
 };

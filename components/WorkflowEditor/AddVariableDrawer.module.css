@@ -10,25 +10,9 @@
     z-index: 1000;
 }
 
-.slideOutMenu {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: left;
-    font-size: 14px;
-    color: #181d27;
-    font-family: "Encode Sans", sans-serif;
-}
-
 .panel {
     align-self: stretch;
-    width: 480px;
+    width: 600px;
     max-width: 90vw;
     flex: none;
     box-shadow:
@@ -43,6 +27,10 @@
     flex-direction: column;
     align-items: center;
     animation: slideIn 0.3s ease-out;
+    text-align: left;
+    font-size: 14px;
+    color: #181d27;
+    font-family: "Encode Sans", sans-serif;
 }
 
 @keyframes slideIn {
@@ -70,12 +58,37 @@
     flex: 1;
     display: flex;
     align-items: flex-start;
+    gap: 16px;
     z-index: 0;
     flex-shrink: 0;
 }
 
+.featuredIcon {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    box-shadow:
+        0px 0px 0px 1px rgba(10, 13, 18, 0.18) inset,
+        0px -2px 0px rgba(10, 13, 18, 0.05) inset,
+        0px 1px 2px rgba(10, 13, 18, 0.05);
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #d5d7da;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: none;
+}
+
 .textAndSupportingText {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.textParent {
+    align-self: stretch;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -94,7 +107,7 @@
     position: relative;
     font-size: 14px;
     line-height: 20px;
-    color: #535862;
+    color: #6b7280;
 }
 
 .buttonsbuttonCloseX {
@@ -140,7 +153,7 @@
 }
 
 .section {
-    width: 100%;
+    width: 352px;
     display: none;
     flex-direction: column;
     align-items: flex-start;
@@ -208,12 +221,14 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 24px;
     max-width: 100%;
-    color: #414651;
+    font-size: 16px;
+    color: #717680;
+    font-family: inherit;
 }
 
-.inputField {
+.select {
     align-self: stretch;
     display: flex;
     flex-direction: column;
@@ -225,26 +240,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
-}
-
-.labelWrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 2px;
-}
-
-.label {
-    position: relative;
-    line-height: 20px;
-    font-weight: 500;
-}
-
-.asterisk {
-    position: relative;
-    line-height: 20px;
-    font-weight: 500;
-    color: #ff5714;
 }
 
 .input {
@@ -253,23 +248,54 @@
     border-radius: 8px;
     background-color: #fff;
     border: 1px solid #d5d7da;
+    overflow: hidden;
     display: flex;
     align-items: center;
     padding: 10px 14px;
-    font-size: 16px;
-    color: #181d27;
+    gap: 8px;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
-.input::placeholder {
-    color: #717680;
+.input:hover {
+    border-color: #9cb3ff;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #d5d7da;
+    border-radius: 8px;
+    box-shadow:
+        0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+    margin-top: 4px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdownItem {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #414651;
+}
+
+.dropdownItem:hover {
+    background-color: #f9f9fb;
+    color: #181d27;
 }
 
 .content3 {
     flex: 1;
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 .text4 {
@@ -281,38 +307,18 @@
     white-space: nowrap;
 }
 
-.labelWrapper2 {
-    display: flex;
-    align-items: center;
-}
-
-.input2 {
-    align-self: stretch;
-    box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
-    border-radius: 8px;
-    background-color: #fff;
-    border: 1px solid #d5d7da;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 10px 14px;
-    gap: 8px;
-    font-size: 16px;
-    color: #181d27;
-    width: 100%;
-    box-sizing: border-box;
-}
-
 .textareaInputField {
     align-self: stretch;
-    min-height: 144px;
+    min-height: 341px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     isolation: isolate;
+    font-size: 14px;
+    color: #414651;
 }
 
-.inputWithLabel3 {
+.inputWithLabel2 {
     align-self: stretch;
     flex: 1;
     display: flex;
@@ -322,7 +328,38 @@
     z-index: 0;
 }
 
-.input3 {
+.labelWrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.label {
+    position: relative;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.helpIcon {
+    height: 16px;
+    width: 16px;
+    position: relative;
+}
+
+.helpCircleIcon {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.input2 {
     align-self: stretch;
     flex: 1;
     box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
@@ -340,12 +377,16 @@
     color: #181d27;
     width: 100%;
     box-sizing: border-box;
-    min-height: 100px;
+    min-height: 200px;
     resize: vertical;
     font-family: inherit;
 }
 
-.text6 {
+.input2::placeholder {
+    color: #9ca3af;
+}
+
+.text5 {
     align-self: stretch;
     flex: 1;
     position: relative;
@@ -375,7 +416,7 @@
     color: #414651;
 }
 
-.content5 {
+.content4 {
     align-self: stretch;
     display: flex;
     align-items: center;
@@ -396,6 +437,7 @@
         0px -2px 0px rgba(10, 13, 18, 0.05) inset,
         0px 1px 2px rgba(10, 13, 18, 0.05);
     border-radius: 8px;
+    background: transparent;
     border: 1px solid #d5d7da;
     overflow: hidden;
     display: flex;
@@ -403,7 +445,6 @@
     justify-content: center;
     padding: 10px 14px;
     cursor: pointer;
-    background: transparent;
 }
 
 .buttonsbutton2:hover {
@@ -417,7 +458,7 @@
     padding: 0px 2px;
 }
 
-.text7 {
+.text6 {
     position: relative;
     line-height: 20px;
     font-weight: 600;
