@@ -15,12 +15,18 @@ interface PlaygroundSidebarProps {
   onBack: () => void;
   onCancel: () => void;
   onSave: () => void;
+  agents: { id: string, name: string, promptTemplate: string, model: string }[];
+  onViewInWorkflow: (agentId: string) => void;
+  onEditAgent: (agentId: string) => void;
 }
 
 const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
   onBack,
   onCancel,
   onSave,
+  agents,
+  onViewInWorkflow,
+  onEditAgent,
 }) => {
   const [isAddVariableDrawerOpen, setIsAddVariableDrawerOpen] = React.useState(false);
   const [variables, setVariables] = React.useState<{ name: string, value: string }[]>([
@@ -46,13 +52,6 @@ const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
     setEditingVariable(variable);
     setIsAddVariableDrawerOpen(true);
   };
-
-  const agents = [
-    { name: "CX Agent", promptTemplate: "CX Prompt", model: "GPT-4" },
-    { name: "CX Agent", promptTemplate: "CX Prompt", model: "GPT-4" },
-    { name: "CX Agent", promptTemplate: "CX Prompt", model: "GPT-4" },
-    { name: "CX Agent", promptTemplate: "CX Prompt", model: "GPT-4" },
-  ];
 
   return (
     <div className={`${styles.bodyContent} h-[calc(100%-32px)]! m-4! w-fit!`}>
@@ -149,57 +148,67 @@ const PlaygroundSidebar: React.FC<PlaygroundSidebarProps> = ({
               <div className={styles.workflowAgents}>Workflow Agents</div>
             </div>
             <div className={styles.sectionParent}>
-              {agents.map((agent, i) => (
-                <div key={i} className={styles.card}>
-                  <div className={styles.content3}>
-                    <div className={styles.frameGroup}>
-                      <div
-                        className={`${styles.featuredIconParent} font-sans!`}
-                      >
-                        <div className={styles.featuredIcon}>
-                          <Bot className="w-6 h-6" />
-                        </div>
-                        <div className={styles.sectionHeader}>
-                          <div className={styles.content4}>
-                            <div className={styles.text7}>{agent.name}</div>
+              {agents.length > 0 ? (
+                agents.map((agent, i) => (
+                  <div key={i} className={styles.card}>
+                    <div className={styles.content3}>
+                      <div className={styles.frameGroup}>
+                        <div
+                          className={`${styles.featuredIconParent} font-sans!`}
+                        >
+                          <div className={styles.featuredIcon}>
+                            <Bot className="w-6 h-6" />
+                          </div>
+                          <div className={styles.sectionHeader}>
+                            <div className={styles.content4}>
+                              <div className={styles.text7}>{agent.name}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className={styles.accordionTitle}>
-                        <div className={styles.promptTemplateCxContainer}>
+                        <div className={styles.accordionTitle}>
+                          <div className={styles.promptTemplateCxContainer}>
+                            <span className={styles.promptTemplate}>
+                              Prompt Template:{" "}
+                            </span>
+                            <span className={styles.cxPrompt}>
+                              {agent.promptTemplate}
+                            </span>
+                          </div>
+                        </div>
+                        <div className={styles.testInPlayground}>
                           <span className={styles.promptTemplate}>
-                            Prompt Template:{" "}
+                            Intelligence Source:{" "}
                           </span>
-                          <span className={styles.cxPrompt}>
-                            {agent.promptTemplate}
-                          </span>
+                          <span className={styles.cxPrompt}>{agent.model}</span>
                         </div>
                       </div>
-                      <div className={styles.testInPlayground}>
-                        <span className={styles.promptTemplate}>
-                          Intelligence Source:{" "}
-                        </span>
-                        <span className={styles.cxPrompt}>{agent.model}</span>
+                    </div>
+                    <div className={styles.sectionFooter}>
+                      <div className={styles.dividerIcon} />
+                      <div className={styles.content5}>
+                        <div className={styles.actions2}>
+                          <button
+                            className={`${styles.buttonsButton7} font-sans!`}
+                            onClick={() => onViewInWorkflow(agent.id)}
+                          >
+                            View in workflow
+                          </button>
+                          <button 
+                            className={styles.buttonsButton8}
+                            onClick={() => onEditAgent(agent.id)}
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className={styles.sectionFooter}>
-                    <div className={styles.dividerIcon} />
-                    <div className={styles.content5}>
-                      <div className={styles.actions2}>
-                        <button
-                          className={`${styles.buttonsButton7} font-sans!`}
-                        >
-                          View in workflow
-                        </button>
-                        <button className={styles.buttonsButton8}>
-                          <Edit2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                ))
+              ) : (
+                <div className={styles.emptyState}>
+                  No agents setup in the workflow editor yet. Add an agent template from the left sidebar to get started.
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>

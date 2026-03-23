@@ -608,3 +608,15 @@
 .buttonsButton26:hover {
   background-color: #004a94;
 }
+
+.emptyState {
+  align-self: stretch;
+  padding: 16px;
+  background-color: #f9fafb;
+  border: 1px dashed #d5d7da;
+  border-radius: 8px;
+  color: #717680;
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+}
