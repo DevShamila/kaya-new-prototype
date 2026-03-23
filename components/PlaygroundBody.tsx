@@ -18,6 +18,29 @@ const PlaygroundBody: React.FC<PlaygroundBodyProps> = ({ workspaceId, iflowId })
         router.push(`/${workspaceId}/${iflowId}`);
     };
 
+    const agents = [
+        {
+            id: "agent-1",
+            name: "Customer Support Agent",
+            promptTemplate: "You are a customer support agent. Help the user with their inquiries about orders and returns.",
+            model: "GPT-4o",
+        },
+        {
+            id: "agent-2",
+            name: "Order Tracking Agent",
+            promptTemplate: "You are an agent specializing in order tracking. Provide status updates for the given order ID.",
+            model: "GPT-4o-mini",
+        },
+    ];
+
+    const handleViewInWorkflow = (agentId: string) => {
+        router.push(`/${workspaceId}/${iflowId}/editor`);
+    };
+
+    const handleEditAgent = (agentId: string) => {
+        router.push(`/${workspaceId}/${iflowId}/editor`);
+    };
+
     return (
         <div className="flex w-full h-screen items-stretch text-left text-sm text-[#535862] font-encode bg-[#f9f9fb]">
             {/* Left Sidebar */}
@@ -29,6 +52,9 @@ const PlaygroundBody: React.FC<PlaygroundBodyProps> = ({ workspaceId, iflowId })
                     onBack={handleBack}
                     onCancel={handleBack}
                     onSave={handleBack}
+                    agents={agents}
+                    onViewInWorkflow={handleViewInWorkflow}
+                    onEditAgent={handleEditAgent}
                 />
             </div>
             {/* Main Content Area */}
