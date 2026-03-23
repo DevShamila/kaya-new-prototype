@@ -30,12 +30,16 @@ import CreateIFlowDrawer from "./CreateIFlowDrawer";
 
 const ScrollCue = ({ containerRef }: { containerRef: React.RefObject<any> }) => {
     const [show, setShow] = useState(false);
+    const [isScrolledDown, setIsScrolledDown] = useState(false);
 
     useEffect(() => {
         const checkScroll = () => {
             if (containerRef.current) {
                 const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-                setShow(scrollTop + clientHeight < scrollHeight - 20);
+                const atBottom = scrollTop + clientHeight >= scrollHeight - 20;
+                const atTop = scrollTop <= 20;
+                setShow(!atBottom || !atTop);
+                setIsScrolledDown(atBottom && !atTop);
             }
         };
 
@@ -59,19 +63,25 @@ const ScrollCue = ({ containerRef }: { containerRef: React.RefObject<any> }) => 
     if (!show) return null;
 
     return (
-        <div className="absolute bottom-4 right-4 z-50 group">
-            <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block bg-[#181D27] text-white text-xs font-semibold py-1.5 px-3 rounded-lg whitespace-nowrap shadow-lg">
-                Continue scrolling
-                <div className="absolute top-full right-4 w-2 h-2 bg-[#181D27] rotate-45 -translate-y-1" />
+        <div className="sticky bottom-4 z-50 flex justify-end pr-4 pointer-events-none" style={{ marginTop: '-48px' }}>
+            <div className="group pointer-events-auto">
+                <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block bg-[#181D27] text-white text-xs font-semibold py-1.5 px-3 rounded-lg whitespace-nowrap shadow-lg">
+                    {isScrolledDown ? 'Back to top' : 'Continue scrolling'}
+                    <div className="absolute top-full right-4 w-2 h-2 bg-[#181D27] rotate-45 -translate-y-1" />
+                </div>
+                <button
+                    onClick={() => {
+                        if (isScrolledDown) {
+                            containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+                        } else {
+                            containerRef.current?.scrollBy({ top: 100, behavior: "smooth" });
+                        }
+                    }}
+                    className="w-10 h-10 bg-[#181D27] rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95"
+                >
+                    <ChevronsDown className={`w-5 h-5 text-white transition-transform duration-500 ${isScrolledDown ? 'rotate-180' : ''}`} />
+                </button>
             </div>
-            <button
-                onClick={() => {
-                    containerRef.current?.scrollBy({ top: 100, behavior: "smooth" });
-                }}
-                className="w-10 h-10 bg-[#181D27] rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95"
-            >
-                <ChevronsDown className="w-5 h-5 text-white" />
-            </button>
         </div>
     );
 };
@@ -221,7 +231,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
         } else if (pathname.includes("/learning-records")) {
             setActiveTab("Learning Records");
         } else if (pathname.includes("/playground")) {
-            setActiveTab("Workspace Agent");
+            setActiveTab("Playground");
         } else if (pathname.includes("/models")) {
             setActiveTab("Models");
         } else if (pathname.includes("/databases")) {
@@ -555,7 +565,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                 icon={PlayCircle}
                                 count="10"
                                 isActive={activeTab === "Playground"}
-                                onClick={() => setActiveTab("Playground")}
+                                onClick={() => {
+                                    setActiveTab("Playground");
+                                    activeWorkspace && activeIFlow && router.push(`/${activeWorkspace}/${activeIFlow}/playground`);
+                                }}
                             />
                             <SidebarItem
                                 name="Test Suites"
